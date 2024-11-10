@@ -2,6 +2,8 @@ package main;
 
 import java.util.Scanner;
 
+import main.model.*;
+
 enum Role{
     PHARMACIST,
     DOCTOR,
@@ -13,7 +15,11 @@ enum Role{
 public class HMSApp
 {
     public static void main(String [] args){
-        Scanner sc = new Scanner(System.in);
+        System.out.println("Hello!");
+        Person sarah = new Person("Sarah", 'F', "999");
+        sarah.printContact();
+        sarah.updateContact();
+        sarah.printContact();
     }
 }
 
