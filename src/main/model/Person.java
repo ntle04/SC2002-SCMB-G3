@@ -1,12 +1,12 @@
 package main.model;
 
 import java.util.Scanner;
+import main.util.Role;
 
-import javax.management.relation.Role;
 
 public class Person {
 
-    // private int id;
+    private int id;
     private Contact contact;
     private Role role;
 
@@ -90,8 +90,8 @@ public class Person {
 
     }
 
-    public void getRole(){
-        System.out.println("You are a " + role);
+    public Role getRole(){
+        return role;
     }
     
 }
