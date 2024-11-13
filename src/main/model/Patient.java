@@ -54,6 +54,9 @@ public class Patient {
 		return name;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public String getPassword() {
 		return password;
@@ -63,12 +66,6 @@ public class Patient {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 
 	public String getEmail() {
 		return email;
