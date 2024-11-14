@@ -1,5 +1,6 @@
 package main.controller;
 import main.model.Person;
+import main.model.Contact;
 import main.util.Role;
 
 import java.io.BufferedReader;
@@ -17,10 +18,14 @@ public class Authenticate {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
+                
+                //login successful
                 if (values[0].equals(id) && values[1].equals(password)) {
                     String role = values[2];
-                    loggedInUser = new Person(id, getRole(role));
-                    return true; //login successful
+                    ContactController contactController = new ContactController(null);
+                    Contact contact = contactController.loadContactById(id);
+                    loggedInUser = new Person(id, getRole(role), contact);
+                    return true;
                 }
             }
         } catch (IOException e) {
@@ -50,6 +55,11 @@ public class Authenticate {
 
     public static Role getUserRole() {
         return loggedInUser != null ? loggedInUser.getRole() : null;
+    }
+
+    public static void logout() {
+        loggedInUser = null;
+        System.out.println("Logging out...");
     }
     
 }

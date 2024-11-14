@@ -1,10 +1,8 @@
 package main;
 
-import java.util.Scanner;
-
+import java.io.Console;
 import main.controller.Authenticate;
 import main.menu.Menu;
-import main.util.Role;
 
 
 public class HMSApp
@@ -13,17 +11,19 @@ public class HMSApp
         boolean loginSucc = false;
         int attempts = 0;
         int maxAttempts = 8;
-        Scanner sc = new Scanner(System.in);
+
+        Console console = System.console();
 
         //login screen
         System.out.println("Welcome to HMS!");
 
         while(!loginSucc && attempts < maxAttempts){
             //prompt for credentials
-            System.out.println("Enter your hospital ID: ");
-            String id = sc.nextLine();
+            System.out.println("Enter your ID: ");
+            String id = console.readLine();
             System.out.println("Enter your password: ");
-            String password = sc.nextLine();
+            char[] passwordArr = console.readPassword();
+            String password = new String(passwordArr);
             //validate credentials
             loginSucc = Authenticate.validateLogin(id, password);
 
@@ -46,10 +46,6 @@ public class HMSApp
             System.out.println("You have reached the max failed attempts. Access denied.");
         }
 
-        // Person sarah = new Person("Sarah", 'F', "999");
-        // sarah.printContact();
-        // sarah.updateContact();
-        // sarah.printContact();
     }
 }
 

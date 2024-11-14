@@ -1,3 +1,3 @@
-﻿id,name,email,contactNumber,dob,gender,address,role
-P0001,sarah,,,,f,,
-M0001,tom,,,,m,,
+﻿id,name,role,dob,gender,contactNumber,email,address
+P0001,sarah,PATIENT,null,F,999,sarah@gmail.com,test address
+M0001,tom,PHARMACIST,null,M,999,tom@gmail.com,test address

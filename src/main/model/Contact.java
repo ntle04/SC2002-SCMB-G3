@@ -1,46 +1,21 @@
 package main.model;
 
-import java.util.Date;
-
 public class Contact {
 
-    private char gender;
     private String name;
-    private String password;
+    private String dob;
+    private char gender;
     private String contactNumber;
     private String email;
-    private Date dob;
     private String address;
 
-    public Contact(String name){
+    public Contact(String name, String dob, char gender, String contactNumber, String email, String address){
         this.name = name;
-        this.password = "password"; //set temporary password
-    }
-
-    public Contact(String name, char gender, String contactNumber){
-        this.name = name;
-        this.password = "password"; //set temporary password
+        this.dob = dob;
         this.gender = gender;
-        this.contactNumber = contactNumber;
-    }
-
-    //to add in dob field
-    public Contact(String name, char gender, String contactNumber, String email, String address){
-        this.gender = gender;
-        this.name = name;
-        this.password = "password"; //set temporary password
         this.contactNumber = contactNumber;
         this.email = email;
-        // this.dob = dob;
         this.address = address;
-    }
-
-    public char getGender(){
-        return gender;
-    }
-
-    public void setGender(char gender){
-        this.gender = gender;
     }
 
     public String getName(){
@@ -51,12 +26,12 @@ public class Contact {
         this.name = name;
     }
 
-    public String getPassword(){
-        return password;
+    public String getEmail(){
+        return email;
     }
 
-    public void setPassword(String password){
-        this.password = password;
+    public void setEmail(String email){
+        this.email = email;
     }
 
     public String getContactNumber(){
@@ -67,20 +42,20 @@ public class Contact {
         this.contactNumber = contactNumber;
     }
 
-    public String getEmail(){
-        return email;
-    }
-
-    public void setEmail(String email){
-        this.email = email;
-    }
-
-    public Date getDOB(){
+    public String getDOB(){
         return dob;
     }
 
-    public void setDOB(Date dob){
+    public void setDOB(String dob){
         this.dob = dob;
+    }
+
+    public char getGender(){
+        return gender;
+    }
+
+    public void setGender(char gender){
+        this.gender = gender;
     }
 
     public String getAddress(){
