@@ -33,8 +33,7 @@ public class HMSApp
         }
 
         if(loginSucc){
-            System.out.println("Login successful.");
-            Menu menu = Menu.getMenuForRole(Authenticate.getUserRole());
+            Menu menu = Menu.getMenuForRole(Authenticate.getLoggedInUser().getRole());
             if(menu!=null){
                 menu.handleUserInput();
             }else{

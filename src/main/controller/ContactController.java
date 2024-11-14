@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import main.model.Contact;
+import main.util.Config;
 import main.util.Role;
 
 public class ContactController {
@@ -16,10 +17,10 @@ public class ContactController {
         this.contact = contact;
     }
 
-    public Contact loadContactById(String id) {
-        String p_filePath = "src/main/data/patient_list.csv";
-        String s_filePath = "src/main/data/staff_list.csv";
-        String filePath = (Authenticate.getUserRole()==Role.PATIENT) ? p_filePath : s_filePath;
+    public Contact loadContactById(String id, Role role) {
+        String p_filePath = Config.PATIENT_LIST_FILE_PATH;
+        String s_filePath = Config.STAFF_LIST_FILE_PATH;
+        String filePath = (role==Role.PATIENT) ? p_filePath : s_filePath;
 
         String line;
 

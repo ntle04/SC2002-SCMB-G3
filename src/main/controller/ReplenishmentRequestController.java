@@ -11,16 +11,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import main.model.ReplenishmentRequest;
+import main.util.Config;
 import main.util.RequestStatus;
+import main.util.Role;
 import main.view.ReplenishmentRequestView;
 
 public class ReplenishmentRequestController {
 
     private ReplenishmentRequestView view = new ReplenishmentRequestView();
-
     private List<ReplenishmentRequest> requestList = new ArrayList<>();
+    private String filePath = Config.REPLENISHMENT_REQUEST_FILE_PATH;
 
-    private final String filePath = "src/main/data/replenishment_request_list.csv";
+
 
     public ReplenishmentRequestController(){
         requestList = loadAllRequestsFromFile();
@@ -90,16 +92,16 @@ public class ReplenishmentRequestController {
 
     //get all requests
     public List<ReplenishmentRequest> getAllRequests() {
-        int role = 1;
+        Role role = Authenticate.getLoggedInUser().getRole();
 
         //update with most recent data
-        loadAllRequestsFromFile();
+        requestList = loadAllRequestsFromFile();
 
         //for admin
-        if(role==0){
+        if(role == Role.ADMINISTRATOR){
             return getRequestsSortedByDate();
         }
-        else if(role==1){
+        else if(role == Role.PHARMACIST){
             return getRequestsByRequester("M0001");
         }
         else{

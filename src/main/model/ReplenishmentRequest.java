@@ -4,11 +4,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import main.util.IdGenerator;
 import main.util.RequestStatus;
 
 public class ReplenishmentRequest {
 
-    private static int idCounter = 1;
+    private static String idCounter = IdGenerator.generateNewId("src/main/data/replenishment_request_list.csv");
     private String reqId;
     private String medId;
     private int qty;
@@ -18,12 +19,15 @@ public class ReplenishmentRequest {
 
     //new request
     public ReplenishmentRequest(String medId, int qty, String reqBy){
-        this.reqId = "REQ" + idCounter++;
+        this.reqId = "R" + idCounter;
         this.medId = medId;
         this.qty = qty;
         this.status = RequestStatus.PENDING;
         this.reqBy = reqBy;
         this.reqDate = new Date();
+
+        //update counter
+        idCounter = IdGenerator.generateNewId("src/main/data/replenishment_request_list.csv");
     }
 
     //for export
