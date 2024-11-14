@@ -12,6 +12,11 @@ public class Contact {
     private Date dob;
     private String address;
 
+    public Contact(String name){
+        this.name = name;
+        this.password = "password"; //set temporary password
+    }
+
     public Contact(String name, char gender, String contactNumber){
         this.name = name;
         this.password = "password"; //set temporary password

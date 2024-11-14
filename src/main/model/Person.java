@@ -5,17 +5,29 @@ import main.util.Role;
 
 
 public class Person {
-
-    private int id;
+    private String id;
     private Contact contact;
     private Role role;
 
-    public Person(String name, char gender, String contactNumber){
-        this.contact = new Contact(name, gender, contactNumber);
+    public Person(String id, Role role){
+        this.id = id;
+        this.role = role;
     }
+
+    // public Person(String name, char gender, String contactNumber){
+    //     this.contact = new Contact(name, gender, contactNumber);
+    // }
     //to add in dob field
     public Person(String name, char gender, String contactNumber, String email, String address){
         this.contact = new Contact(name, gender, contactNumber, email, address);
+    }
+
+    public String getId(){
+        return id;
+    }
+
+    public Role getRole(){
+        return role;
     }
 
     public void printContact(){
@@ -90,8 +102,6 @@ public class Person {
 
     }
 
-    public Role getRole(){
-        return role;
-    }
+
     
 }

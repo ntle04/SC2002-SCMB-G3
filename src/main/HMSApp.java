@@ -21,9 +21,9 @@ public class HMSApp
         while(!loginSucc && attempts < maxAttempts){
             //prompt for credentials
             System.out.println("Enter your hospital ID: ");
-            String id = sc.next();
+            String id = sc.nextLine();
             System.out.println("Enter your password: ");
-            String password = sc.next();
+            String password = sc.nextLine();
             //validate credentials
             loginSucc = Authenticate.validateLogin(id, password);
 
@@ -34,8 +34,7 @@ public class HMSApp
 
         if(loginSucc){
             System.out.println("Login successful.");
-            Role role = Authenticate.getRole();
-            Menu menu = Menu.getMenuForRole(role);
+            Menu menu = Menu.getMenuForRole(Authenticate.getUserRole());
             if(menu!=null){
                 menu.handleUserInput();
             }else{

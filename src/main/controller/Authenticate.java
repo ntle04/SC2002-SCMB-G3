@@ -1,4 +1,5 @@
 package main.controller;
+import main.model.Person;
 import main.util.Role;
 
 import java.io.BufferedReader;
@@ -7,7 +8,7 @@ import java.io.IOException;
 
 public class Authenticate {
 
-    static String role;
+    private static Person loggedInUser;
 
     public static boolean validateLogin(String id, String password) {
         String filePath = "src/main/data/credentials.csv";
@@ -17,7 +18,8 @@ public class Authenticate {
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
                 if (values[0].equals(id) && values[1].equals(password)) {
-                    role = values[2];
+                    String role = values[2];
+                    loggedInUser = new Person(id, getRole(role));
                     return true; //login successful
                 }
             }
@@ -28,12 +30,26 @@ public class Authenticate {
         return false; //login failed
     }
 
-    public static Role getRole(){
-        if(role.equals("Pharmacist")) return Role.PHARMACIST;
-        else if(role.equals("Doctor")) return Role.DOCTOR;
-        else if(role.equals("Admin")) return Role.ADMINISTRATOR;
-        else if(role.equals("Patient")) return Role.PATIENT;
-        else return null;
+    private static Role getRole(String role){
+        switch(role){
+            case "Pharmacist": return Role.PHARMACIST;
+            case "Doctor": return Role.DOCTOR;
+            case "Admin": return Role.ADMINISTRATOR;
+            case "Patient": return Role.PATIENT;
+            default: return null;
+        }
+    }
+
+    public static Person getLoggedInUser() {
+        return loggedInUser;
+    }
+
+    public static String getUserId() {
+        return loggedInUser != null ? loggedInUser.getId() : null;
+    }
+
+    public static Role getUserRole() {
+        return loggedInUser != null ? loggedInUser.getRole() : null;
     }
     
 }
