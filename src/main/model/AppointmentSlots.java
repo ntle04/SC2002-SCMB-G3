@@ -9,6 +9,8 @@ public class AppointmentSlots {
     private LocalDateTime dateTime; // Date and time for the appointment
     private int doctorId;           // Identifier for the doctor
     private ApptStatus apptStatus;
+    
+    
     // Constructor
     public AppointmentSlots(String slotId, LocalDateTime dateTime, int doctorId) {
         this.slotId = slotId;
@@ -17,7 +19,6 @@ public class AppointmentSlots {
         this.apptStatus = ApptStatus.AVAILABLE; // Default status is available
     }
 
-    // Getters
     public LocalDateTime getDateTime() {
         return dateTime;
     }
@@ -47,6 +48,9 @@ public class AppointmentSlots {
             System.out.println("Appointment " + apptId + " rescheduled to " + newSlot.getDateTime());
             this.dateTime = newSlot.getDateTime();
             // Additional logic may be needed to handle doctorId and status
+            
+            
+            
         } else {
             System.out.println("Cannot reschedule. The appointment is not booked.");
         }
@@ -56,9 +60,9 @@ public class AppointmentSlots {
     public void cancelSlot() {
         if (apptStatus == ApptStatus.CONFIRMED) {
             apptStatus = ApptStatus.CANCELLED;
-            System.out.println("Appointment slot " + slotId + " has been canceled.");
+            System.out.println("Appointment slot " + slotId + " has been cancelled.");
         } else {
-            System.out.println("This slot is not booked or already canceled.");
+            System.out.println("This slot is not booked or already cancelled.");
         }
     }
 }
