@@ -63,9 +63,9 @@ public class Appointment {
 	}
 
 	// un-comment
-//	public List<AppointmentSlots> getAppointmentSlots(){
-//		return getAppointmentSlots;
-//	}
+	public List<AppointmentSlots> getAppointmentSlots(){
+		return getAppointmentSlots;
+	}
 	
 
 	// need to link with other models for doctor and appointment (for all the below
