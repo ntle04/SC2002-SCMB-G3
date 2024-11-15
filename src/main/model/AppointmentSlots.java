@@ -1,18 +1,26 @@
 package main.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import main.util.ApptStatus;
+import main.util.TimeSlot;
 
 public class AppointmentSlots {
     private String slotId;          // Unique identifier for the appointment slot
-    private LocalDateTime dateTime; // Date and time for the appointment
-    private int doctorId;           // Identifier for the doctor
+    private LocalDate date;
+    private LocalTime time; // Date and time for the appointment
+    private String doctorId;           // Identifier for the doctor
     private ApptStatus apptStatus;
-    
+    private TimeSlot TimeSlot;
     
     // Constructor
-    public AppointmentSlots(String slotId, LocalDateTime dateTime, int doctorId) {
+    public AppointmentSlots(String slotId, LocalDate date, LocalTime time, String doctorId) {
         this.slotId = slotId;
         this.dateTime = dateTime;
         this.doctorId = doctorId;
