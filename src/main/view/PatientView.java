@@ -1,25 +1,26 @@
 package main.view;
-import java.time.LocalDateTime;
 import java.util.List;
+import main.model.Contact;
+import main.model.Patient;
 
 public class PatientView {
 
     // Display the patient medical record
-    public void printPatientRecord(int patientId, String name, LocalDateTime dob, char gender, String email, String address, char patientBloodType, List<String> diagnosis, List<String> treatment) {
-        System.out.println("Patient ID: " + patientId);
-        System.out.println("Name: " + name);
-        System.out.println("DOB: " + dob); 
-        System.out.println("Gender: " + gender);
-        System.out.println("Email: " + email);
-        System.out.println("Blood Type: " + patientBloodType);
-        System.out.println("Diagnoses: " + diagnosis);
-        System.out.println("Treatments: " + treatment);
+    public void printPatientRecord(Patient patient) {    
+    	System.out.println("Patient ID: " + patient.getPatientId());
+        System.out.println("Name: " + patient.getContact().getName());
+        System.out.println("DOB: " + patient.getContact().getDOB()); 
+        System.out.println("Gender: " + patient.getContact().getGender());
+        System.out.println("Email: " + patient.getContact().getEmail());
+        System.out.println("Blood Type: " + patient.getPatientBloodType());
+        System.out.println("Diagnoses: " + patient.getDiagnosis());
+        System.out.println("Treatments: " + patient.getTreatment(patient.getPatientId()));
     }
     
-    public void printUpdatedPatientContact(int patientId, String email, String address) {
+    public void printUpdatedPatientContact(Contact contact, String patientId) {
     	System.out.println("Patient ID: " + patientId);
-        System.out.println("Email: " + email); 
-        System.out.println("Address: " + address);
+        System.out.println("Email: " + contact.getEmail()); 
+        System.out.println("Address: " + contact.getAddress());
     	
     }
  

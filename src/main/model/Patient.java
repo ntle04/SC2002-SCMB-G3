@@ -1,109 +1,53 @@
 package main.model;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.time.LocalDateTime;
-public class Patient {
+import main.util.RequestStatus;
+// import java.util.stream.Collectors;
+import main.util.Role;
 
-	private int patientId;
-	private char patientBloodType;
-    private String name;
-    private String password;
-    private String email;
-    private LocalDateTime dob; 
-    private char gender;
-    private String address;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.time.LocalDate;
+import java.util.List;
+
+public class Patient extends Person{ //extended to Person class
+
+	private String patientId;
+	private String patientBloodType;
     private List<Appointment> patientAppointment;
     private List<String> diagnosis;
     private List<String> treatment;
-	
-    // Patient Constructor 
-    public Patient(int patientId, String name, LocalDateTime dob, char gender, String email, char patientBloodType) {
-        this.patientId = patientId;
-        this.name = name;
-        this.dob = dob; 
-        this.gender = gender;
-        this.email = email;
-        this.patientBloodType = patientBloodType;
-        this.diagnosis = new ArrayList<String>();
-        this.treatment = new ArrayList<String>();
-    }
 
-   
-    public int getPatientId() {
+    public Patient(String id, Contact contact, Role role,
+    		String patientId, String patientBloodType, List<Appointment> patientAppointment, 
+    		List<String> diagnosis, List<String> treatment) {
+		super(id, contact, Role.PATIENT);
+
+		this.patientId = patientId;
+		this.patientBloodType = patientBloodType;
+		this.patientAppointment = patientAppointment;
+		this.diagnosis = diagnosis;
+		this.treatment = treatment;
+	}
+
+
+    public String getPatientId() {
 		return patientId;
 	}
 
 
-	public void setPatientId(int patientId) {
+	public void setPatientId(String patientId) {
 		this.patientId = patientId;
 	}
 
 
-	public char getPatientBloodType() {
+	public String getPatientBloodType() {
 		return patientBloodType;
 	}
 
 
-	public void setPatientBloodType(char patientBloodType) {
+	public void setPatientBloodType(String patientBloodType) {
 		this.patientBloodType = patientBloodType;
-	}
-
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-
-	public LocalDateTime getDob() {
-		return dob;
-	}
-
-
-	public void setDob(LocalDateTime dob) {
-		this.dob = dob;
-	}
-
-
-	public char getGender() {
-		return gender;
-	}
-
-
-	public void setGender(char gender) {
-		this.gender = gender;
-	}
-
-
-	public String getAddress() {
-		return address;
-	}
-
-
-	public void setAddress(String address) {
-		this.address = address;
 	}
 
 
@@ -111,9 +55,9 @@ public class Patient {
 		return patientAppointment;
 	}
 
-
-	public void setPatientAppointment(List<Appointment> patientAppointment) {
-		this.patientAppointment = patientAppointment;
+	// from tim's suggestion
+	public void setPatientAppointment(Appointment appt){
+		  this.patientAppointment.add(appt);
 	}
 
 
@@ -127,7 +71,7 @@ public class Patient {
 	}
 
 
-	public List<String> getTreatment(int patientId) {
+	public List<String> getTreatment(String patientId) {
 		return treatment;
 	}
 
@@ -136,11 +80,47 @@ public class Patient {
 		this.treatment = treatment;
 	}
 
-
-
-	public void updatePatientContact(int patientId, String newEmail, String newAddress) {
-		this.patientId = patientId;
-		this.email = newEmail;
-		this.address = newAddress;
+    
+	public void updatePatientContact(Contact contact) {
+		this.updateContact(contact);
 	}
+	
+	
+	public static Patient fromCSV(String csvLine) {
+        String[] values = csvLine.split(",");
+        
+        if (values.length != 6) {
+            return null; // If data doesn't match expected format, return null
+        }
+        
+        try {
+            // Parse values from CSV line
+        	String id = values[0].trim();
+            String name = values[1].trim();
+            String dob = values[2].trim();
+            
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
+            Date parseDob = dateFormat.parse(dob);
+            
+            Character gender = values[3].trim().charAt(0);
+            String contactNumber = values[4].trim();   
+            String email = values[5].trim();
+            String address = values[6].trim();
+            String patientId = values[7].trim();
+            String patientBloodType = values[8].trim();
+
+            Contact contact = new Contact(name, dob, gender, contactNumber, email, address);
+            List<Appointment> patientAppointment = new ArrayList<Appointment>();
+            List<String> diagnosis = new ArrayList<String>();
+            List<String> treatment = new ArrayList<String>();
+
+            return new Patient(id, contact, Role.PATIENT, patientId, patientBloodType, patientAppointment, diagnosis, treatment);
+
+        } catch (NumberFormatException | ParseException e) {
+            System.out.println("Error parsing CSV line: " + csvLine);
+            return null;
+        }
+    }
+	
 }
+

@@ -12,7 +12,7 @@ public class Pharmacist extends Person{
     // private AppointmentOutcomeController outcomeController;
 
     public Pharmacist() {
-        super(Authenticate.getLoggedInUser().getId(), Role.PHARMACIST, null);
+        super(Authenticate.getLoggedInUser().getId(), null, Role.PHARMACIST);
     }
 
     public void updatePrescriptionStatus(){
