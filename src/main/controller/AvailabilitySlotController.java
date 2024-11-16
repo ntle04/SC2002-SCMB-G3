@@ -37,12 +37,13 @@ public class AvailabilitySlotController {
         for (TimeSlot slot : slots) {
             AvailabilitySlot newSlot = new AvailabilitySlot(doctorId, slot);
             newAvailabilitySlots.add(newSlot);
-        }
+        
         try {
             csvManager.addAvailabilities(newAvailabilitySlots);
             System.out.println("Availability slots added successfully.");
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
+        }
         }
     }
 

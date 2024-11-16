@@ -43,6 +43,31 @@ public class AvailabilitySlot {
         return availabilitySlotId;
     }
 
+    public void setAvailabilitySlotId(String availabilitySlotId) {
+        // Validate the ID format
+        if (availabilitySlotId != null) {
+            // Check if the ID follows the correct format (AV followed by digits)
+            if (!availabilitySlotId.startsWith("AV")) {
+                availabilitySlotId = "AV" + availabilitySlotId;
+            }
+            
+            // Ensure the numeric part is 4 digits
+            if (availabilitySlotId.length() > 2) {
+                String numericPart = availabilitySlotId.substring(2);
+                try {
+                    int idNumber = Integer.parseInt(numericPart);
+                    this.availabilitySlotId = String.format("AV%04d", idNumber);
+                } catch (NumberFormatException e) {
+                    throw new IllegalArgumentException("Invalid availability slot ID format. Numeric part required after 'AV'");
+                }
+            } else {
+                throw new IllegalArgumentException("Invalid availability slot ID format. Must be 'AV' followed by numbers");
+            }
+        } else {
+            this.availabilitySlotId = null;
+        }
+    }
+
     public String getDoctorId() {
         return doctorId;
     }
