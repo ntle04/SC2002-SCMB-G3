@@ -9,10 +9,12 @@ public class AppointmentOutcome {
     private String serviceType;
     private List<Prescription> prescription;
     private String notes;
+    //private Appointment appt
 
     // Constructor
-    public AppointmentOutcome() {
+    public AppointmentOutcome(/*Appointment appt */) {
         this.prescription = new ArrayList<>(); // Initialize the prescriptions list
+        //this.appt = appt;
     }
 
     // Method to get the service type
@@ -44,4 +46,8 @@ public class AppointmentOutcome {
     public void setNotes(String notes) {
         this.notes = notes;
     }
+
+    /*public Appointment getAppointment(){
+      return appt;
+    } */
 }

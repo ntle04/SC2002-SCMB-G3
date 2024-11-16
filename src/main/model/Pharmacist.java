@@ -1,22 +1,35 @@
 package main.model;
 
+import java.util.List;
 import java.util.Scanner;
 
 import main.controller.*;
+import main.util.PrescriptionStatus;
 import main.util.Role;
+import main.view.PrescriptionView;
 
 public class Pharmacist extends Person{
-
-    private ReplenishmentRequestController requestController = new ReplenishmentRequestController();
-    // private PrescriptionController prescriptionController;
-    // private AppointmentOutcomeController outcomeController;
+    PrescriptionView view = new PrescriptionView();
+    private ReplenishmentRequestController requestController;
+    private PrescriptionController prescriptionController = new PrescriptionController(outcomeController.getPrescriptions(), view);
+    private AppointmentOutcomeController outcomeController;
+    private AppointmentController apptcontroller = new AppointmentController(null, null);
+    Scanner sc = new Scanner(System.in);
 
     public Pharmacist() {
         super(Authenticate.getLoggedInUser().getId(), null, Role.PHARMACIST);
     }
 
-    public void updatePrescriptionStatus(){
+    public void updatePrescriptionStatus(PrescriptionStatus status, String prescriptionId){
+        //prescriptionController.updateStatus(prescriptionId,status);
+        List<Appointment> appt = apptcontroller.viewAllCompletedAppts();
+        Appointment selectedId = sc.nextLine();
+        for (Appointment appointment : appt)
+        {
+            if(appointment.getAppointmentId().equals(selectedId)){
 
+            }
+        }
     }
 
     public void submitReplenishmentRequest(){

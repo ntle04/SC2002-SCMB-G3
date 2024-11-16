@@ -2,7 +2,7 @@ package main.view;
 
 import java.util.List;
 
-
+import main.model.AppointmentSlot;
 import main.model.AvailabilitySlot;
 import main.model.Doctor;
 import main.model.Patient;
@@ -43,5 +43,24 @@ public class DoctorView {
         }
     }
 }
+
+    public void displayUpcomingAppointments(List<AppointmentSlot> upcomingAppointments, List<Patient> patients,Doctor doctor) {
+        if (upcomingAppointments.isEmpty()) {
+            System.out.println("No upcoming appointments.");
+        } else {
+            System.out.println("=== Upcoming Appointments ===");
+            for (int i = 0; i < upcomingAppointments.size(); i++) {
+                AppointmentSlot appointmentSlot = upcomingAppointments.get(i);
+                // Find the patient for this appointment
+                Patient patient = doctor.getPatientById(appointmentSlot.getPatientId());
+                if (patient != null) {
+                    System.out.println((i + 1) + ". Appointment with Patient ID: " + patient.getId() +
+                            ", Patient Name: " + patient.getContact().getName() +
+                            ", Time: " + appointmentSlot.getAvailabilitySlot().getTimeSlot() +
+                            ", Status: " + appointmentSlot.getStatus());
+                }
+            }
+        }
 }
 
+}

@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import main.util.Role;
 import main.util.TimeSlot;
+import main.model.AppointmentSlot;
 
 import main.controller.Authenticate;
 
@@ -21,14 +22,14 @@ public class Doctor extends Person {
     private String doctorid;
     private List<Patient> patients;
     private List<AvailabilitySlot> availability;
-    private List<Appointment> appointments;
+    private List<AppointmentSlot> appointments;
    
-    public Doctor(String id, Contact contact, Role role, List<Patient> patients, List<AvailabilitySlot> availability, List<Appointment> appointments)
+    public Doctor(String id, Contact contact, Role role, List<Patient> patients, List<AvailabilitySlot> availability, List<AppointmentSlot> appointments)
     {
         super(Authenticate.getLoggedInUser().getId(), null, Role.DOCTOR);
         this.patients = patients;
         this.availability = availability != null ? availability : new ArrayList<>();
-        this.appointments = appointments != null ? list : new ArrayList<>();
+        this.appointments = appointments != null ? appointments : new ArrayList<>();
     }
    
    
@@ -48,18 +49,29 @@ public class Doctor extends Person {
     public void removePatient(Patient patient) {
         patients.remove(patient);
     }
+
+    public Patient getPatientById(String patientId) {
+        for (Patient patient : patients) {
+            if (patient.getId().equals(patientId)) {
+                return patient;
+            }
+        }
+        return null;  // Return null if patient is not found
+    }
        
-    public List<Appointment> getAppointments(){
+    public List<AppointmentSlot> getAppointmentSlots(){
         return appointments;
     }
 
 
-    public void setAppointments(List<Appointment> appt)
+    public void setAppointments(List<AppointmentSlot> appt)
     {
         appointments = appt;
     }
        
-
+    public List<AvailabilitySlot> getAvailability(){
+        return availability;
+    }
 
    
     /*public static Doctor fromCSV(String csvLine) {
