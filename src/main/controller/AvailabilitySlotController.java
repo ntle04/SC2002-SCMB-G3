@@ -71,7 +71,7 @@ public class AvailabilitySlotController {
         }
     }
 
-    private List<AvailabilitySlot> getAvailabilitySlotsByDoctor(String doctorId) {
+    public List<AvailabilitySlot> getAvailabilitySlotsByDoctor(String doctorId) {
         List<AvailabilitySlot> doctorSlots = new ArrayList<>();
         loadAvailabilities(); //get latest data
         for (AvailabilitySlot slot : availabilitySlots) {

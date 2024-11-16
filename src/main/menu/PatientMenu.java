@@ -1,18 +1,20 @@
-/*package main.menu;
+package main.menu;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import main.controller.AppointmentSlotController;
 import main.controller.Authenticate;
 import main.controller.ContactController;
 import main.controller.PatientController;
-import main.model.Appointment;
+// import main.model.Appointment;
+import main.model.AvailabilitySlot;
 import main.model.Contact;
 import main.model.Patient;
 import main.model.Person;
 import main.util.Role;
-
+import main.view.AvailabilitySlotView;
 import main.controller.AvailabilitySlotController;
 
 
@@ -20,7 +22,9 @@ public class PatientMenu extends Menu{
 	
 	private PatientController patientController;
 
-    AvailabilitySlotController availabilitySlotController = new AvailabilitySlotController();
+    AvailabilitySlotController availSlotController = new AvailabilitySlotController();
+    AvailabilitySlotView availView = new AvailabilitySlotView();
+    AppointmentSlotController apptSlotController = new AppointmentSlotController();
 
     public void printMenu(){
         System.out.println("=== Patient Menu ===");
@@ -35,37 +39,37 @@ public class PatientMenu extends Menu{
     }
 
 	public void handleUserInput(){
-		Person loggedInUser = Authenticate.getLoggedInUser();
-		Contact contact = loggedInUser.getContact();
-		ContactController contactController = new ContactController(contact);
+		// Person loggedInUser = Authenticate.getLoggedInUser();
+		// Contact contact = loggedInUser.getContact();
+		// ContactController contactController = new ContactController(contact);
 		
-		//Patient patient = new Patient(loggedInUser.getId(), loggedInUser.getContact(), loggedInUser.getRole(), 
-		//		"O-", new ArrayList<Appointment>(), new ArrayList<String>(), new ArrayList<String>() );
+		// //Patient patient = new Patient(loggedInUser.getId(), loggedInUser.getContact(), loggedInUser.getRole(), 
+		// //		"O-", new ArrayList<Appointment>(), new ArrayList<String>(), new ArrayList<String>() );
 		
-		patientController  = new PatientController();
+		// patientController  = new PatientController();
 		
-		Patient selectedPatient = null;
-		// Patient patient = patientController.getPatientList().stream().filter(a -> a.getId() == loggedInUser.getId()).collect(Collectors.toList()).get(0);
-		for(Patient patient : patientController.getPatientList()) 
-		{ 
-		   if(patient.getId().equals(loggedInUser.getId()) )
-		   { 
-			   selectedPatient = patient;
-		   }
-		   else
-		   {
-			   // TODO user set bloodtype etc
-			   List<Appointment> patientAppointment = new ArrayList<Appointment>();
-			   List<String> diagnosis = new ArrayList<String>();
-			   List<String> treatment = new ArrayList<String>();
+		// Patient selectedPatient = null;
+		// // Patient patient = patientController.getPatientList().stream().filter(a -> a.getId() == loggedInUser.getId()).collect(Collectors.toList()).get(0);
+		// for(Patient patient : patientController.getPatientList()) 
+		// { 
+		//    if(patient.getId().equals(loggedInUser.getId()) )
+		//    { 
+		// 	   selectedPatient = patient;
+		//    }
+		//    else
+		//    {
+		// 	   // TODO user set bloodtype etc
+		// 	   List<Appointment> patientAppointment = new ArrayList<Appointment>();
+		// 	   List<String> diagnosis = new ArrayList<String>();
+		// 	   List<String> treatment = new ArrayList<String>();
 			   
-			   selectedPatient = new Patient(loggedInUser.getId(), contact, Role.PATIENT, 
-					   "O-", patientAppointment,  diagnosis, treatment);
-					   //null, null, null, null);
+		// 	   selectedPatient = new Patient(loggedInUser.getId(), contact, Role.PATIENT, 
+		// 			   "O-", patientAppointment,  diagnosis, treatment);
+		// 			   //null, null, null, null);
 			     
-			   patientController.createPatient(selectedPatient);
-		   }
-		}
+		// 	   patientController.createPatient(selectedPatient);
+		//    }
+		// }
 		
 		
 		int choice = -1;
@@ -78,17 +82,19 @@ public class PatientMenu extends Menu{
 			
 			switch (choice) {
 			    case 1:
-			    	patientController.viewPatientRecord(selectedPatient);
+			    	// patientController.viewPatientRecord(selectedPatient);
 			        break;
 			    case 2:
 			    	// TODO Update Personal Information
-			    	loggedInUser.printContact();
+			    	Authenticate.getLoggedInUser().printContact();
 			        break;
 			    case 3:
 			    	// TODO patientController view available appt slots	
 			        break;
 			    case 4:
 			    	// TODO patientController schedule appt
+                    AvailabilitySlot selectedSlot = selectSlot(availSlotController.getAvailabilitySlotsByDoctor("D0001"));
+                    apptSlotController.bookAppointment(Authenticate.getLoggedInUser().getId(), selectedSlot);
 			        break;
 			    case 5:
 			    	// TODO patientController cancel appt
@@ -106,5 +112,29 @@ public class PatientMenu extends Menu{
 		}while(choice < 8);
 			
 	};
+
+	 public AvailabilitySlot selectSlot(List<AvailabilitySlot> slots) {
+        // Display available slots with indices
+        availView.printAvailabilitySlots(slots);
+
+        // Get the user's choice
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the index of the slot you'd like to select: ");
+        int choice = scanner.nextInt();
+
+        // Validate the choice and return the corresponding slot
+        int index = 1;
+        for (AvailabilitySlot slot : slots) {
+            if (slot.isAvailable()) {
+                if (index == choice) {
+                    return slot;
+                }
+                index++;
+            }
+        }
+        
+        System.out.println("Invalid selection. Please try again.");
+        return selectSlot(slots); // Retry on invalid input
+    }
 
 }

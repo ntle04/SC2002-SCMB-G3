@@ -3,22 +3,22 @@ package main.menu;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import main.controller.DoctorController;
+// import main.controller.DoctorController;
 import main.controller.PatientController;
 import main.controller.Authenticate;
 import main.controller.AvailabilitySlotController;
 import main.controller.ContactController;
 import main.util.TimeSlot;
-import main.view.DoctorView;
+// import main.view.DoctorView;
 import main.model.AvailabilitySlot;
 import main.model.Contact;
-import main.model.Doctor;
+// import main.model.Doctor;
 import main.model.Person;
 
 public class DoctorMenu extends Menu{
 
     AvailabilitySlotController availabilitySlotController = new AvailabilitySlotController();
-    DoctorController doctorController = new DoctorController(null, null)
+    // DoctorController doctorController = new DoctorController(null, null);
 
     public void printMenu(){
         System.out.println("=== Doctor Menu ===");
@@ -33,15 +33,15 @@ public class DoctorMenu extends Menu{
     }
 
     public void handleUserInput(){
-        Person loggedInUser = Authenticate.getLoggedInUser();
-		Contact contact = loggedInUser.getContact();
-		ContactController contactController = new ContactController(contact);
+        // Person loggedInUser = Authenticate.getLoggedInUser();
+		// Contact contact = loggedInUser.getContact();
+		// ContactController contactController = new ContactController(contact);
 		
-		Doctor doctor = new Doctor(loggedInUser.getId(), loggedInUser.getContact(), loggedInUser.getRole(), new ArrayList<Patient>(), new ArrayList<AvailabilitySlot>(), new ArrayList<Appointment>() );
+		// Doctor doctor = new Doctor(loggedInUser.getId(), loggedInUser.getContact(), loggedInUser.getRole(), new ArrayList<Patient>(), new ArrayList<AvailabilitySlot>(), new ArrayList<Appointment>() );
 
-        DoctorView docview = new DoctorView();
+        // DoctorView docview = new DoctorView();
 		
-		DoctorController doctorController  = new DoctorController(doctor, docview);
+		// DoctorController doctorController  = new DoctorController(doctor, docview);
         int choice = -1;
         Scanner sc = new Scanner(System.in);
 
@@ -52,35 +52,35 @@ public class DoctorMenu extends Menu{
             
             switch (choice) {
                 case 1:
-                Scanner sca = new Scanner(System.in);
-                List<Patient> patientList = doctor.getPatients();
-                System.out.println("List of Patients:");
-                if (patientList.isEmpty()) {
-                    System.out.println("No patients available.");
-                } else {
-                    for (Patient patient : patientList) {
-                        System.out.println("Patient ID: " + patient.getPatientId() + ", Name: " + patient.getContact().getName());
-                    }
-                }
-                System.out.println("Enter Patient ID to view record:");
-                String patientId = sca.nextLine();
-                doctorController.viewSpecificPatientRecord(patientId);
-                    break;
+                // Scanner sca = new Scanner(System.in);
+                // List<Patient> patientList = doctor.getPatients();
+                // System.out.println("List of Patients:");
+                // if (patientList.isEmpty()) {
+                //     System.out.println("No patients available.");
+                // } else {
+                //     for (Patient patient : patientList) {
+                //         System.out.println("Patient ID: " + patient.getPatientId() + ", Name: " + patient.getContact().getName());
+                //     }
+                // }
+                // System.out.println("Enter Patient ID to view record:");
+                // String patientId = sca.nextLine();
+                // doctorController.viewSpecificPatientRecord(patientId);
+                //     break;
                 
                 case 2:
-                List<Patient> patientList = doctor.getPatients();
-                System.out.println("List of Patients:");
-                if (patientList.isEmpty()) {
-                    System.out.println("No patients available.");
-                } else {
-                    for (Patient patient : patientList) {
-                        System.out.println("Patient ID: " + patient.getPatientId() + ", Name: " + patient.getContact().getName());
-                    }
-                }
-                System.out.println("Enter Patient ID to update record:");
-                String updatepatientId = sca.nextLine();
-                doctorController.updateSpecificPatientRecord(updatepatientId);
-                    break;
+                // List<Patient> patientList = doctor.getPatients();
+                // System.out.println("List of Patients:");
+                // if (patientList.isEmpty()) {
+                //     System.out.println("No patients available.");
+                // } else {
+                //     for (Patient patient : patientList) {
+                //         System.out.println("Patient ID: " + patient.getPatientId() + ", Name: " + patient.getContact().getName());
+                //     }
+                // }
+                // System.out.println("Enter Patient ID to update record:");
+                // String updatepatientId = sca.nextLine();
+                // doctorController.updateSpecificPatientRecord(updatepatientId);
+                //     break;
 
                 case 3:
                     availabilitySlotController.printAvailabilitySlotsByDoctor("D0001");

@@ -1,0 +1,3 @@
+﻿doctorId,patientId,timeslot,status
+D0001,P0001,0900 - 0930,PENDING
+D0001,P0001,1000 - 1030,PENDING

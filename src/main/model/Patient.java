@@ -82,18 +82,19 @@ public class Patient extends Person{ //extended to Person class
             // Parse values from CSV line
         	String id = values[0].trim();
             String name = values[1].trim();
-            String dob = values[2].trim();
+			String age = values[2].trim();
+			String dob = values[3].trim();
             
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
             Date parseDob = dateFormat.parse(dob);
             
-            Character gender = values[3].trim().charAt(0);
-            String contactNumber = values[4].trim();   
-            String email = values[5].trim();
-            String address = values[6].trim();
-            String patientBloodType = values[7].trim();
+            Character gender = values[4].trim().charAt(0);
+            String contactNumber = values[5].trim();   
+            String email = values[6].trim();
+            String address = values[7].trim();
+            String patientBloodType = values[8].trim();
 
-            Contact contact = new Contact(name, dob, gender, contactNumber, email, address);
+            Contact contact = new Contact(name, age, dob, gender, contactNumber, email, address);
             List<Appointment> patientAppointment = new ArrayList<Appointment>();
             List<String> diagnosis = new ArrayList<String>();
             List<String> treatment = new ArrayList<String>();

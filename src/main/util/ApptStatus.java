@@ -1,7 +1,7 @@
 package main.util;
 
 public enum ApptStatus {
-	AVAILABLE,
+	PENDING,
 	CONFIRMED,
 	CANCELLED,
 	COMPLETED;

@@ -28,16 +28,29 @@ public class ContactController {
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
 
+                String name, age, dob, gender, contactNumber, email, address;
+
                 if (values[0].equals(id)) {
-                    String name = values[1];
-                    String dob = values[3];
-                    String gender = values[4];
-                    String contactNumber = values[5];
-                    String email = values[6];
-                    String address = values[7];
+                    if(role==Role.PATIENT){
+                        name = values[1];
+                        age = values[2];
+                        dob = values[3];
+                        gender = values[4];
+                        contactNumber = values[5];
+                        email = values[6];
+                        address = values[7];
+                    }else{
+                        name = values[1];
+                        age = values[3];
+                        dob = values[4];
+                        gender = values[5];
+                        contactNumber = values[6];
+                        email = values[7];
+                        address = values[8];
+                    }
                     
                     // Create a new Contact object from the CSV data
-                    contact = new Contact(name, dob, gender.charAt(0), contactNumber, email, address);
+                    contact = new Contact(name, age, dob, gender.charAt(0), contactNumber, email, address);
                     return contact;
                 }
             }

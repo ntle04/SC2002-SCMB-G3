@@ -58,10 +58,7 @@ public enum TimeSlot {
     public static TimeSlot getByTime(String input) {
 
         for (TimeSlot slot : TimeSlot.values()) {
-            System.out.println("Input time: " + input);
-            System.out.println("Slot time: " + slot.getTime());
             if (slot.getTime().equalsIgnoreCase(input)) {
-                System.out.println("matched ");
                 return slot;
             }
         }
