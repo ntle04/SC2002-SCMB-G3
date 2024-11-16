@@ -1,6 +1,7 @@
 package main.model;
 
 import main.util.StockLevel;
+import main.model.Medicine;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -11,7 +12,16 @@ import java.util.Comparator;
 import main.csvUitls.Config;
 
 public class Inventory {
-    Inventory(String medId, String name, String quantity, StockLevel stocklevel){
-        
+    private ArrayList<Medicine> medicationInventory;
+    Inventory(){
+        medicationInventory = new ArrayList<Medicine>();
+    }
+
+    public void addMedicine(Medicine medicine){
+        medicationInventory.add(medicine);
+    }
+
+    public void removeMedicine(Medicine medicine){
+        medicationInventory.remove(medicine);
     }
 }

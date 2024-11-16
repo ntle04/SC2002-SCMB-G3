@@ -19,15 +19,31 @@ public class Medicine {
         return medId;
     }
 
+    public void setMedId(String medId){
+        this.medId = medId;
+    }
+
     public String getMedName(){
         return medName;
+    }
+
+    public void setMedName(String medName){
+        this.medName = medName;
     }
 
     public String getQuantity(){
         return quantity;
     }
 
+    public void setQuantity(String quantity){
+        this.quantity = quantity;
+    }
+
     public StockLevel getStockLevel(){
         return stockLevel;
+    }
+
+    public void setStockLevel(StockLevel stockLevel){
+        this.stockLevel = stockLevel;
     }
 }
