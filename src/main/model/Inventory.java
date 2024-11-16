@@ -61,26 +61,11 @@ public class Inventory {
         medicationInventory.remove(medicine);
     }
 
-    public boolean updateMedicine(String medId, String name, String quantity, String price, String lastPurchase, StockLevel stockLevel){
-        for(Medicine medicine : medicationInventory){
-            if(medicine.getMedId().equals(medId)){
-                medicine.setMedName(name);
-                medicine.setSalePrice(price);
-                medicine.setLastPurchase(lastPurchase);
-                medicine.setStockLevel(stockLevel);
-                System.out.println("Medicine updated");
-                return true;
-            }
-        }
-        System.out.println("Medicine Id " +medId+ " not found");
-        return false;
-    }
-
-    public boolean isEmpty(){
-        return medicationInventory.isEmpty();
-    }
-
-    public List<Medicine>getAllMedicines(){
-        return medicationInventory;
-    }
+    // public boolean updateMedicine(String medId){
+    //     for(Medicine medicine : medicationInventory){
+    //         if(medicine.getMedId().equals(medId)){
+                
+    //         }
+    //     }
+    // }
 }

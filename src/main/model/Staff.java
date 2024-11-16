@@ -38,7 +38,7 @@ public class Staff extends Person{
 
             Contact contact = new Contact(name, age, dob, gender, contactNumber, email, address);
 
-            return new Staff(id, contact, roleEnum);
+            return new Staff(id, contact, Role.valueOf(role));
 
         } catch (NumberFormatException | ParseException e) {
             System.out.println("Error parsing CSV line: " + csvLine);

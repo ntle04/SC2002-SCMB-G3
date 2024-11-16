@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import main.csvUitls.AppointmentCSVManager;
 import main.csvUitls.AppointmentSlotCSVManager;
 import main.csvUitls.AvailabilitySlotCSVManager;
+import main.model.Appointment;
 import main.model.AppointmentSlot;
 import main.model.AvailabilitySlot;
 import main.util.ApptStatus;
@@ -18,6 +20,7 @@ public class AppointmentSlotController {
     private AppointmentSlotCSVManager apptSlotCSVManager = new AppointmentSlotCSVManager();
     private AppointmentSlotView view = new AppointmentSlotView();
     private AvailabilitySlotController availSlotController = new AvailabilitySlotController();
+    private AppointmentCSVManager apptCSVManager = new AppointmentCSVManager();
 
     public AppointmentSlotController() {
         this.appointmentSlots = new ArrayList<>();
@@ -57,6 +60,7 @@ public class AppointmentSlotController {
                     System.out.println("new appt slot status: " + slot.getStatus());
                     availSlotCSVManager.updateAvailabilitySlot(slot.getAvailabilitySlot());
                     apptSlotCSVManager.updateAppointmentSlot(slot);
+                    apptCSVManager.addAppointment(new Appointment(slot.getAvailabilitySlot().getDoctorId(), slot.getPatientId(), slot.getAvailabilitySlot().getTimeSlot(), slot.getAppointmentSlotId(), null));
                     System.out.println("Appointment confirmed.");
                 } catch (IOException e) {
                     System.out.println("Error confirming appointment: " + e.getMessage());
@@ -95,6 +99,16 @@ public class AppointmentSlotController {
             }
         }
         return filteredSlots;
+    }
+
+    public AppointmentSlot getAppointmentSlotById(String slotId) {
+        loadAppointmentSlots(); //get latest data
+        for (AppointmentSlot slot : appointmentSlots) {
+            if (slot.getAppointmentSlotId().equals(slotId)) {
+                return slot;
+            }
+        }
+        return null;
     }
 
     public void printPendingAppointmentSlots(){
