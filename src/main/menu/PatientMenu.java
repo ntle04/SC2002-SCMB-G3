@@ -52,6 +52,19 @@ public class PatientMenu extends Menu{
 		   { 
 			   selectedPatient = patient;
 		   }
+		   else
+		   {
+			   // TODO user set bloodtype etc
+			   List<Appointment> patientAppointment = new ArrayList<Appointment>();
+			   List<String> diagnosis = new ArrayList<String>();
+			   List<String> treatment = new ArrayList<String>();
+			   
+			   selectedPatient = new Patient(loggedInUser.getId(), contact, Role.PATIENT, 
+					   "O-", patientAppointment,  diagnosis, treatment);
+					   //null, null, null, null);
+			     
+			   patientController.createPatient(selectedPatient);
+		   }
 		}
 		
 		
