@@ -19,7 +19,7 @@ public class Staff extends Person{
     public static Staff fromCSV(String csvLine) {
         String[] values = csvLine.split(",");
         
-        if (values.length != 8) {
+        if (values.length != 9) {
             return null; // If data doesn't match expected format, return null
         }
         
@@ -27,24 +27,21 @@ public class Staff extends Person{
             // Parse values from CSV line
         	String id = values[0].trim();
             String name = values[1].trim();
-			String age = values[2].trim();
-			String dob = values[3].trim();
+            String role = values[2].trim();
+			String age = values[3].trim();
+			String dob = values[4].trim();
             
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
             Date parseDob = dateFormat.parse(dob);
             
-            Character gender = values[4].trim().charAt(0);
-            String contactNumber = values[5].trim();   
-            String email = values[6].trim();
-            String address = values[7].trim();
-            String patientBloodType = values[8].trim();
+            Character gender = values[5].trim().charAt(0);
+            String contactNumber = values[6].trim();   
+            String email = values[7].trim();
+            String address = values[8].trim();
 
             Contact contact = new Contact(name, age, dob, gender, contactNumber, email, address);
-            List<Appointment> patientAppointment = new ArrayList<Appointment>();
-            List<String> diagnosis = new ArrayList<String>();
-            List<String> treatment = new ArrayList<String>();
 
-            return new Patient(id, contact, Role.PATIENT, patientBloodType, patientAppointment, diagnosis, treatment);
+            return new Staff(id, contact, role);
 
         } catch (NumberFormatException | ParseException e) {
             System.out.println("Error parsing CSV line: " + csvLine);
