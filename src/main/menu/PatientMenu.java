@@ -4,18 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-<<<<<<< HEAD
 import main.controller.Authenticate;
 import main.controller.ContactController;
 import main.controller.PatientController;
-import main.model.Appointment;
+//import main.model.Appointment;
 import main.model.Contact;
 import main.model.Patient;
 import main.model.Person;
 import main.util.Role;
-=======
+
 import main.controller.AvailabilitySlotController;
->>>>>>> c57cdce120f1c732207bd1bc934ff1a22a6e7526
+
 
 public class PatientMenu extends Menu{
 	
@@ -35,7 +34,6 @@ public class PatientMenu extends Menu{
         System.out.println("8. Logout");
     }
 
-<<<<<<< HEAD
 	public void handleUserInput(){
 		Person loggedInUser = Authenticate.getLoggedInUser();
 		Contact contact = loggedInUser.getContact();
@@ -64,6 +62,7 @@ public class PatientMenu extends Menu{
 			        break;
 			    case 3:
 			    	// TODO patientController view available appt slots	
+			    	availabilitySlotController.printAvailabilitySlotsByDoctor("D0001");
 			        break;
 			    case 4:
 			    	// TODO patientController schedule appt
@@ -84,35 +83,5 @@ public class PatientMenu extends Menu{
 		}while(choice < 8);
 			
 	};
-=======
-    public void handleUserInput(){
-        int choice = -1;
-        Scanner sc = new Scanner(System.in);
 
-        do{
-            printMenu();
-            System.out.println("Enter your choice: ");
-            choice = sc.nextInt();
-            
-            switch (choice) {
-                case 1:
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    availabilitySlotController.printAvailabilitySlotsByDoctor("D0001");
-                    break;
-                case 4:
-                    break;
-                case 5:
-                    break;
-                default:
-                    break;
-            }
-
-        }while(choice < 8);
-
-    };
->>>>>>> c57cdce120f1c732207bd1bc934ff1a22a6e7526
-    
 }
