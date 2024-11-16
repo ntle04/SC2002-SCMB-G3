@@ -58,14 +58,9 @@ public class PatientController {
     }
     
     //create new
-    public void createPatient(String id, Contact contact, Role role,
-    		String patientId, String patientBloodType, List<Appointment> patientAppointment, 
-    		List<String> diagnosis, List<String> treatment) {
-    	//Patient new Patient(
-    	
-    	Patient patient = new Patient(id, contact, Role.PATIENT, patientBloodType, patientAppointment, diagnosis, treatment);
-     
+    public void createPatient(Patient patient) {
         patientList.add(patient);
+        System.out.println("Created Patient");
         this.view.printPatientRecord(patient);
     }
 
