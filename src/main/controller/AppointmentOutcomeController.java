@@ -33,61 +33,61 @@ public class AppointmentOutcomeController {
         }
     } */
     
-    public void addNotes(String appointmentId, String notes) {
-        AppointmentOutcome outcome = findOutcome(appointmentId);
-        if (outcome != null) {
-            outcome.setNotes(notes);
-        }
-    }
+    // public void addNotes(String appointmentId, String notes) {
+    //     AppointmentOutcome outcome = findOutcome(appointmentId);
+    //     if (outcome != null) {
+    //         outcome.setNotes(notes);
+    //     }
+    // }
     
     
     // Pharmacist functions
-    public void updatePrescriptionStatus(String appointmentId, String prescriptionName, PrescriptionStatus newStatus) {
-        AppointmentOutcome outcome = findOutcome(appointmentId);
-        if (outcome != null) {
-            for (Prescription prescription : outcome.getPrescriptions()) {
-                if (prescription.getPrescriptionName().equals(prescriptionName)) {
-                    prescription.setStatus(newStatus);
-                    break;
-                }
-            }
-        }
-    }
+    // public void updatePrescriptionStatus(String appointmentId, String prescriptionName, PrescriptionStatus newStatus) {
+    //     AppointmentOutcome outcome = findOutcome(appointmentId);
+    //     if (outcome != null) {
+    //         for (Prescription prescription : outcome.getPrescriptions()) {
+    //             if (prescription.getPrescriptionName().equals(prescriptionName)) {
+    //                 prescription.setStatus(newStatus);
+    //                 break;
+    //             }
+    //         }
+    //     }
+    // }
     
     
-    // View functions for the various user types
-    public void viewOutcomeAsDoctor(String appointmentId) {
-        AppointmentOutcome outcome = findOutcome(appointmentId);
-        if (outcome != null) {
-            view.displayFullOutcome(outcome);
-        }
-    }
+    // // View functions for the various user types
+    // public void viewOutcomeAsDoctor(String appointmentId) {
+    //     AppointmentOutcome outcome = findOutcome(appointmentId);
+    //     if (outcome != null) {
+    //         view.displayFullOutcome(outcome);
+    //     }
+    // }
     
-    public void viewOutcomeAsPatient(String appointmentId, String patientId) {
-        AppointmentOutcome outcome = findOutcome(appointmentId);
-        if (outcome != null && outcome.getPatientId().equals(patientId)) {
-            view.displayPatientOutcome(outcome);
-        }
-    }
+    // public void viewOutcomeAsPatient(String appointmentId, String patientId) {
+    //     AppointmentOutcome outcome = findOutcome(appointmentId);
+    //     if (outcome != null && outcome.getPatientId().equals(patientId)) {
+    //         view.displayPatientOutcome(outcome);
+    //     }
+    // }
     
-    public void viewOutcomeAsPharmacist(String appointmentId) {
-        AppointmentOutcome outcome = findOutcome(appointmentId);
-        if (outcome != null) {
-            view.displayPharmacistOutcome(outcome);
-        }
-    }
+    // public void viewOutcomeAsPharmacist(String appointmentId) {
+    //     AppointmentOutcome outcome = findOutcome(appointmentId);
+    //     if (outcome != null) {
+    //         view.displayPharmacistOutcome(outcome);
+    //     }
+    // }
     
-    public void viewOutcomeAsAdmin(String appointmentId) {
-        AppointmentOutcome outcome = findOutcome(appointmentId);
-        if (outcome != null) {
-            view.displayFullOutcome(outcome);
-        }
-    }
+    // public void viewOutcomeAsAdmin(String appointmentId) {
+    //     AppointmentOutcome outcome = findOutcome(appointmentId);
+    //     if (outcome != null) {
+    //         view.displayFullOutcome(outcome);
+    //     }
+    // }
     
-    private AppointmentOutcome findOutcome(String appointmentId) {
-        return outcomes.stream()
-                      .filter(o -> o.getAppointmentId().equals(appointmentId))
-                      .findFirst()
-                      .orElse(null);
-    }
+    // private AppointmentOutcome findOutcome(String appointmentId) {
+    //     return outcomes.stream()
+    //                   .filter(o -> o.getAppointmentId().equals(appointmentId))
+    //                   .findFirst()
+    //                   .orElse(null);
+    // }
 }

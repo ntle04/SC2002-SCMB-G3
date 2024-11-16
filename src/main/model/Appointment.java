@@ -1,43 +1,66 @@
 package main.model;
 
+import main.csvUitls.Config;
+import main.csvUitls.IdGenerator;
 import main.util.ApptStatus;
 import main.util.TimeSlot;
 
 public class Appointment {
 	private String appointmentId;
-	private String doctorId;
+	private String appointmentSlotId;
+	private String appointmentOutcomeId;
 	private String patientId;
+	private String doctorId;
 	private TimeSlot timeSlot;
 	private ApptStatus status;
 
-	public Appointment(String appointmentId, String doctorId, String patientId, TimeSlot timeSlot, ApptStatus status) {
+	private static final String FILE_PATH = Config.APPOINTMENT_LIST_FILE_PATH;
+    private static String idCounter = IdGenerator.generateNewId(FILE_PATH);
+
+	public Appointment(String appointmentId, String patientId, String doctorId, TimeSlot timeslot, ApptStatus status, String appointmentSlotId, String appointmentOutcomeId) {
 		this.appointmentId = appointmentId;
-		this.doctorId = doctorId;
+		this.appointmentSlotId = appointmentSlotId;
+		this.appointmentOutcomeId = appointmentOutcomeId;
 		this.patientId = patientId;
-		this.timeSlot = timeSlot;
+		this.doctorId = doctorId;
+		this.timeSlot = timeslot;
 		this.status = status; 
 	}
+
+	//new record
+    public Appointment(String patientId, String doctorId, TimeSlot timeslot, String appointmentSlotId, String appointmentOutcomeId) {
+        this.appointmentSlotId = "APP" + idCounter;
+        this.appointmentSlotId = appointmentSlotId;
+		this.appointmentOutcomeId = appointmentOutcomeId;
+		this.patientId = patientId;
+		this.doctorId = doctorId;
+		this.timeSlot = timeslot;
+        this.status = ApptStatus.CONFIRMED;
+        
+        //update counter
+        idCounter = IdGenerator.generateNewId(FILE_PATH);
+    }
 	
 	public String getAppointmentId() {
 		return appointmentId;
 	}
 
-	public String getDoctorId() {
-		return doctorId;
+	public String getAppointmentSlotId() {
+		return appointmentSlotId;
 	}
 
-	public void setDoctorId(String doctorId) {
-		this.doctorId = doctorId;
+	public String getAppointmentOutcomeId() {
+		return appointmentOutcomeId;
 	}
 
 	public String getPatientId() {
 		return patientId;
 	}
 
-	public void setPatientId(String patientId) {
-		this.patientId = patientId;
+	public String getDoctorId() {
+		return doctorId;
 	}
-
+	
 	public TimeSlot getTimeSlot() {
 		return timeSlot;
 	}
@@ -88,7 +111,7 @@ public class Appointment {
 	// }
 
 	public String[] toCSVRecord() {
-        return new String[]{appointmentId, doctorId, patientId, timeSlot.getTime(), status.name()};
+        return new String[]{appointmentId, doctorId, patientId, timeSlot.getTime(), status.name(), appointmentSlotId, appointmentOutcomeId};
     }
 
 
