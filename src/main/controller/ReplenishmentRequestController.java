@@ -22,8 +22,6 @@ public class ReplenishmentRequestController {
     private List<ReplenishmentRequest> requestList = new ArrayList<>();
     private String filePath = Config.REPLENISHMENT_REQUEST_FILE_PATH;
 
-
-
     public ReplenishmentRequestController(){
         requestList = loadAllRequestsFromFile();
     }

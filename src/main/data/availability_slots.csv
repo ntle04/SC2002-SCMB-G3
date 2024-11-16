@@ -1,4 +1,4 @@
-doctorId,timeslot,isAvailable
-D0001,0900 - 0930,true
-D0001,0930 - 1000,true
-D0001,1000 - 1030,true
+availabilitySlotId,doctorId,timeslot,isAvailable
+AV0001,D0001,0900 - 0930,true
+AV0002,D0001,0930 - 1000,true
+AV0003,D0001,1000 - 1030,true

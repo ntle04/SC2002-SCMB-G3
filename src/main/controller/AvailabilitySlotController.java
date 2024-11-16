@@ -82,6 +82,16 @@ public class AvailabilitySlotController {
         return doctorSlots;
     }
 
+    public AvailabilitySlot getAvailabilitySlotById(String slotId) {
+        loadAvailabilities(); //get latest data
+        for (AvailabilitySlot slot : availabilitySlots) {
+            if (slot.getAvailabilitySlotId().equals(slotId)) {
+                return slot;
+            }
+        }
+        return null;
+    }
+
     public void printAvailabilitySlotsByDoctor(String doctorId){
         view.printAvailabilitySlots(getAvailabilitySlotsByDoctor(doctorId));
     }

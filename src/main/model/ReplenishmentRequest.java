@@ -4,12 +4,15 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import main.csvUitls.Config;
 import main.csvUitls.IdGenerator;
 import main.util.RequestStatus;
 
 public class ReplenishmentRequest {
 
-    private static String idCounter = IdGenerator.generateNewId("src/main/data/replenishment_request_list.csv");
+
+    private static final String FILE_PATH = Config.REPLENISHMENT_REQUEST_FILE_PATH;
+    private static String idCounter = IdGenerator.generateNewId(FILE_PATH);
     private String reqId;
     private String medId;
     private int qty;
@@ -27,7 +30,7 @@ public class ReplenishmentRequest {
         this.reqDate = new Date();
 
         //update counter
-        idCounter = IdGenerator.generateNewId("src/main/data/replenishment_request_list.csv");
+        idCounter = IdGenerator.generateNewId(FILE_PATH);
     }
 
     //for export
