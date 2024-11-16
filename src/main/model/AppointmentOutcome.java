@@ -2,46 +2,82 @@ package main.model;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.time.LocalTime;
+import java.time.LocalDate;
 import main.model.Prescription;
 
 public class AppointmentOutcome {
-    private String serviceType;
-    private List<Prescription> prescription;
+    private String appointmentId;
+    private LocalDate appointmentDate;
+    private LocalTime appointmentTime;
+	private String serviceType;
+    private List<Prescription> prescriptions;
     private String notes;
+    private String patientId;
+   private String doctorId;
 
     // Constructor
-    public AppointmentOutcome() {
-        this.prescription = new ArrayList<>(); // Initialize the prescriptions list
-    }
+   public AppointmentOutcome(String appointmentId, LocalDate appointmentDate, LocalTime appointmentTime, String serviceType, String doctorId, String patientId) {
+	   this.appointmentId = appointmentId;
+	   this.appointmentDate = appointmentDate;
+	   this.serviceType = serviceType;
+	   this.doctorId = doctorId;
+	   this.patientId = patientId;
+	   this.prescriptions = new ArrayList<>(); //initialise prescription list
+	   }
 
-    // Method to get the service type
-    public String getServiceType() {
-        return serviceType;
-    }
+   //Getters and setters
+   public String getAppointmentId() {
+	   return appointmentId;
+   }
+   
+   public LocalDate getAppointmentDate() {
+	   return appointmentDate;
+   }
+   
+   public LocalTime getAppointmentTime() {
+	   return appointmentTime;
+   }
+   
+   public String getServiceType() {
+	   return serviceType;
+   }
+   
 
-    // Method to set the service type
-    public void setServiceType(String serviceType) {
-        this.serviceType = serviceType;
-    }
+   public void setServiceType(String serviceType) {
+       this.serviceType = serviceType;
+   }
+ 
+   public List<Prescription> getPrescriptions() {
+       return prescriptions;
+   }
+   
 
-    // Method to get the prescriptions
-    public List<Prescription> getPrescriptions() {
-        return prescription;
-    }
+   public void addPrescription(Prescription prescription) {
+	   prescriptions.add(prescription);
+   }
+   
 
-    // Method to set the prescriptions
-    public void setPrescription(List<Prescription> prescription) {
-        this.prescription = prescription;
-    }
+   public void setPrescription(List<Prescription> prescription) {
+       this.prescriptions = prescription;
+   }
 
-    // Method to get the notes
+
     public String getNotes() {
         return notes;
     }
 
-    // Method to set the notes
+
     public void setNotes(String notes) {
         this.notes = notes;
     }
+    
+    public String getDoctorId() {
+    	return doctorId;
+    }
+    
+    public String getPatientId() {
+    	return patientId;
+    }
+    
 }
