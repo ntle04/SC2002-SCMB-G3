@@ -1,15 +1,10 @@
 package main.model;
 
-import main.util.RequestStatus;
-// import java.util.stream.Collectors;
 import main.util.Role;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.time.LocalDate;
-import java.util.List;
 
 public class Staff extends Person{
     public Staff(String id, Contact contact, Role role) {
@@ -28,6 +23,8 @@ public class Staff extends Person{
         	String id = values[0].trim();
             String name = values[1].trim();
             String role = values[2].trim();
+            Role roleEnum = Role.valueOf(role);
+
 			String age = values[3].trim();
 			String dob = values[4].trim();
             
@@ -41,7 +38,11 @@ public class Staff extends Person{
 
             Contact contact = new Contact(name, age, dob, gender, contactNumber, email, address);
 
+<<<<<<< HEAD
             return new Staff(id, contact, Role.valueOf(role));
+=======
+            return new Staff(id, contact, roleEnum);
+>>>>>>> d057714c0d3f1401b8d5767a87c2632e88587464
 
         } catch (NumberFormatException | ParseException e) {
             System.out.println("Error parsing CSV line: " + csvLine);
