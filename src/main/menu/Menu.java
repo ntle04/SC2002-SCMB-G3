@@ -15,7 +15,7 @@ public abstract class Menu {
 
         switch(role){
             case PATIENT: {
-                return new PatientMenu();
+                //return new PatientMenu();
             }
             case PHARMACIST: {
                 return new PharmacistMenu();
