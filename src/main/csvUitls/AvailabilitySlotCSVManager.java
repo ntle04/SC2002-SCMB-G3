@@ -38,6 +38,20 @@ public class AvailabilitySlotCSVManager {
         CSVHelper.appendCSV(FILE_PATH, data);
     }
 
+    public void addAvailability(AvailabilitySlot availabilitySlot) throws IOException {
+        // Prepare a single record for the slot
+        String[] data = new String[]{
+            String.valueOf(availabilitySlot.getAvailabilitySlotId()),
+            String.valueOf(availabilitySlot.getDoctorId()),
+            availabilitySlot.getTimeSlot().getTime(),
+            String.valueOf(availabilitySlot.isAvailable())
+        };
+    
+        // Append the record to the CSV
+        CSVHelper.appendSingleCSV(FILE_PATH, data);
+    }
+    
+
     public void updateAvailabilitySlots(List<AvailabilitySlot> availabilitySlots) throws IOException {
         List<String[]> data = new ArrayList<>();
         for (AvailabilitySlot slot : availabilitySlots) {
