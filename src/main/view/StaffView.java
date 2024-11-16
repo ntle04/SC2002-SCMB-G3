@@ -6,7 +6,7 @@ import main.model.Staff;
 public class StaffView {
     // Display the staff  record
     public void printStaffRecord(Staff staff) {    
-    	System.out.println("Patient ID: " + staff.getId());
+    	System.out.println("Staff ID: " + staff.getId());
         System.out.println("Name: " + staff.getContact().getName());
         System.out.println("Name: " + staff.getContact().getAge());
         System.out.println("DOB: " + staff.getContact().getDOB()); 
