@@ -24,4 +24,12 @@ public class Inventory {
     public void removeMedicine(Medicine medicine){
         medicationInventory.remove(medicine);
     }
+
+    public boolean updateMedicine(String medId){
+        for(Medicine medicine : medicationInventory){
+            if(medicine.getMedId().equals(medId)){
+                
+            }
+        }
+    }
 }
