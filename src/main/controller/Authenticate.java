@@ -1,7 +1,7 @@
 package main.controller;
 import main.model.Person;
+import main.csvUitls.Config;
 import main.model.Contact;
-import main.util.Config;
 import main.util.Role;
 
 import java.io.BufferedReader;
