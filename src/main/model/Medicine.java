@@ -43,7 +43,7 @@ public class Medicine {
         this.quantity = quantity;
     }
 
-    private String getSalePrice(){
+    public String getSalePrice(){
         return salePrice;
     }
 
@@ -51,7 +51,7 @@ public class Medicine {
         this.salePrice = salePrice;
     }
 
-    public String getlastPurchase(){
+    public String getLastPurchase(){
         return lastPurchase;
     }
 
