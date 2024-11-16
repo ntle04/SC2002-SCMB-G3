@@ -1,5 +1,5 @@
-medId,name,quantity,stocklevel
-Med0001,Paracetemol 500mg,3,LOW
-Med0002,Telfast 180mg,30,MEDIUM
-Med0003,Fluimucil 100mg,70,HIGH
-Med0004,Robitussin DM 100ml,20,LOW
+medId,name,quantity,salePrice,stockLevel
+Med0001,Paracetemol 500mg  ,3,  2.50,LOW
+Med0002,Telfast 180mg      ,30,15.05,MEDIUM
+Med0003,Fluimucil 100mg    ,70,15.00,HIGH
+Med0004,Robitussin DM 100ml,20,12.10,LOW
