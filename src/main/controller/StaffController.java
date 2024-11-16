@@ -25,11 +25,6 @@ public class StaffController {
         this.view = view;
         staffList = loadAllStaffFromFile();
     }
-
-    // View the staff record 
-    public void viewStaffRecord(Staff staff) { 
-    	this.view.printStaffRecord(staff);
-    }
     
     public void viewUpdatedStaffContact(Staff staff) {
     	this.view.printUpdatedStaffContact(staff.getContact(), staff.getId());
@@ -58,10 +53,15 @@ public class StaffController {
     	return staffList;	
     }
     
-    //create new
     public void createStaff(Staff staff) {
         staffList.add(staff);
         System.out.println("Created Staff");
+        this.view.printStaffRecord(staff);
+    }
+
+    public void removeStaff(Staff staff){
+        staffList.remove(staff);
+        System.out.println("Removed Staff");
         this.view.printStaffRecord(staff);
     }
 
@@ -85,7 +85,7 @@ public class StaffController {
 
     public void sortById(){
         List<Staff> tempStaff = new ArrayList<>(staffList);
-        tempStaff.sort(Comparator.comparing(staff -> staff.getContact().getId()));
+        tempStaff.sort(Comparator.comparing(staff -> staff.getId()));
         System.out.println("Staff sorted by Id:");
         for(Staff staff : tempStaff){
             this.view.printStaffRecord(staff);
