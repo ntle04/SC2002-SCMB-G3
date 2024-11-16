@@ -1,4 +1,4 @@
-package main.menu;
+/*package main.menu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +62,6 @@ public class PatientMenu extends Menu{
 			        break;
 			    case 3:
 			    	// TODO patientController view available appt slots	
-			    	availabilitySlotController.printAvailabilitySlotsByDoctor("D0001");
 			        break;
 			    case 4:
 			    	// TODO patientController schedule appt
