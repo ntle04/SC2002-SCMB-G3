@@ -1,4 +1,5 @@
 package main.model;
+
 import main.util.RequestStatus;
 // import java.util.stream.Collectors;
 import main.util.Role;
@@ -10,71 +11,15 @@ import java.util.Date;
 import java.time.LocalDate;
 import java.util.List;
 
-public class Patient extends Person{ //extended to Person class
-	private String patientBloodType;
-    private List<Appointment> patientAppointment;
-    private List<String> diagnosis;
-    private List<String> treatment;
+public class Staff extends Person{
+    public Staff(String id, Contact contact, Role role) {
+        super(id, contact, role);
+    }
 
-    public Patient(String id, Contact contact, Role role,
-    		String patientBloodType, List<Appointment> patientAppointment, 
-    		List<String> diagnosis, List<String> treatment) {
-		super(id, contact, Role.PATIENT);
-
-		this.patientBloodType = patientBloodType;
-		this.patientAppointment = patientAppointment;
-		this.diagnosis = diagnosis;
-		this.treatment = treatment;
-	}
-
-	public String getPatientBloodType() {
-		return patientBloodType;
-	}
-
-
-	public void setPatientBloodType(String patientBloodType) {
-		this.patientBloodType = patientBloodType;
-	}
-
-
-	public List<Appointment> getPatientAppointment() {
-		return patientAppointment;
-	}
-
-	public void setPatientAppointment(Appointment appt){
-		  this.patientAppointment.add(appt);
-	}
-
-
-	public List<String> getDiagnosis() {
-		return diagnosis;
-	}
-
-
-	public void setDiagnosis(List<String> diagnosis) {
-		this.diagnosis = diagnosis;
-	}
-
-
-	public List<String> getTreatment(String patientId) {
-		return treatment;
-	}
-
-
-	public void setTreatment(List<String> treatment) {
-		this.treatment = treatment;
-	}
-
-  
-	public void updatePatientContact(Contact contact) {
-		this.updateContact(contact);
-	}
-	
-	
-	public static Patient fromCSV(String csvLine) {
+    public static Staff fromCSV(String csvLine) {
         String[] values = csvLine.split(",");
         
-        if (values.length != 9) {
+        if (values.length != 8) {
             return null; // If data doesn't match expected format, return null
         }
         
@@ -105,7 +50,4 @@ public class Patient extends Person{ //extended to Person class
             System.out.println("Error parsing CSV line: " + csvLine);
             return null;
         }
-    }
-	
 }
-
