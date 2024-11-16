@@ -91,8 +91,3 @@ public class AppointmentOutcomeController {
                       .orElse(null);
     }
 }
-//     // Method to update the view
-//     public void updateView() {
-//         view.printAppointmentOutcome(model);
-//     }
-// }
