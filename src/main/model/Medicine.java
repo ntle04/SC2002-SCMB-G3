@@ -7,13 +7,15 @@ public class Medicine {
     private String medName;
     private String quantity;
     private String salePrice;
+    private String lastPurchase;
     private StockLevel stockLevel;
 
-    Medicine(String medId, String medName, String quantity, String salePrice, StockLevel stockLevel){
+    Medicine(String medId, String medName, String quantity, String salePrice, String lastPurchase, StockLevel stockLevel){
         this.medId = medId;
         this.medName = medName;
         this.quantity = quantity;
         this.salePrice = salePrice;
+        this.lastPurchase = lastPurchase;
         this.stockLevel = stockLevel;
     }
 
@@ -47,6 +49,14 @@ public class Medicine {
 
     public void setSalePrice(String salePrice){
         this.salePrice = salePrice;
+    }
+
+    public String getlastPurchase(){
+        return lastPurchase;
+    }
+
+    public void setLastPurchase(String lastPurchase){
+        this.lastPurchase = lastPurchase;
     }
 
     public StockLevel getStockLevel(){
