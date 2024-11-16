@@ -28,7 +28,7 @@ public class Doctor extends Person {
         super(Authenticate.getLoggedInUser().getId(), null, Role.DOCTOR);
         this.patients = patients;
         this.availability = availability != null ? availability : new ArrayList<>();
-        this.appointments = appointments != null ? list : new ArrayList<>();
+        // this.appointments = appointments != null ? list : new ArrayList<>();
     }
    
    
