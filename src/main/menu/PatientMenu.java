@@ -90,11 +90,12 @@ public class PatientMenu extends Menu{
 			        break;
 			    case 3:
 			    	// TODO patientController view available appt slots	
+					availSlotController.printAvailabilitySlotsByDoctor("D0001");
 			        break;
 			    case 4:
 			    	// TODO patientController schedule appt
                     AvailabilitySlot selectedSlot = selectSlot(availSlotController.getAvailabilitySlotsByDoctor("D0001"));
-                    apptSlotController.bookAppointment(Authenticate.getLoggedInUser().getId(), selectedSlot);
+                    apptSlotController.bookAppointment(Authenticate.getLoggedInUser().getId(), selectedSlot.getAvailabilitySlotId());
 			        break;
 			    case 5:
 			    	// TODO patientController cancel appt
