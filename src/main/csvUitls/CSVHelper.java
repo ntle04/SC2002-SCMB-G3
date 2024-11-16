@@ -36,6 +36,15 @@ public class CSVHelper {
         }
     }
 
+    public static void appendSingleCSV(String filePath, String[] data) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            String line = String.join(",", data);
+            writer.write(line);
+            writer.newLine();
+        }
+    }
+    
+
     //updates one by overwriting all data in csv
     public static void updateCSVById(String filePath, String id, String[] updatedRecord, String[] header) throws IOException {
         System.out.println("updating CSV");

@@ -7,7 +7,7 @@ import java.io.IOException;
 public class IdGenerator {
     private static final String DELIMITER = ",";
 
-    private static int getLatestId(String filePath) {
+    public static int getLatestId(String filePath) {
         int maxId = 0;
         
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -15,6 +15,7 @@ public class IdGenerator {
             br.readLine();
             
             while ((line = br.readLine()) != null) {
+                System.out.println("Reading line: " + line);
                 String[] values = line.split(DELIMITER);
                 String idString = values[0];
                 int currentId;
@@ -35,6 +36,8 @@ public class IdGenerator {
             System.out.println("Error parsing ID to integer.");
             e.printStackTrace();
         }
+
+        System.out.println("Max ID found: " + maxId);
         
         return maxId;
     }

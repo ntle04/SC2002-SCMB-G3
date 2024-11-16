@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import main.csvUitls.AvailabilitySlotCSVManager;
+import main.csvUitls.Config;
+import main.csvUitls.IdGenerator;
 import main.model.AvailabilitySlot;
 import main.util.TimeSlot;
 import main.view.AvailabilitySlotView;
@@ -14,6 +16,8 @@ public class AvailabilitySlotController {
     private List<AvailabilitySlot> availabilitySlots;
     private AvailabilitySlotCSVManager csvManager = new AvailabilitySlotCSVManager();
     private AvailabilitySlotView view = new AvailabilitySlotView();
+
+        private static final String FILE_PATH = Config.AVAILABILITY_SLOTS_FILE_PATH;
 
     public AvailabilitySlotController() {
         this.availabilitySlots = new ArrayList<>();
@@ -31,7 +35,7 @@ public class AvailabilitySlotController {
     public void addAvailabilitySlots(String doctorId, List<TimeSlot> slots) {
         List<AvailabilitySlot> newAvailabilitySlots = new ArrayList<>();
         for (TimeSlot slot : slots) {
-            AvailabilitySlot newSlot = new AvailabilitySlot(doctorId, slot, true);
+            AvailabilitySlot newSlot = new AvailabilitySlot(doctorId, slot);
             newAvailabilitySlots.add(newSlot);
         }
         try {
