@@ -1,4 +1,4 @@
-﻿Id,name,dob,gender,contactNumber,email,address,patientId,patientBloodType,
-1,Sarah Tan,1/1/1999,F,91111111,sarah@gmail.com,Blk 1 #11-11 Jurong East Road Singapore 611111,P0001,B-,
-2,Mary Lee,2/2/2000,F,92222222,mary@gmail.com,Blk 2 #12-12 Jurong West Road Singapore 611112,P0002,A+,
-3,Terry Chan,3/3/2001,M,93333333,terry@gmail.com,Blk 3 #13-13 Joo Koon Road Singapore 611113,P0003,O-,
+﻿Id,name,dob,gender,contactNumber,email,address,patientBloodType
+P0001,Sarah Tan,1/1/1999,F,91111111,sarah@gmail.com,Blk 1 #11-11 Jurong East Road Singapore 611111,B-
+P0002,Mary Lee,2/2/2000,F,92222222,mary@gmail.com,Blk 2 #12-12 Jurong West Road Singapore 611112,A+
+P0003,Terry Chan,3/3/2001,M,93333333,terry@gmail.com,Blk 3 #13-13 Joo Koon Road Singapore 611113,O-

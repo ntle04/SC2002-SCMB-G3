@@ -31,7 +31,7 @@ public class Authenticate {
 
                     ContactController contactController = new ContactController(null);
                     Contact contact = contactController.loadContactById(id, Role.valueOf(role.toUpperCase()));
-                    loggedInUser = new Person(id, getRole(role), contact);
+                    loggedInUser = new Person(id, contact, getRole(role));
 
                     System.out.println("Login successful.");
 

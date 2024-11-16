@@ -7,7 +7,7 @@ import java.util.Scanner;
 import main.controller.Authenticate;
 import main.controller.ContactController;
 import main.controller.PatientController;
-//import main.model.Appointment;
+import main.model.Appointment;
 import main.model.Contact;
 import main.model.Patient;
 import main.model.Person;
@@ -39,11 +39,21 @@ public class PatientMenu extends Menu{
 		Contact contact = loggedInUser.getContact();
 		ContactController contactController = new ContactController(contact);
 		
-		Patient patient = new Patient(loggedInUser.getId(), loggedInUser.getContact(), loggedInUser.getRole(),
-				"P"+loggedInUser.getId(), "O", new ArrayList<Appointment>(), 
-	    		new ArrayList<String>(), new ArrayList<String>() );
+		//Patient patient = new Patient(loggedInUser.getId(), loggedInUser.getContact(), loggedInUser.getRole(), 
+		//		"O-", new ArrayList<Appointment>(), new ArrayList<String>(), new ArrayList<String>() );
 		
-		patientController  = new PatientController(patient);
+		patientController  = new PatientController();
+		
+		Patient selectedPatient = null;
+		// Patient patient = patientController.getPatientList().stream().filter(a -> a.getId() == loggedInUser.getId()).collect(Collectors.toList()).get(0);
+		for(Patient patient : patientController.getPatientList()) 
+		{ 
+		   if(patient.getId().equals(loggedInUser.getId()) )
+		   { 
+			   selectedPatient = patient;
+		   }
+		}
+		
 		
 		int choice = -1;
 		Scanner sc = new Scanner(System.in);
@@ -55,9 +65,10 @@ public class PatientMenu extends Menu{
 			
 			switch (choice) {
 			    case 1:
-			    	patientController.viewPatientRecord();
+			    	patientController.viewPatientRecord(selectedPatient);
 			        break;
 			    case 2:
+			    	// TODO Update Personal Information
 			    	loggedInUser.printContact();
 			        break;
 			    case 3:

@@ -7,14 +7,14 @@ public class PatientView {
 
     // Display the patient medical record
     public void printPatientRecord(Patient patient) {    
-    	System.out.println("Patient ID: " + patient.getPatientId());
+    	System.out.println("Patient ID: " + patient.getId());
         System.out.println("Name: " + patient.getContact().getName());
         System.out.println("DOB: " + patient.getContact().getDOB()); 
         System.out.println("Gender: " + patient.getContact().getGender());
         System.out.println("Email: " + patient.getContact().getEmail());
         System.out.println("Blood Type: " + patient.getPatientBloodType());
         System.out.println("Diagnoses: " + patient.getDiagnosis());
-        System.out.println("Treatments: " + patient.getTreatment(patient.getPatientId()));
+        System.out.println("Treatments: " + patient.getTreatment(patient.getId()));
     }
     
     public void printUpdatedPatientContact(Contact contact, String patientId) {

@@ -13,25 +13,25 @@ import main.util.Role;
 import main.view.PatientView;
 
 public class PatientController {
-    private Patient model;
+    //private Patient model;
     private PatientView view;
     
     private List<Patient> patientList = new ArrayList<>();
     private String filePath = Config.PATIENT_LIST_FILE_PATH;
 
     // Constructor
-    public PatientController(Patient model) {
-        this.model = model;
+    public PatientController() { //Patient model
+        //this.model = model;
         patientList = loadAllPatientsFromFile();
     }
 
     // View the medical record 
-    public void viewPatientRecord() { 
-    	this.view.printPatientRecord(this.model);
+    public void viewPatientRecord(Patient patient) { 
+    	this.view.printPatientRecord(patient);
     }
     
-    public void viewUpdatedPatientContact() {
-    	this.view.printUpdatedPatientContact(this.model.getContact(), this.model.getPatientId());
+    public void viewUpdatedPatientContact(Patient patient) {
+    	this.view.printUpdatedPatientContact(patient.getContact(), patient.getId());
     }
  
     //load data from csv
@@ -52,13 +52,18 @@ public class PatientController {
         return patients;
     }
     
+    public List<Patient> getPatientList()
+    {
+    	return patientList;	
+    }
+    
     //create new
     public void createPatient(String id, Contact contact, Role role,
     		String patientId, String patientBloodType, List<Appointment> patientAppointment, 
     		List<String> diagnosis, List<String> treatment) {
     	//Patient new Patient(
     	
-    	Patient patient = new Patient(id, contact, Role.PATIENT, patientId, patientBloodType, patientAppointment, diagnosis, treatment);
+    	Patient patient = new Patient(id, contact, Role.PATIENT, patientBloodType, patientAppointment, diagnosis, treatment);
      
         patientList.add(patient);
         this.view.printPatientRecord(patient);

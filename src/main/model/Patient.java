@@ -11,35 +11,21 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class Patient extends Person{ //extended to Person class
-
-	private String patientId;
 	private String patientBloodType;
     private List<Appointment> patientAppointment;
     private List<String> diagnosis;
     private List<String> treatment;
 
     public Patient(String id, Contact contact, Role role,
-    		String patientId, String patientBloodType, List<Appointment> patientAppointment, 
+    		String patientBloodType, List<Appointment> patientAppointment, 
     		List<String> diagnosis, List<String> treatment) {
 		super(id, contact, Role.PATIENT);
 
-		this.patientId = patientId;
 		this.patientBloodType = patientBloodType;
 		this.patientAppointment = patientAppointment;
 		this.diagnosis = diagnosis;
 		this.treatment = treatment;
 	}
-
-
-    public String getPatientId() {
-		return patientId;
-	}
-
-
-	public void setPatientId(String patientId) {
-		this.patientId = patientId;
-	}
-
 
 	public String getPatientBloodType() {
 		return patientBloodType;
@@ -88,7 +74,7 @@ public class Patient extends Person{ //extended to Person class
 	public static Patient fromCSV(String csvLine) {
         String[] values = csvLine.split(",");
         
-        if (values.length != 6) {
+        if (values.length != 8) {
             return null; // If data doesn't match expected format, return null
         }
         
@@ -105,15 +91,14 @@ public class Patient extends Person{ //extended to Person class
             String contactNumber = values[4].trim();   
             String email = values[5].trim();
             String address = values[6].trim();
-            String patientId = values[7].trim();
-            String patientBloodType = values[8].trim();
+            String patientBloodType = values[7].trim();
 
             Contact contact = new Contact(name, dob, gender, contactNumber, email, address);
             List<Appointment> patientAppointment = new ArrayList<Appointment>();
             List<String> diagnosis = new ArrayList<String>();
             List<String> treatment = new ArrayList<String>();
 
-            return new Patient(id, contact, Role.PATIENT, patientId, patientBloodType, patientAppointment, diagnosis, treatment);
+            return new Patient(id, contact, Role.PATIENT, patientBloodType, patientAppointment, diagnosis, treatment);
 
         } catch (NumberFormatException | ParseException e) {
             System.out.println("Error parsing CSV line: " + csvLine);
