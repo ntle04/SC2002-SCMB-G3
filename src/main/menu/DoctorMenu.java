@@ -103,12 +103,13 @@ public class DoctorMenu extends Menu{
                 case 4:
                     TimeSlot.printAllTimeSlots();
                     System.out.print("Enter the numbers of the time slots you want to add (separate with spaces): ");
+                    if (sc.hasNextLine()) {
+                        sc.nextLine(); 
+                    }
                     String input = sc.nextLine();
                     List<TimeSlot> selectedSlots = TimeSlot.getSlotsByIndices(input);
                     availabilitySlotController.addAvailabilitySlots(Authenticate.getLoggedInUser().getId(), selectedSlots);
                     availabilitySlotController.printAvailabilitySlotsByDoctor("D0001");
-
-
                     break;
 
 
