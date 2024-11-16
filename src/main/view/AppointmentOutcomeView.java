@@ -14,10 +14,10 @@ public class AppointmentOutcomeView {
         System.out.println("Doctor ID: " + outcome.getDoctorId());
         System.out.println("Patient ID: " + outcome.getPatientId());
         System.out.println("\nPrescriptions:");
-        for (Prescription prescription : outcome.getPrescriptions()) {
+        /*for (Prescription prescription : outcome.getPrescriptions()) {
             System.out.println("- " + prescription.getPrescriptionName() + 
                              " (Status: " + prescription.getStatus() + ")");
-        }
+        }*/
         System.out.println("\nConsultation Notes:");
         System.out.println(outcome.getNotes());
     }
@@ -27,10 +27,10 @@ public class AppointmentOutcomeView {
         System.out.println("Date: " + outcome.getAppointmentDate());
         System.out.println("Service Type: " + outcome.getServiceType());
         System.out.println("\nPrescribed Medications:");
-        for (Prescription prescription : outcome.getPrescriptions()) {
+        /*for (Prescription prescription : outcome.getPrescriptions()) {
             System.out.println("- " + prescription.getPrescriptionName() + 
                              " (Status: " + prescription.getStatus() + ")");
-        }
+        }*/
         System.out.println("\nConsultation Notes:");
         System.out.println(outcome.getNotes());
     }
@@ -41,9 +41,9 @@ public class AppointmentOutcomeView {
         System.out.println("Date: " + outcome.getAppointmentDate());
         System.out.println("Patient ID: " + outcome.getPatientId());
         System.out.println("\nPrescriptions:");
-        for (Prescription prescription : outcome.getPrescriptions()) {
+        /*for (Prescription prescription : outcome.getPrescriptions()) {
             System.out.println("- " + prescription.getPrescriptionName() + 
                              " (Status: " + prescription.getStatus() + ")");
-        }
+        }*/
     }
 }

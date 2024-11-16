@@ -42,7 +42,7 @@ public class AppointmentOutcomeController {
     
     
     // Pharmacist functions
-    public void updatePrescriptionStatus(String appointmentId, String prescriptionName, PrescriptionStatus newStatus) {
+    /*public void updatePrescriptionStatus(String appointmentId, String prescriptionName, PrescriptionStatus newStatus) {
         AppointmentOutcome outcome = findOutcome(appointmentId);
         if (outcome != null) {
             for (Prescription prescription : outcome.getPrescriptions()) {
@@ -52,7 +52,7 @@ public class AppointmentOutcomeController {
                 }
             }
         }
-    }
+    }*/
     
     
     // View functions for the various user types

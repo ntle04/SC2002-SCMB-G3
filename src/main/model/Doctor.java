@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import main.controller.Authenticate;
+//import main.menu.Appointment;
 import main.util.ApptStatus;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,7 +25,7 @@ public class Doctor extends Person {
     private List<AvailabilitySlot> availability;
     private List<AppointmentSlot> appointments;
    
-    public Doctor(String id, Contact contact, Role role, List<Patient> patients, List<AvailabilitySlot> availability, List<AppointmentSlot> appointments)
+    public Doctor(String id, Contact contact, Role role, List<Patient> patients, List<AvailabilitySlot> availability, ArrayList<Appointment> appointments)
     {
         super(Authenticate.getLoggedInUser().getId(), null, Role.DOCTOR);
         this.patients = patients;

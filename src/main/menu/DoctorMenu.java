@@ -3,7 +3,7 @@ package main.menu;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-// import main.controller.DoctorController;
+//import main.controller.DoctorController;
 import main.controller.PatientController;
 import main.controller.AppointmentSlotController;
 import main.controller.Authenticate;
@@ -12,7 +12,7 @@ import main.controller.ContactController;
 import main.util.ApptStatus;
 import main.util.TimeSlot;
 import main.model.AppointmentSlot;
-// import main.view.DoctorView;
+//import main.view.DoctorView;
 import main.model.AvailabilitySlot;
 import main.model.Contact;
 import main.model.Doctor;
@@ -42,16 +42,16 @@ public class DoctorMenu extends Menu{
 
 
     public void handleUserInput(){
-        // Person loggedInUser = Authenticate.getLoggedInUser();
-        // Contact contact = loggedInUser.getContact();
-        // ContactController contactController = new ContactController(contact);
+        Person loggedInUser = Authenticate.getLoggedInUser();
+        Contact contact = loggedInUser.getContact();
+        ContactController contactController = new ContactController(contact);
        
-        // Doctor doctor = new Doctor(loggedInUser.getId(), loggedInUser.getContact(), loggedInUser.getRole(), new ArrayList<Patient>(), new ArrayList<AvailabilitySlot>(), new ArrayList<Appointment>() );
+         //Doctor doctor = new Doctor(loggedInUser.getId(), loggedInUser.getContact(), loggedInUser.getRole(), new ArrayList<Patient>(), new ArrayList<AvailabilitySlot>(), new ArrayList<Appointment>() );
 
 
-        // DoctorView docview = new DoctorView();
+        //DoctorView docview = new DoctorView();
        
-        // DoctorController doctorController  = new DoctorController(doctor, docview);
+        //DoctorController doctorController  = new DoctorController(doctor, docview);
         int choice = -1;
         Scanner sc = new Scanner(System.in);
         Scanner sca = new Scanner(System.in);
@@ -60,7 +60,7 @@ public class DoctorMenu extends Menu{
             printMenu();
             System.out.println("Enter your choice: ");
             choice = sc.nextInt();
-            List<Patient> patientList = doctor.getPatients();
+            //List<Patient> patientList = doctor.getPatients();
            
             switch (choice) {
                 case 1:
@@ -121,11 +121,11 @@ public class DoctorMenu extends Menu{
                     System.out.println("=== Upcoming Appointments ===");
 
                     // Retrieve upcoming appointments
-                    List<AppointmentSlot> upcomingAppointments = doctorController.getUpcomingAppointments();
-                    List<Patient> patients = doctor.getPatients();
+                    //List<AppointmentSlot> upcomingAppointments = doctorController.getUpcomingAppointments();
+                    //List<Patient> patients = doctor.getPatients();
 
                     // Use DoctorView to display the upcoming appointments
-                    docview.displayUpcomingAppointments(upcomingAppointments, patients,doctor);
+                    //docview.displayUpcomingAppointments(upcomingAppointments, patients,doctor);
                     break;
 
                     
