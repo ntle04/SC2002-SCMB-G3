@@ -10,7 +10,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.util.Config;
+import main.csvUitls.Config;
 
 public class PasswordService {
 

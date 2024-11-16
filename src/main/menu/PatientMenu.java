@@ -2,7 +2,11 @@ package main.menu;
 
 import java.util.Scanner;
 
+import main.controller.AvailabilitySlotController;
+
 public class PatientMenu extends Menu{
+
+    AvailabilitySlotController availabilitySlotController = new AvailabilitySlotController();
 
     public void printMenu(){
         System.out.println("=== Patient Menu ===");
@@ -31,6 +35,7 @@ public class PatientMenu extends Menu{
                 case 2:
                     break;
                 case 3:
+                    availabilitySlotController.printAvailabilitySlotsByDoctor("D0001");
                     break;
                 case 4:
                     break;

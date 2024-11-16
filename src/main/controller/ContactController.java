@@ -5,8 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
+import main.csvUitls.Config;
 import main.model.Contact;
-import main.util.Config;
 import main.util.Role;
 
 public class ContactController {

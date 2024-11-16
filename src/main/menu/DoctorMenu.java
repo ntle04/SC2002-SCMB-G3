@@ -1,8 +1,15 @@
 package main.menu;
 
+import java.util.List;
 import java.util.Scanner;
 
+import main.controller.Authenticate;
+import main.controller.AvailabilitySlotController;
+import main.util.TimeSlot;
+
 public class DoctorMenu extends Menu{
+
+    AvailabilitySlotController availabilitySlotController = new AvailabilitySlotController();
 
     public void printMenu(){
         System.out.println("=== Doctor Menu ===");
@@ -33,6 +40,13 @@ public class DoctorMenu extends Menu{
                 case 3:
                     break;
                 case 4:
+                    TimeSlot.printAllTimeSlots();
+
+                    Scanner scanner = new Scanner(System.in);
+                    System.out.print("Enter the numbers of the time slots you want to add (separate with spaces): ");
+                    String input = scanner.nextLine();
+                    List<TimeSlot> selectedSlots = TimeSlot.getSlotsByIndices(input);
+                    availabilitySlotController.addAvailabilitySlots(Authenticate.getLoggedInUser().getId(), selectedSlots);
                     break;
                 case 5:
                     break;
