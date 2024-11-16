@@ -1,0 +1,5 @@
+medId,name,quantity,stocklevel
+Med0001,Paracetemol 500mg,3,LOW
+Med0002,Telfast 180mg,30,MEDIUM
+Med0003,Fluimucil 100mg,70,HIGH
+Med0004,Robitussin DM 100ml,20,LOW
