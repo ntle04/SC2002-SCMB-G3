@@ -1,6 +1,7 @@
 package main.view;
 import java.util.List;
 import main.model.Inventory;
+import main.model.Medicine;
 
 public class InventoryView {
 
