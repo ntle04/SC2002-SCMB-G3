@@ -4,13 +4,15 @@ public class Contact {
 
     private String name;
     private String dob;
+    private String age;
     private char gender;
     private String contactNumber;
     private String email;
     private String address;
 
-    public Contact(String name, String dob, char gender, String contactNumber, String email, String address){
+    public Contact(String name, String age, String dob, char gender, String contactNumber, String email, String address){
         this.name = name;
+        this.age = age;
         this.dob = dob;
         this.gender = gender;
         this.contactNumber = contactNumber;
@@ -25,6 +27,16 @@ public class Contact {
     public void setName(String name){
         this.name = name;
     }
+
+
+    public String getAge(){
+        return age;
+    }
+
+    public void setAge(String age){
+        this.age = age;
+    }
+
 
     public String getEmail(){
         return email;
