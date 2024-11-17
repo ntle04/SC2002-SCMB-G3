@@ -1,8 +1,10 @@
 package main.controller;
 
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 
 import main.csvUitls.AppointmentCSVManager;
 import main.csvUitls.AppointmentSlotCSVManager;
@@ -13,6 +15,7 @@ import main.model.AvailabilitySlot;
 import main.util.ApptStatus;
 import main.util.TimeSlot;
 import main.view.AppointmentSlotView;
+
 
 public class AppointmentSlotController {
     private List<AppointmentSlot> appointmentSlots;
@@ -28,6 +31,7 @@ public class AppointmentSlotController {
         loadAppointmentSlots();
     }
 
+
     private void loadAppointmentSlots() {
         try {
             appointmentSlots = apptSlotCSVManager.loadAppointmentSlots();
@@ -35,8 +39,10 @@ public class AppointmentSlotController {
             System.out.println("Error loading appointment slots: " + e.getMessage());
         }
 
+
         System.out.println("Finish loading data");
     }
+
 
     public void bookAppointment(String patientId, String availabilitySlotId) {
         try {
@@ -49,6 +55,8 @@ public class AppointmentSlotController {
             System.out.println("Error booking appointment: " + e.getMessage());
         }
     }
+
+
 
 
     /*public void confirmAppointment(String appointmentSlotId) {
@@ -68,10 +76,12 @@ public class AppointmentSlotController {
                     System.out.println("Error confirming appointment: " + e.getMessage());
                 }
 
+
                 break;
             }
         }
     }*/
+
 
     public void confirmAppointment(String appointmentSlotId) {
         for (AppointmentSlot slot : appointmentSlots) {
@@ -82,11 +92,11 @@ public class AppointmentSlotController {
                     if (availSlot != null) {
                         availSlot.setAvailability(false);
                         availSlotCSVManager.updateAvailabilitySlot(availSlot);
-                        
+                       
                         // Then confirm the appointment
                         slot.confirmAppointment();
                         apptSlotCSVManager.updateAppointmentSlot(slot);
-                        
+                       
                         // Create the appointment record
                         Appointment newAppointment = new Appointment(
                             availSlot.getDoctorId(),
@@ -96,7 +106,7 @@ public class AppointmentSlotController {
                             null
                         );
                         apptCSVManager.addAppointment(newAppointment);
-                        
+                       
                         System.out.println("Appointment confirmed successfully.");
                         return;
                     } else {
@@ -111,9 +121,11 @@ public class AppointmentSlotController {
         }
         System.out.println("Appointment slot not found with ID: " + appointmentSlotId);
     }
-    
+   
+
 
     // public void cancelAppointment(String appointmentId) {
+
 
     //     for (AppointmentSlot slot : appointmentSlots) {
     //         // Check if the slot matches both doctorId, patientId and timeSlot
@@ -124,21 +136,26 @@ public class AppointmentSlotController {
     //                 //change appt slot & avail slot status in model
     //                 slot.cancelAppointment();
 
+
     //                 //update in csv
-                    
+                   
+
 
     //                 apptSlotCSVManager.updateAppointmentSlot(slot);
+
 
     //                 System.out.println("Appointment cancelled.");
     //             } catch (IOException e) {
     //                 System.out.println("Error cancelling appointment: " + e.getMessage());
     //             }
 
+
     //             break;
     //         }
     //     }
-        
+       
     // }
+
 
     public void cancelAppointmentSlot(String appointmentSlotId) {
         try {
@@ -159,6 +176,7 @@ public class AppointmentSlotController {
         }
     }
 
+
     public List<AppointmentSlot> filterSlotsByDoctorId(String doctorId) {
         List<AppointmentSlot> filteredSlots = new ArrayList<>();
         for (AppointmentSlot slot : appointmentSlots) {
@@ -169,6 +187,7 @@ public class AppointmentSlotController {
         }
         return filteredSlots;
     }
+
 
     public AppointmentSlot getAppointmentSlotById(String slotId) {
         loadAppointmentSlots(); //get latest data
@@ -183,8 +202,14 @@ public class AppointmentSlotController {
         return null;
     }
 
+
     public void printPendingAppointmentSlots(){
         view.printPendingAppointmentSlots(filterSlotsByDoctorId(Authenticate.getLoggedInUser().getId()));
     }
-    
+   
 }
+
+
+
+
+

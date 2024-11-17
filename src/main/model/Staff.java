@@ -29,9 +29,9 @@ public class Staff extends Person{
             String id = values[0].trim();
             String name = values[1].trim();
             String role = values[2].trim();
-            String age = values[3].trim();
-            String dob = values[4].trim();
-
+			String age = values[3].trim();
+			String dob = values[4].trim();
+            
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
             Date parseDob = dateFormat.parse(dob);
 
@@ -49,7 +49,7 @@ public class Staff extends Person{
             return null;
         }
     }
-    
+
     public char getGender(){
         return contact.getGender();
     }

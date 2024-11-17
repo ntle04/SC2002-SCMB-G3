@@ -14,17 +14,19 @@ public class AppointmentOutcome {
     private List<Prescription> prescriptions;
     private String notes;
     private String patientId;
-   private String doctorId;
+    private String doctorId;
 
     // Constructor
-   public AppointmentOutcome(String appointmentId, LocalDate appointmentDate, LocalTime appointmentTime, String serviceType, String doctorId, String patientId) {
+   public AppointmentOutcome(String appointmentId, LocalDate appointmentDate, LocalTime appointmentTime,
+		   String serviceType, List<Prescription> prescriptions, String notes, String doctorId, String patientId) {
 	   this.appointmentId = appointmentId;
 	   this.appointmentDate = appointmentDate;
 	   this.serviceType = serviceType;
+	   this.prescriptions = new ArrayList<>(); //initialise prescription list
+	   this.notes = notes;
 	   this.doctorId = doctorId;
 	   this.patientId = patientId;
-	   this.prescriptions = new ArrayList<>(); //initialise prescription list
-	   }
+   }
 
    //Getters and setters
    public String getAppointmentId() {
@@ -72,12 +74,12 @@ public class AppointmentOutcome {
         this.notes = notes;
     }
     
-    public String getDoctorId() {
-    	return doctorId;
-    }
-    
     public String getPatientId() {
     	return patientId;
+    }
+    
+    public String getDoctorId() {
+    	return doctorId;
     }
     
 }

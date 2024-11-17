@@ -18,6 +18,7 @@ import main.model.Contact;
 import main.model.Patient;
 import main.model.Person;
 import main.util.Role;
+import main.util.TimeSlot;
 import main.view.AvailabilitySlotView;
 import main.controller.AvailabilitySlotController;
 
@@ -107,6 +108,15 @@ public class PatientMenu extends Menu{
 			        break;
 			    case 5:
 			    	// TODO patientController reschedule appt
+					TimeSlot.printAllTimeSlots();
+					System.out.print("Enter the index of new timeslot: ");
+					
+                    int index = sc.nextInt();
+					TimeSlot newTimeSlot = TimeSlot.getByIndex(index);
+					Appointment selected = apptController.getConfirmedAppointmentByPatientId(loggedInUser.getId());
+					String selectedId = selected.getAppointmentId();
+
+					apptController.rescheduleAppointment(selectedId,newTimeSlot);
 
 			        break;
 			    case 6:
@@ -126,8 +136,8 @@ public class PatientMenu extends Menu{
 					Appointment appt = apptController.getConfirmedAppointmentByPatientId(Authenticate.getLoggedInUser().getId());
 
 					//outcomeController.addOutcome(appt.getAppointmentId(), LocalDate.now(), LocalTime.now(), "s", "D0001", selectedPatient.getId());
-					
-					outcomeController.viewOutcomeAsPatient(appt.getAppointmentId(), selectedPatient.getId());
+					outcomeController.printPatientOutcome(appt.getAppointmentId());
+					//outcomeController.viewOutcomeAsPatient(appt.getAppointmentId(), selectedPatient.getId());
 					break;
 				case 9: 
 					// logout

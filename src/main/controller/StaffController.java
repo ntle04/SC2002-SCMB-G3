@@ -64,6 +64,43 @@ public class StaffController {
     {
     	return staffList;	
     }
+
+    public Staff getStaffById(){
+        System.out.println("Retrieving staff details...");
+        System.out.printf("Enter staff ID: ");
+        String id = sc.nextLine();
+        System.out.printf("Enter staff role: ");
+        String role = sc.next();
+        Role roleEnum = Role.valueOf(role.toUpperCase());
+        String line;
+
+        try (BufferedReader br = new BufferedReader(new FileReader(file_path))) {
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+
+                String name, age, dob, gender, contactNumber, email, address;
+
+                if (values[0].equals(id)) {
+                        name = values[1];
+                        age = values[2];
+                        dob = values[3];
+                        gender = values[4];
+                        contactNumber = values[5];
+                        email = values[6];
+                        address = values[7];
+                    
+                    // Create a new Contact object from the CSV data
+                    Contact contact = new Contact(name, age, dob, gender.charAt(0), contactNumber, email, address);
+                    Staff staff = new Staff(id, contact, roleEnum);
+                    return staff;
+                }
+            } 
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     
     public Person getStaffDetails(){
         System.out.println("Retrieving staff details...");
@@ -77,10 +114,11 @@ public class StaffController {
     }
 
     public void createStaff() {
-        String id = IdGenerator.generateNewId(file_path);
         System.out.println("Enter staff role in uppercase:");
         String role = sc.nextLine();
-        Role roleEnum = Role.valueOf(role);
+        char x = role.charAt(0);
+        Role roleEnum = Role.valueOf(role);        
+        String id = x + IdGenerator.generateNewId(file_path);
         System.out.println("Enter staff name:");
         String name = sc.nextLine();
         System.out.println("Enter staff age:");
@@ -107,8 +145,8 @@ public class StaffController {
     }
 
     public void removeStaff(){
-        Person person = getStaffDetails();
-        staffList.remove(person);
+        Staff staff = getStaffById();
+        staffList.remove(staff);
         saveAllChanges();
         System.out.println("Removed Staff");
     }
@@ -119,13 +157,26 @@ public class StaffController {
         Contact contact = person.getContact();
         ContactController conCon = new ContactController(contact);
         conCon.updateContact();
-        // saveAllChanges();
+        // staffList = getStaffList();
+        //saveAllChanges();
         // view.printUpdatedStaffContact(contact, id);
         // view.printUpdateConfirmation();
     }
 
+    //save to csv
+    public void saveAllChanges() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file_path))) {
+            for (Staff staff : staffList) {
+                writer.write(staff.toCSV());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public List<Staff> filterByRole(String role){
-        Role roleEnum = Role.valueOf(role.toUpperCase());
+        Role roleEnum = Role.valueOf(role.trim());
         return staffList.stream()
                         .filter(staff -> staff.getRole() == roleEnum)
                         .collect(Collectors.toList());
@@ -146,17 +197,7 @@ public class StaffController {
                         .collect(Collectors.toList());
     }
 
-    //save to csv
-    private void saveAllChanges() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file_path))) {
-            for (Staff staff : staffList) {
-                writer.write(staff.toCSV());
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
 
     /*
     public void sortByGender(){

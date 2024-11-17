@@ -1,9 +1,11 @@
 package main.controller;
 
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 
 import main.csvUitls.AppointmentCSVManager;
 import main.csvUitls.AppointmentSlotCSVManager;
@@ -15,6 +17,7 @@ import main.model.AvailabilitySlot;
 import main.util.ApptStatus;
 import main.util.TimeSlot;
 import main.view.AppointmentView;
+
 
 public class AppointmentController {
     // private Appointment model;
@@ -28,9 +31,11 @@ public class AppointmentController {
     // private AvailabilitySlotCSVManager availCSVManager = new AvailabilitySlotCSVManager();
     // private AppointmentOutcome apptOutcome;
 
+
     // Constructor
     // public AppointmentController() {
     // }
+
 
     // // To view available appointment slots
     // public List<AppointmentSlots> viewAvailableSlots() {
@@ -38,6 +43,7 @@ public class AppointmentController {
     //     view.displayAvailableSlots(availableSlots);
     //     return availableSlots;
     // }
+
 
     // // To schedule an appointment
     // public void viewScheduleAppointment(int appointmentId, int doctorId, Date appointmentDate, Date appointmentTime) {
@@ -49,6 +55,7 @@ public class AppointmentController {
     //     }
     // }
 
+
     // // Method to reschedule an appointment
     // public void viewRescheduleAppointment(int appointmentId, Date newAppointmentDate, Date newAppointmentTime) {
     //     boolean success = model.rescheduleAppointment(appointmentId, newAppointmentDate, newAppointmentTime);
@@ -58,6 +65,7 @@ public class AppointmentController {
     //         view.displayRescheduleError();
     //     }
     // }
+
 
     // // Method to cancel an appointment
     // public void viewCancelAppointment(int appointmentId) {
@@ -69,6 +77,7 @@ public class AppointmentController {
     //     }
     // }
 
+
     // // Method to view scheduled appointments
     // public List<Appointment> viewScheduledAppointment() {
     //     List<Appointment> scheduledAppointments = model.getScheduledAppointments();
@@ -76,12 +85,15 @@ public class AppointmentController {
     //     return scheduledAppointments;
     // }
 
+
     // // Method to view past appointment outcomes
     // public List<AppointmentOutcome> viewPastAppointmentOutcome(int appointmentId) {
     //     List<AppointmentOutcome> outcomes = model.getPastAppointmentOutcomes(appointmentId);
     //     view.displayPastAppointmentOutcomes(outcomes);
     //     return outcomes;
     // }
+
+
 
 
     private void loadAppointments() {
@@ -92,6 +104,7 @@ public class AppointmentController {
         }
     }
 
+
     public void scheduleAppointment(Appointment appointment) {
         try {
             apptCSVManager.addAppointment(appointment);
@@ -101,15 +114,25 @@ public class AppointmentController {
         }
     }
 
+
     public void rescheduleAppointment(String appointmentId, TimeSlot newTimeslot) {
         try {
             List<Appointment> appointments = apptCSVManager.readAppointments();
+            List<AvailabilitySlot> availability = availSlotCtrl.getAvailabilitylist();
             for (Appointment appointment : appointments) {
                 if (appointment.getAppointmentId().equals(appointmentId)) {
                     appointment.setTimeSlot(newTimeslot);
                     apptCSVManager.updateAppointment(appointmentId, appointment);
                     System.out.println("Appointment rescheduled successfully.");
+                    for(AvailabilitySlot avail : availability){
+                        AppointmentSlot apptslot = apptSlotCtrl.getAppointmentSlotById(appointment.getAppointmentSlotId());
+                        if(avail.getAvailabilitySlotId().equals(apptslot.getAvailabilitySlotId()))
+                        {
+                            availSlotCtrl.updateAvailability(avail.getDoctorId(),avail.getTimeSlot(),false);
+                        }
+                    }
                     return;
+
                 }
             }
             System.out.println("Appointment not found.");
@@ -117,6 +140,7 @@ public class AppointmentController {
             System.out.println("Error rescheduling appointment: " + e.getMessage());
         }
     }
+
 
     // public void cancelAppointment(String appointmentId) {
     //     try {
@@ -135,7 +159,9 @@ public class AppointmentController {
     //     }
     // }
 
+
     //  public void cancelAppointment(String appointmentId) {
+
 
     //     for (Appointment slot : appointments) {
     //         if (slot.getAppointmentId().equals(appointmentId)) {
@@ -145,21 +171,26 @@ public class AppointmentController {
     //                 //change appt slot & avail slot status in model
     //                 slot.cancelAppointment();
 
+
     //                 //update in csv
-                    
+                   
+
 
     //                 apptSlotCSVManager.updateAppointmentSlot(slot);
+
 
     //                 System.out.println("Appointment cancelled.");
     //             } catch (IOException e) {
     //                 System.out.println("Error cancelling appointment: " + e.getMessage());
     //             }
 
+
     //             break;
     //         }
     //     }
-        
+       
     // }
+
 
     public void cancelAppointment(Appointment appointment) {
         try {
@@ -208,6 +239,7 @@ public class AppointmentController {
         return filteredRecords;
     }
 
+
     public List<Appointment> getCompletedAppointmentsByPatientId(String patientId){
         List<Appointment> filteredRecords = new ArrayList<>();
         loadAppointments();
@@ -249,6 +281,7 @@ public class AppointmentController {
         System.out.print("No appointment found.");
         return null;
     }
+
 
     public List<Appointment> getAppointmentsByPatientId(String patientId){
         List<Appointment> filteredRecords = new ArrayList<>();
