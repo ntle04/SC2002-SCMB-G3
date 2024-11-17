@@ -214,9 +214,8 @@ public class AppointmentSlotController {
         return null;
     }
 
-
-    public void printPendingAppointmentSlots(){
-        view.printPendingAppointmentSlots(filterSlotsByDoctorIdandStatus(Authenticate.getLoggedInUser().getId()));
+    public void printAppointmentSlots(List<AppointmentSlot> appointmentSlots){
+        view.printAppointmentSlots(appointmentSlots);
     }
    
 }

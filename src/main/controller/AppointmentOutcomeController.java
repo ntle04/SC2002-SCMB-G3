@@ -7,8 +7,11 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import main.csvUitls.AppointmentOutcomeCSVManager;
+import main.model.Appointment;
 import main.model.AppointmentOutcome;
+import main.model.AvailabilitySlot;
 import main.model.Prescription;
+import main.util.TimeSlot;
 import main.view.AppointmentOutcomeView;
 
 public class AppointmentOutcomeController {
@@ -33,10 +36,9 @@ public class AppointmentOutcomeController {
     }
     
     // Doctor functions
-    public void addOutcome(String appointmentId, LocalDate appointmentDate, LocalTime appointmentTime, String serviceType, List<Prescription> prescriptions, String notes, String doctorId, String patientId) {
-        
+    public void addOutcome(String appointmentId, String appointmentDate, TimeSlot appointmentTime, String serviceType, List<Prescription> prescriptions, String notes, String doctorId, String patientId) {
         try {
-        	AppointmentOutcome outcome = new AppointmentOutcome(appointmentId, appointmentDate, appointmentTime, serviceType, prescriptions, notes, doctorId, patientId); 	
+        	AppointmentOutcome outcome = new AppointmentOutcome(appointmentId, appointmentTime, serviceType, prescriptions, notes, doctorId, patientId); 	
         	System.out.println("Adding appointment outcome");
 			csvManager.addAppointmentOutcome(outcome);
 			//outcomes.add(outcome);
@@ -85,12 +87,19 @@ public class AppointmentOutcomeController {
                        .filter(o -> o.getAppointmentId().equals(appointmentId))
                        .findFirst()
                        .orElse(null);
-     } 
+     }
      
     public void printPatientOutcome(String appointmentId){
          AppointmentOutcome selectedOutcome = getOutcomeByAppointmentId(appointmentId);
          view.displayPatientOutcome(selectedOutcome);
-      }
+    }
+
+    public void printAllAppointmentOutcomes(){
+        loadAppointmentOutcomes();
+        for (AppointmentOutcome record : outcomes) {
+            view.displayFullOutcome(record);
+        }
+    }
 
       public void printAdminOutcomes(List<AppointmentOutcome> outcomes){
         for(AppointmentOutcome appt : outcomes){

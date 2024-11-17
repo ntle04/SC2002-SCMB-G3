@@ -1,14 +1,18 @@
 package main.controller;
 
+import main.csvUitls.PrescriptionCSVManager;
 import main.model.Prescription;
 import main.util.PrescriptionStatus;
 import main.view.PrescriptionView;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PrescriptionController {
     private List<Prescription> prescriptions = new ArrayList<>();
     private PrescriptionView view = new PrescriptionView();
+    private PrescriptionCSVManager csvManager = new PrescriptionCSVManager();
 
     public PrescriptionController(){
         
@@ -18,6 +22,15 @@ public class PrescriptionController {
         this.prescriptions = prescriptions;
         this.view = view;
     }
+
+    private void getAllPrescriptions() {
+        try {
+            prescriptions = csvManager.loadPrescriptions();
+        } catch (IOException e) {
+            System.out.println("Error loading prescriptions: " + e.getMessage());
+        }
+    }
+
 
     public void viewPrescriptions(){
         view.printPrescriptions(prescriptions);
@@ -44,11 +57,22 @@ public class PrescriptionController {
     public void updateStatus(String prescriptionId, PrescriptionStatus newStatus) {
         Prescription selected = findPrescriptionById(prescriptionId);
         selected.setPrescriptionStatus(newStatus);
-        view.printPrescription(selected);  // Show the updated prescription details
+        view.printPrescription(selected);
     }
 
-    public void findPrescriptionsByApptOutcomeId(String apptOutcomeId){
-        
+    public List<Prescription> findPrescriptionsByApptOutcomeId(String apptOutcomeId){
+        List<Prescription> filteredList = new ArrayList<>();
+        for (Prescription prescription : prescriptions) {
+            if (prescription.getOutcomeId().equals(apptOutcomeId)) {
+                filteredList.add(prescription);
+            }
+        }
+        if(prescriptions.size()>=1){
+            return prescriptions;
+        }else{
+            System.out.println("No prescriptions in database");
+            return null;
+        }
     }
 
 

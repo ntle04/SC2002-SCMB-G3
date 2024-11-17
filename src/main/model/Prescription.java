@@ -5,6 +5,7 @@ import main.csvUitls.IdGenerator;
 import main.util.PrescriptionStatus;
 
 public class Prescription {
+    private String outcomeId;
     private String prescriptionId;
     private String medId;
     private String dosage;
@@ -16,7 +17,8 @@ public class Prescription {
     private static String idCounter = IdGenerator.generateNewId(FILE_PATH);
 
     //csv
-    public Prescription(String prescriptionId, String medId, String dosage, String quantity, PrescriptionStatus status, String date) {
+    public Prescription(String outcomeId, String prescriptionId, String medId, String dosage, String quantity, PrescriptionStatus status, String date) {
+        this.outcomeId = outcomeId;
         this.prescriptionId = prescriptionId;
         this.medId = medId;
         this.dosage = dosage;
@@ -26,15 +28,24 @@ public class Prescription {
     }
     
     //new record
-    public Prescription(String medId, String dosage, String quantity, String date) {
+    public Prescription(String medId, String dosage, String quantity, String date, String outcomeId) {
         this.prescriptionId = "PR" + idCounter;
         this.medId = medId;
         this.dosage = dosage;
         this.status = PrescriptionStatus.TO_BE_DISPENSED;
         this.date = date;
+        this.outcomeId = outcomeId;
 
         //update counter
         idCounter = IdGenerator.generateNewId(FILE_PATH);
+    }
+
+    public String getOutcomeId(){
+        return outcomeId;
+    }
+
+    public void setOutcomeId(String outcomeId){
+        this.outcomeId = outcomeId;
     }
 
     public String getPrescriptionId(){

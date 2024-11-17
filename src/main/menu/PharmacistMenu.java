@@ -55,8 +55,6 @@ public class PharmacistMenu extends Menu{
                     contactController.updateContact();
                     break;
                 case 3:
-                    //add prescription
-                    promptForPrescriptions();
                     break;
                 case 4:
                     // prescriptionController.updatePrescriptionStatus();
@@ -79,38 +77,5 @@ public class PharmacistMenu extends Menu{
 
     };
 
-    public void promptForPrescriptions(){
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("1. Add Prescriptions to Appointment Outcome");
-
-        System.out.print("How many prescriptions do you want to add? ");
-        int numPrescriptions = scanner.nextInt();
-        scanner.nextLine(); // consume newline
-
-        ArrayList<Prescription> prescriptions = new ArrayList<>();
-
-        for (int i = 0; i < numPrescriptions; i++) {
-            System.out.println("Enter details for prescription " + (i + 1) + ":");
-            System.out.print("Medicine ID: ");
-            String medId = scanner.nextLine();
-
-            System.out.print("Dosage: ");
-            String dosage = scanner.nextLine();
-
-            System.out.print("Quantity: ");
-            String quantity = scanner.nextLine();
-            scanner.nextLine();
-
-            LocalDate currentDate = LocalDate.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            String dateAsString = currentDate.format(formatter);
-
-
-            prescriptions.add(new Prescription(medId, dosage, quantity, dateAsString));
-        }
-    }
-
-    
     
 }

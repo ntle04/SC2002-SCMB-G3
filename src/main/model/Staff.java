@@ -20,6 +20,7 @@ public class Staff extends Person{
 
     public static Staff fromCSV(String csvLine) {
         String[] values = csvLine.split(",");
+
         
         if (values.length != 9) {
             return null; // If data doesn't match expected format, return null
@@ -27,7 +28,7 @@ public class Staff extends Person{
         
         try {
             // Parse values from CSV line
-        	String id = values[0].trim();
+            String id = values[0].trim();
             String name = values[1].trim();
             String role = values[2].trim();
 			String age = values[3].trim();
@@ -35,7 +36,7 @@ public class Staff extends Person{
             
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             Date parseDob = dateFormat.parse(dob);
-            
+
             Character gender = values[5].trim().charAt(0);
             String contactNumber = values[6].trim();   
             String email = values[7].trim();

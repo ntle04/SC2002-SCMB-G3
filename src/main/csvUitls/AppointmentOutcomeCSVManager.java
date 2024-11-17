@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.time.format.DateTimeFormatter;
 
+import main.controller.PrescriptionController;
 import main.model.AppointmentOutcome;
 import main.model.Prescription;
 import main.util.ApptStatus;
@@ -16,7 +17,9 @@ import main.util.TimeSlot;
 public class AppointmentOutcomeCSVManager {
 
     private static final String FILE_PATH = Config.APPOINTMENT_OUTCOME_FILE_PATH;
-    private final String[] HEADER = {"appointmentId,appointmentDate,appointmentTime,serviceType,notes,patientId,doctorId"};
+    private final String[] HEADER = {"outcomeId,appointmentId,appointmentDate,appointmentTime,serviceType,notes,patientId,doctorId"};
+
+    PrescriptionController prescriptionController = new PrescriptionController();
 
 
     public List<AppointmentOutcome> loadAppointmentOutcomes() throws IOException {
@@ -29,19 +32,18 @@ public class AppointmentOutcomeCSVManager {
             	
             	if(row.length > 1)
             	{
-            		String appointmentId = row[0];
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                    LocalDate appointmentDate = LocalDate.parse(row[1], formatter);
-                    DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("HHmm");
-                    LocalTime appointmentTime = LocalTime.parse(row[2], formatterTime);
+                    String outcomeId = row[1];
+            		String appointmentId = row[1];
+                    String appointmentDate = row[2];
+                    TimeSlot appointmentTime = TimeSlot.getByTime(row[3]);
+                    String serviceType = row[4]; 
+                    String notes = row[5];
+                    String doctorId = row[6];
+                    String patientId = row[7];
+
+                    List<Prescription> prescriptions = prescriptionController.findPrescriptionsByApptOutcomeId(outcomeId);
                     
-                    String serviceType = row[3]; 
-                    List<Prescription> prescriptions = new ArrayList<>();
-                    String notes = row[4];
-                    String doctorId = row[5];
-                    String patientId = row[6];
-                    
-                    appointmentOutcomes.add(new AppointmentOutcome(appointmentId, appointmentDate, appointmentTime, serviceType, prescriptions, notes, doctorId, patientId));             
+                    appointmentOutcomes.add(new AppointmentOutcome(outcomeId,appointmentId, appointmentDate, appointmentTime, serviceType, prescriptions, notes, doctorId, patientId));             
             	}
                 
             }
@@ -57,11 +59,11 @@ public class AppointmentOutcomeCSVManager {
     public void addAppointmentOutcome(AppointmentOutcome appointmentOutcome) throws IOException {
         List<String[]> data = new ArrayList<>();
         data.add(new String[]{
+            String.valueOf(appointmentOutcome.getOutcomeId()),
             String.valueOf(appointmentOutcome.getAppointmentId()),
             String.valueOf(appointmentOutcome.getAppointmentDate()),
             String.valueOf(appointmentOutcome.getAppointmentTime()),
             String.valueOf(appointmentOutcome.getServiceType()),
-            String.valueOf(appointmentOutcome.getPrescriptions()),
             String.valueOf(appointmentOutcome.getNotes()),
             String.valueOf(appointmentOutcome.getDoctorId()),
             String.valueOf(appointmentOutcome.getPatientId()),
@@ -74,11 +76,11 @@ public class AppointmentOutcomeCSVManager {
         System.out.println("in appt outcome csv");
 
         String[] updatedRecord = {
+            String.valueOf(appointmentOutcome.getOutcomeId()),
 			 String.valueOf(appointmentOutcome.getAppointmentId()),
 	         String.valueOf(appointmentOutcome.getAppointmentDate()),
 	         String.valueOf(appointmentOutcome.getAppointmentTime()),
 	         String.valueOf(appointmentOutcome.getServiceType()),
-	         String.valueOf(appointmentOutcome.getPrescriptions()),
 	         String.valueOf(appointmentOutcome.getNotes()),
 	         String.valueOf(appointmentOutcome.getDoctorId()),
 	         String.valueOf(appointmentOutcome.getPatientId()),
