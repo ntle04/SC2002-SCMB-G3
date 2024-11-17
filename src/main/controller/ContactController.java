@@ -78,7 +78,7 @@ public class ContactController {
 
     public void updateContact(){
 
-        System.out.println("updatign contact");
+        System.out.println("updating contact");
 
         Person currentUser = Authenticate.getLoggedInUser();
         String filePath = (currentUser.getRole()==Role.PATIENT) ? p_filePath : s_filePath;
