@@ -1,4 +1,8 @@
 ﻿Id,name,age,dob,gender,contactNumber,email,address,patientBloodType
+<<<<<<< HEAD
 P0001,lily,21,12/12/2002,m,1234,lily@gmail.com,NTU,B-
+=======
+P0001,Tiff Tan,25,1/1/1999,F,91111111,tiff@gmail.com,Blk 1 #11-11 Jurong East Road Singapore 611111,B-
+>>>>>>> 762b33a2bf7c7ce02ee51860ec0dee3d1d965658
 P0002,Mary Lee,24,2/2/2000,F,92222222,mary@gmail.com,Blk 2 #12-12 Jurong West Road Singapore 611112,A+
 P0003,Terry Chan,23,3/3/2001,M,93333333,terry@gmail.com,Blk 3 #13-13 Joo Koon Road Singapore 611113,O-

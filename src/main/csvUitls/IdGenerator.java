@@ -54,6 +54,66 @@ import java.io.IOException;
 public class IdGenerator {
     private static final String DELIMITER = ",";
 
+    // public static int getLatestId(String filePath) {
+    //     int maxId = 0;
+        
+    //     try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+    //         String line;
+    //         br.readLine(); // Skip header
+            
+    //         while ((line = br.readLine()) != null) {
+    //             if (line.trim().isEmpty()) continue;
+                
+    //             String[] values = line.split(DELIMITER);
+    //             if (values.length == 0) continue;
+                
+    //             String idString = values[0].trim();
+    //             if (!idString.startsWith("AV")) continue;
+                
+    //             try {
+    //                 int currentId = Integer.parseInt(idString.substring(2)); // Remove "AV" prefix
+    //                 maxId = Math.max(maxId, currentId);
+    //             } catch (NumberFormatException | IndexOutOfBoundsException e) {
+    //                 System.out.println("Skipping invalid ID format: " + idString);
+    //             }
+    //         }
+    //     } catch (IOException e) {
+    //         e.printStackTrace();
+    //     }
+        
+    //     return maxId;
+    // }
+
+    // public static int getLatestId(String filePath) {
+    //     int maxId = 0;
+        
+    //     try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+    //         String line;
+    //         br.readLine(); // Skip header
+            
+    //         while ((line = br.readLine()) != null) {
+    //             if (line.trim().isEmpty()) continue;
+                
+    //             String[] values = line.split(DELIMITER);
+    //             if (values.length == 0) continue;
+                
+    //             String idString = values[0].trim();
+    //             if (!idString.startsWith("AV")) continue;
+                
+    //             try {
+    //                 int currentId = Integer.parseInt(idString.substring(2)); // Remove "AV" prefix
+    //                 maxId = Math.max(maxId, currentId);
+    //             } catch (NumberFormatException | IndexOutOfBoundsException e) {
+    //                 System.out.println("Skipping invalid ID format: " + idString);
+    //             }
+    //         }
+    //     } catch (IOException e) {
+    //         e.printStackTrace();
+    //     }
+        
+    //     return maxId;
+    // }
+
     public static int getLatestId(String filePath) {
         int maxId = 0;
         
@@ -68,12 +128,16 @@ public class IdGenerator {
                 if (values.length == 0) continue;
                 
                 String idString = values[0].trim();
-                if (!idString.startsWith("AV")) continue;
                 
                 try {
-                    int currentId = Integer.parseInt(idString.substring(2)); // Remove "AV" prefix
-                    maxId = Math.max(maxId, currentId);
-                } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                    // Ensure the ID has at least 4 characters
+                    if (idString.length() >= 4) {
+                        // Extract the last 4 digits of the ID string
+                        String last4Digits = idString.substring(idString.length() - 4);
+                        int currentId = Integer.parseInt(last4Digits); // Parse the last 4 digits as an integer
+                        maxId = Math.max(maxId, currentId); // Keep track of the maximum ID
+                    }
+                } catch (NumberFormatException e) {
                     System.out.println("Skipping invalid ID format: " + idString);
                 }
             }
@@ -83,6 +147,7 @@ public class IdGenerator {
         
         return maxId;
     }
+    
 
     public static String generateNewId(String filePath) {
         int latestId = getLatestId(filePath);

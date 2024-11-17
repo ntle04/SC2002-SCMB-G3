@@ -41,7 +41,7 @@ public class AppointmentSlotController {
         try {
             AvailabilitySlot availabilitySlot = availSlotController.getAvailabilitySlotById(availabilitySlotId);
             AppointmentSlot newSlot = new AppointmentSlot(availabilitySlot.getDoctorId(), patientId, availabilitySlotId);
-            newSlot.bookSlot(patientId, availabilitySlotId);
+            newSlot.bookSlot(newSlot.getAppointmentSlotId(), patientId, availabilitySlotId);
             System.out.println("Booking appt");
             apptSlotCSVManager.addAppointmentSlot(newSlot);
         } catch (IOException e) {
@@ -133,7 +133,7 @@ public class AppointmentSlotController {
     public List<AppointmentSlot> filterSlotsByDoctorId(String doctorId) {
         List<AppointmentSlot> filteredSlots = new ArrayList<>();
         for (AppointmentSlot slot : appointmentSlots) {
-            if (slot.getAvailabilitySlot().getDoctorId().equals(doctorId)) {
+            if (slot.getAvailabilitySlot().getDoctorId().trim().equalsIgnoreCase(doctorId.trim())) {
                 System.out.println(slot.getAvailabilitySlot().getAvailabilitySlotId());
                 filteredSlots.add(slot);
             }

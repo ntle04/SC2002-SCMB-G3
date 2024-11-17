@@ -30,7 +30,6 @@ public class Appointment {
 	//new record
     public Appointment(String patientId, String doctorId, TimeSlot timeslot, String appointmentSlotId, String appointmentOutcomeId) {
         this.appointmentSlotId = "APP" + idCounter;
-        this.appointmentSlotId = appointmentSlotId;
 		this.appointmentOutcomeId = appointmentOutcomeId;
 		this.patientId = patientId;
 		this.doctorId = doctorId;

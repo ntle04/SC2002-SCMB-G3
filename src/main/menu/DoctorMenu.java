@@ -161,8 +161,8 @@ public class DoctorMenu extends Menu{
         int index = 1;
         for (AppointmentSlot slot : slots) {
             if (index == choice) {
-                System.out.print("Appointment Slot ID: " + slot.getAppointmentSlotId());
-                System.out.print("Availability Slot ID: " + slot.getAvailabilitySlotId());
+                System.out.println("Appointment Slot ID: " + slot.getAppointmentSlotId());
+                System.out.println("Availability Slot ID: " + slot.getAvailabilitySlotId());
                 return slot;
             }
             index++;

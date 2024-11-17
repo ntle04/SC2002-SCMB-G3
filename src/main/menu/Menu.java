@@ -18,7 +18,7 @@ public abstract class Menu {
                 return new PatientMenu();
             }
             case PHARMACIST: {
-                //return new PharmacistMenu();
+                return new PharmacistMenu();
             }
             case DOCTOR: {
                 return new DoctorMenu();
