@@ -26,6 +26,11 @@ public class Medicine {
         this.stockLevel = stockLevel;
     }
 
+    public String toCSV() {
+        String stockString = stockLevel.name();
+        return medId + "," + medName + "," + quantity + "," + salePrice + "," + lastPurchase + "," + stockString;
+    }
+
     public String getMedId(){
         return medId;
     }

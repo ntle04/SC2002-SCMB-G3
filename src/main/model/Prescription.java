@@ -1,5 +1,7 @@
 package main.model;
 
+import main.csvUitls.Config;
+import main.csvUitls.IdGenerator;
 import main.util.PrescriptionStatus;
 
 public class Prescription {
@@ -10,12 +12,29 @@ public class Prescription {
     private PrescriptionStatus status;
     private String date;
 
-    public Prescription(String prescriptionId, String medId, String dosage, String quantity,String date) {
+    private static final String FILE_PATH = Config.PRESCRIPTION_LIST_FILE_PATH;
+    private static String idCounter = IdGenerator.generateNewId(FILE_PATH);
+
+    //csv
+    public Prescription(String prescriptionId, String medId, String dosage, String quantity, PrescriptionStatus status, String date) {
         this.prescriptionId = prescriptionId;
+        this.medId = medId;
+        this.dosage = dosage;
+        this.quantity = quantity;
+        this.status = status;
+        this.date = date;
+    }
+    
+    //new record
+    public Prescription(String medId, String dosage, String quantity, String date) {
+        this.prescriptionId = "PR" + idCounter;
         this.medId = medId;
         this.dosage = dosage;
         this.status = PrescriptionStatus.TO_BE_DISPENSED;
         this.date = date;
+
+        //update counter
+        idCounter = IdGenerator.generateNewId(FILE_PATH);
     }
 
     public String getPrescriptionId(){

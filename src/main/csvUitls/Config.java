@@ -9,4 +9,5 @@ public class Config {
     public static final String APPOINTMENT_SLOTS_FILE_PATH  = "src/main/data/appointment_slots.csv";
     public static final String APPOINTMENT_LIST_FILE_PATH  = "src/main/data/appointment_list.csv";
     public static final String MEDICATION_INVENTORY_FILE_PATH = "src/main/data/medication_inventory.csv";
+    public static final String PRESCRIPTION_LIST_FILE_PATH = "src/main/data/prescription_list.csv";
 }

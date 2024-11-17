@@ -5,17 +5,19 @@ import main.model.Medicine;
 import main.csvUitls.*;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Scanner;
-
-import main.csvUitls.Config;
 
 public class Inventory {
     private static final String file_path = Config.MEDICATION_INVENTORY_FILE_PATH;
@@ -78,6 +80,7 @@ public class Inventory {
 
         Medicine medicine = new Medicine(id, name, quantity, salePrice, lastPurchase, stockEnum);
         addMedicine(medicine);
+        saveAllChanges();
     }
 
     public void removeMedicine(){
@@ -87,6 +90,7 @@ public class Inventory {
             if(medicine.getMedId().equals(id)){
                 medicationInventory.remove(medicine);
                 System.out.println("Medication removed.");
+                saveAllChanges();
                 return;
             }
         }
@@ -139,7 +143,7 @@ public class Inventory {
                     System.out.println("Medicine updated.");
                 } while(choice != 6);
                 
-                System.out.println("Medicine updated.");
+                saveAllChanges();
                 return true;
             }
         }
@@ -153,6 +157,18 @@ public class Inventory {
 
     public List<Medicine>getAllMedicines(){
         return medicationInventory;
+    }
+
+    //save to csv
+    private void saveAllChanges() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file_path))) {
+            for (Medicine request : medicationInventory) {
+                writer.write(request.toCSV());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
