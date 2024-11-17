@@ -50,6 +50,7 @@ public class AppointmentSlotController {
         }
     }
 
+
     /*public void confirmAppointment(String appointmentSlotId) {
         for (AppointmentSlot slot : appointmentSlots) {
             // Check if the slot matches both doctorId, patientId and timeSlot
