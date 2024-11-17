@@ -6,22 +6,30 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import main.csvUitls.Config;
+import main.csvUitls.ContactCSVManager;
 import main.model.Contact;
+import main.model.Person;
 import main.util.Role;
 
 public class ContactController {
 
     private Contact contact;
+    private ContactCSVManager contactCSVManager = new ContactCSVManager();
+    // private Person currentUser = Authenticate.getLoggedInUser();
+
+    String p_filePath = Config.PATIENT_LIST_FILE_PATH;
+    String s_filePath = Config.STAFF_LIST_FILE_PATH;
+    // String filePath = (currentUser.getRole()==Role.PATIENT) ? p_filePath : s_filePath;
 
     public ContactController(Contact contact){
         this.contact = contact;
     }
 
     public Contact loadContactById(String id, Role role) {
-        String p_filePath = Config.PATIENT_LIST_FILE_PATH;
-        String s_filePath = Config.STAFF_LIST_FILE_PATH;
-        String filePath = (role==Role.PATIENT) ? p_filePath : s_filePath;
 
+        System.out.println("loading contact");
+
+        String filePath = (role==Role.PATIENT) ? p_filePath : s_filePath;
         String line;
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -72,6 +80,11 @@ public class ContactController {
 
     public void updateContact(){
 
+        System.out.println("updatign contact");
+
+        Person currentUser = Authenticate.getLoggedInUser();
+        String filePath = (currentUser.getRole()==Role.PATIENT) ? p_filePath : s_filePath;
+
         int choice;
         Scanner sc = new Scanner(System.in);
 
@@ -85,36 +98,66 @@ public class ContactController {
                     System.out.print("New name: ");
                     String name = sc.nextLine();
                     contact.setName(name);
+                    try {
+                        contactCSVManager.updateContactInCSV(filePath, currentUser.getId(), currentUser.getRole(), currentUser.getContact());
+                    } catch (IOException e) {
+                        System.out.println("Error: " + e);
+                    }
                     break;
                 }
                 case 2:{
                     System.out.print("New DOB: ");
-                    String name = sc.nextLine();
-                    contact.setName(name);
+                    String dob = sc.nextLine();
+                    contact.setDOB(dob);
+                    try {
+                        contactCSVManager.updateContactInCSV(filePath, currentUser.getId(), currentUser.getRole(), currentUser.getContact());
+                    } catch (IOException e) {
+                        System.out.println("Error: " + e);
+                    }
                     break;
                 }
                 case 3:{
                     System.out.print("New gender: ");
                     char gender = sc.next().charAt(0);
                     contact.setGender(gender);
+                    try {
+                        contactCSVManager.updateContactInCSV(filePath, currentUser.getId(), currentUser.getRole(), currentUser.getContact());
+                    } catch (IOException e) {
+                        System.out.println("Error: " + e);
+                    }
                     break;
                 }
                 case 4:{
                     System.out.print("New contact number: ");
                     String contactNumber = sc.next();
                     contact.setContactNumber(contactNumber);
+                    try {
+                        contactCSVManager.updateContactInCSV(filePath, currentUser.getId(), currentUser.getRole(), currentUser.getContact());
+                    } catch (IOException e) {
+                        System.out.println("Error: " + e);
+                    }
                     break;
                 }
                 case 5:{
                     System.out.print("New email: ");
                     String email = sc.next();
                     contact.setEmail(email);
+                    try {
+                        contactCSVManager.updateContactInCSV(filePath, currentUser.getId(), currentUser.getRole(), currentUser.getContact());
+                    } catch (IOException e) {
+                        System.out.println("Error: " + e);
+                    }
                     break;
                 }
                 case 6:{
                     System.out.print("New address: ");
                     String address = sc.next();
                     contact.setAddress(address);
+                    try {
+                        contactCSVManager.updateContactInCSV(filePath, currentUser.getId(), currentUser.getRole(), currentUser.getContact());
+                    } catch (IOException e) {
+                        System.out.println("Error: " + e);
+                    }
                     break;
                 }
                 case 7:{

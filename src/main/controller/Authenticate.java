@@ -29,11 +29,11 @@ public class Authenticate {
                     String role = values[2];
                     boolean firstLogin = Boolean.parseBoolean(values[3]);
 
+                    System.out.println("Login successful.");
+
                     ContactController contactController = new ContactController(null);
                     Contact contact = contactController.loadContactById(id, Role.valueOf(role.toUpperCase()));
                     loggedInUser = new Person(id, contact, getRole(role));
-
-                    System.out.println("Login successful.");
 
                     if (firstLogin) {
                         System.out.println("Change your password on your first login.");

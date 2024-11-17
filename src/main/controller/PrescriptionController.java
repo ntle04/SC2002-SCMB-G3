@@ -43,5 +43,9 @@ public class PrescriptionController {
         view.printPrescription(selected);  // Show the updated prescription details
     }
 
+    public void findPrescriptionsByApptOutcomeId(String apptOutcomeId){
+        
+    }
+
 
 }

@@ -19,6 +19,7 @@ public class Patient extends Person{ //extended to Person class
     public Patient(String id, Contact contact, Role role,
     		String patientBloodType, List<Appointment> patientAppointment, 
     		List<String> diagnosis, List<String> treatment) {
+
 		super(id, contact, Role.PATIENT);
 
 		this.patientBloodType = patientBloodType;
@@ -106,6 +107,6 @@ public class Patient extends Person{ //extended to Person class
             return null;
         }
     }
-	
+
 }
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import main.controller.AppointmentController;
 import main.controller.AppointmentSlotController;
 import main.controller.Authenticate;
 import main.controller.ContactController;
@@ -20,11 +21,16 @@ import main.controller.AvailabilitySlotController;
 
 public class PatientMenu extends Menu{
 	
-	private PatientController patientController;
 
+	Person currentUser = Authenticate.getLoggedInUser();
+
+	PatientController patientController;
     AvailabilitySlotController availSlotController = new AvailabilitySlotController();
     AvailabilitySlotView availView = new AvailabilitySlotView();
     AppointmentSlotController apptSlotController = new AppointmentSlotController();
+	ContactController contactController = new ContactController(currentUser.getContact());
+	AppointmentController apptController = new AppointmentController();
+
 
     public void printMenu(){
         System.out.println("=== Patient Menu ===");
@@ -82,11 +88,11 @@ public class PatientMenu extends Menu{
 			
 			switch (choice) {
 			    case 1:
-			    	// patientController.viewPatientRecord(selectedPatient);
+			    	// patientController.viewPatientRecord(Authenticate.getLoggedInUser());
 			        break;
 			    case 2:
 			    	// TODO Update Personal Information
-			    	Authenticate.getLoggedInUser().printContact();
+			    	contactController.updateContact();
 			        break;
 			    case 3:
 			    	// TODO patientController view available appt slots	
@@ -102,6 +108,7 @@ public class PatientMenu extends Menu{
 			        break;
 			    case 6:
 			    	// TODO patientController view schedule appt
+					apptController.getAppointmentsByPatientId(currentUser.getId());
 			        break;
 			    case 7:
 			    	// TODO patientController view Past Appointment Outcome Records

@@ -1,5 +1,9 @@
 package main.model;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+
 public class Contact {
 
     private String name;
@@ -59,7 +63,13 @@ public class Contact {
     }
 
     public void setDOB(String dob){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate birthDate = LocalDate.parse(dob, formatter);
+        LocalDate today = LocalDate.now();
+        int age = Period.between(birthDate, today).getYears();
+
         this.dob = dob;
+        this.age = String.valueOf(age);
     }
 
     public char getGender(){

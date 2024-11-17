@@ -1,9 +1,10 @@
-/*package main.menu;
+package main.menu;
 
 import java.util.Scanner;
 
 import main.controller.Authenticate;
 import main.controller.ContactController;
+import main.controller.PrescriptionController;
 import main.controller.ReplenishmentRequestController;
 import main.model.Pharmacist;
 import main.model.Person;
@@ -30,6 +31,7 @@ public class PharmacistMenu extends Menu{
         Person loggedInUser = Authenticate.getLoggedInUser();
         Contact contact = loggedInUser.getContact();
         ContactController contactController = new ContactController(contact);
+        PrescriptionController prescriptionController = new PrescriptionController(null, null);
 
         int choice = -1;
         Scanner sc = new Scanner(System.in);
@@ -49,7 +51,7 @@ public class PharmacistMenu extends Menu{
                 case 3:
                     break;
                 case 4:
-                    model.updatePrescriptionStatus();
+                    // prescriptionController.updatePrescriptionStatus();
                     break;
                 case 5:
                     break;
@@ -70,4 +72,4 @@ public class PharmacistMenu extends Menu{
 
     
     
-} */
+}

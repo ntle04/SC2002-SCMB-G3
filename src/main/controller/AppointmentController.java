@@ -1,12 +1,14 @@
 package main.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import main.csvUitls.AppointmentCSVManager;
 import main.model.Appointment;
 import main.model.AppointmentOutcome;
+import main.model.AvailabilitySlot;
 import main.util.ApptStatus;
 import main.util.TimeSlot;
 import main.view.AppointmentView;
@@ -14,6 +16,7 @@ import main.view.AppointmentView;
 public class AppointmentController {
     // private Appointment model;
     // private AppointmentView view;
+    private List<Appointment> appointments;
     private AppointmentCSVManager csvManager = new AppointmentCSVManager();
     // private AppointmentOutcome apptOutcome;
 
@@ -73,6 +76,14 @@ public class AppointmentController {
     // }
 
 
+    private void loadAppointments() {
+        try {
+            appointments = csvManager.readAppointments();
+        } catch (IOException e) {
+            System.out.println("Error loading appointments: " + e.getMessage());
+        }
+    }
+
     public void scheduleAppointment(Appointment appointment) {
         try {
             csvManager.addAppointment(appointment);
@@ -114,5 +125,40 @@ public class AppointmentController {
         } catch (IOException e) {
             System.out.println("Error canceling appointment: " + e.getMessage());
         }
+    }
+
+
+
+    public List<Appointment> getCompletedAppointmentsByDoctorId(String doctorId){
+        List<Appointment> filteredRecords = new ArrayList<>();
+        loadAppointments();
+        for (Appointment record : appointments) {
+            if (record.getStatus() == ApptStatus.COMPLETED && record.getDoctorId() == doctorId) {
+                filteredRecords.add(record);
+            }
+        }
+        return filteredRecords;
+    }
+
+    public List<Appointment> getCompletedAppointmentsByPatientId(String patientId){
+        List<Appointment> filteredRecords = new ArrayList<>();
+        loadAppointments();
+        for (Appointment record : appointments) {
+            if (record.getStatus() == ApptStatus.COMPLETED && record.getPatientId() == patientId) {
+                filteredRecords.add(record);
+            }
+        }
+        return filteredRecords;
+    }
+
+    public List<Appointment> getAppointmentsByPatientId(String patientId){
+        List<Appointment> filteredRecords = new ArrayList<>();
+        loadAppointments();
+        for (Appointment record : appointments) {
+            if (record.getPatientId() == patientId) {
+                filteredRecords.add(record);
+            }
+        }
+        return filteredRecords;
     }
 }
