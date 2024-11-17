@@ -9,6 +9,7 @@ import main.controller.AppointmentSlotController;
 import main.controller.Authenticate;
 import main.controller.ContactController;
 import main.controller.PatientController;
+import main.model.Appointment;
 // import main.model.Appointment;
 import main.model.AvailabilitySlot;
 import main.model.Contact;
@@ -38,10 +39,11 @@ public class PatientMenu extends Menu{
         System.out.println("2. Update Personal Information");
         System.out.println("3. View Available Appointment Slots");
         System.out.println("4. Schedule an Appointment");
-        System.out.println("5. Cancel an Appointment");
-        System.out.println("6. View Scheduled Appointments");
-        System.out.println("7. View Past Appointment Outcome Records");
-        System.out.println("8. Logout");
+		System.out.println("5. Reschedule an Appointment");
+        System.out.println("6. Cancel an Appointment");
+        System.out.println("7. View Scheduled Appointments");
+        System.out.println("8. View Past Appointment Outcome Records");
+        System.out.println("9. Logout");
     }
 
 	public void handleUserInput(){
@@ -104,14 +106,26 @@ public class PatientMenu extends Menu{
                     apptSlotController.bookAppointment(Authenticate.getLoggedInUser().getId(), selectedSlot.getAvailabilitySlotId());
 			        break;
 			    case 5:
-			    	// TODO patientController cancel appt
+			    	// TODO patientController reschedule appt
+
 			        break;
 			    case 6:
-			    	// TODO patientController view schedule appt
-					apptController.getAppointmentsByPatientId(currentUser.getId());
+			    	// TODO patientController cancel schedule appt
+					// Appointment latestAppointment = apptController.getConfirmedAppointmentByPatientId(Authenticate.getLoggedInUser().getId());
+
+					
+					// apptController.cancelAppointment(latestAppointment);
 			        break;
 			    case 7:
-			    	// TODO patientController view Past Appointment Outcome Records
+					// TODO patientController view schedule appt
+					apptController.getAppointmentsByPatientId(currentUser.getId());
+					break;
+				case 8: 
+					// TODO patientController view Past Appointment Outcome Records
+		            break;
+				case 9: 
+					// logout
+					Authenticate.logout();
 		            break;
 		        default:
 		            break;

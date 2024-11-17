@@ -2,6 +2,7 @@ package main.model;
 
 import main.csvUitls.Config;
 import main.csvUitls.IdGenerator;
+import main.util.ApptStatus;
 import main.util.TimeSlot;
 
 public class AvailabilitySlot {
@@ -81,6 +82,10 @@ public class AvailabilitySlot {
     }
 
     public void setAvailability(boolean isAvailable) {
+        this.isAvailable = isAvailable;
+    }
+
+    public void setStatus(boolean isAvailable) {
         this.isAvailable = isAvailable;
     }
     
