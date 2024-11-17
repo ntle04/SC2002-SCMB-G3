@@ -78,7 +78,7 @@ public class AppointmentView {
         System.out.println("Scheduled Appointments:");
         for (Appointment appointment : appointments) {
             System.out.println("Appointment ID: " + appointment.getAppointmentId());
-            System.out.println("Time: " + appointment.getTimeSlot());
+            System.out.println("Time: " + appointment.getTimeSlot().getTime());
             System.out.println("Patient ID: " + appointment.getPatientId());
             System.out.println("Doctor ID: " + appointment.getDoctorId());
             System.out.println("----------------------------");
