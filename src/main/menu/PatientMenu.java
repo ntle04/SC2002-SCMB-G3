@@ -10,7 +10,6 @@ import main.controller.Authenticate;
 import main.controller.ContactController;
 import main.controller.PatientController;
 import main.model.Appointment;
-// import main.model.Appointment;
 import main.model.AvailabilitySlot;
 import main.model.Contact;
 import main.model.Patient;
@@ -23,14 +22,14 @@ import main.controller.AvailabilitySlotController;
 public class PatientMenu extends Menu{
 	
 
-	// Person currentUser = Authenticate.getLoggedInUser();
+	Person currentUser = Authenticate.getLoggedInUser();
 
-	// PatientController patientController;
-    // AvailabilitySlotController availSlotController = new AvailabilitySlotController();
+	PatientController patientController;
+    AvailabilitySlotController availSlotController = new AvailabilitySlotController();
     AvailabilitySlotView availView = new AvailabilitySlotView();
-    // AppointmentSlotController apptSlotController = new AppointmentSlotController();
-	// // ContactController contactController = new ContactController(currentUser.getContact());
-	// AppointmentController apptController = new AppointmentController();
+    AppointmentSlotController apptSlotController = new AppointmentSlotController();
+	// ContactController contactController = new ContactController(currentUser.getContact());
+	AppointmentController apptController = new AppointmentController();
 
 
     public void printMenu(){
@@ -98,12 +97,12 @@ public class PatientMenu extends Menu{
 			        break;
 			    case 3:
 			    	// TODO patientController view available appt slots	
-					// availSlotController.printAvailabilitySlotsByDoctor("D0001");
+					availSlotController.printAvailabilitySlotsByDoctor("D0001");
 			        break;
 			    case 4:
 			    	// TODO patientController schedule appt
-                    // AvailabilitySlot selectedSlot = selectSlot(availSlotController.getAvailabilitySlotsByDoctor("D0001"));
-                    // apptSlotController.bookAppointment(Authenticate.getLoggedInUser().getId(), selectedSlot.getAvailabilitySlotId());
+                    AvailabilitySlot selectedSlot = selectSlot(availSlotController.getAvailabilitySlotsByDoctor("D0001"));
+                    apptSlotController.bookAppointment(Authenticate.getLoggedInUser().getId(), selectedSlot.getAvailabilitySlotId());
 			        break;
 			    case 5:
 			    	// TODO patientController reschedule appt
@@ -111,14 +110,14 @@ public class PatientMenu extends Menu{
 			        break;
 			    case 6:
 			    	// TODO patientController cancel schedule appt
-					// Appointment latestAppointment = apptController.getConfirmedAppointmentByPatientId(Authenticate.getLoggedInUser().getId());
+					Appointment latestAppointment = apptController.getConfirmedAppointmentByPatientId(Authenticate.getLoggedInUser().getId());
 
 					
-					// apptController.cancelAppointment(latestAppointment);
+					apptController.cancelAppointment(latestAppointment);
 			        break;
 			    case 7:
 					// TODO patientController view schedule appt
-					// apptController.getAppointmentsByPatientId(Authenticate.getLoggedInUser().getId());
+					apptController.getAppointmentsByPatientId(Authenticate.getLoggedInUser().getId());
 					break;
 				case 8: 
 					// TODO patientController view Past Appointment Outcome Records

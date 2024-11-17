@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import main.model.Appointment;
+import main.model.AppointmentSlot;
 import main.util.ApptStatus;
 import main.util.TimeSlot;
 
@@ -17,7 +18,7 @@ public class AppointmentCSVManager {
         List<String[]> records = CSVHelper.readCSV(FILE_PATH);
         List<Appointment> appointments = new ArrayList<>();
         for (String[] record : records) {
-            appointments.add(new Appointment(record[0], record[1], record[2], TimeSlot.getByTime(record[3]), ApptStatus.valueOf(record[4]), record[5], record[6]));
+            appointments.add(new Appointment(record[0], record[2], record[1], TimeSlot.getByTime(record[3]), ApptStatus.valueOf(record[4]), record[5], record[6]));
         }
         return appointments;
     }
