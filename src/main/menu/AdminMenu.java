@@ -6,7 +6,7 @@ import java.util.List;
 import main.util.Role;
 import main.util.RequestStatus;
 import main.csvUitls.*;
-
+import main.controller.AppointmentController;
 // import controllers
 import main.controller.Authenticate;
 import main.controller.StaffController;
@@ -16,6 +16,7 @@ import main.controller.ReplenishmentRequestController;
 //import models
 import main.model.Staff;
 import main.model.Administrator;
+import main.model.Appointment;
 import main.model.Inventory;
 import main.model.Person;
 import main.model.Contact;
@@ -34,7 +35,9 @@ public class AdminMenu extends Menu{
     private Inventory inv = new Inventory();
     private ReplenishmentRequestController repCon = new ReplenishmentRequestController();
 
-    private static final String FILE_PATH = Config.STAFF_LIST_FILE_PATH;
+    private AppointmentController apptCtrl = new AppointmentController();
+
+    private static final String file_path = Config.STAFF_LIST_FILE_PATH;
     Scanner sc = new Scanner(System.in);
 
     
@@ -44,10 +47,16 @@ public class AdminMenu extends Menu{
         System.out.println("2. View Appointments details");
         System.out.println("3. View and Manage Medication Inventory");
         System.out.println("4. Approve Replenishment Requests");
-        System.out.println("5. Logout");
+        System.out.println("5. View personal information");
+        System.out.println("6. Update personal information");
+        System.out.println("7. Logout");
     }
 
     public void handleUserInput(){
+        Person loggedInUser = Authenticate.getLoggedInUser();
+		Contact contact = loggedInUser.getContact();
+		ContactController contactController = new ContactController(contact);
+
         int choice = -1;
 
         do{
@@ -60,12 +69,17 @@ public class AdminMenu extends Menu{
                     handleStaffActions();
                     break;
                 case 2:
+                    //show list of appointments
+                    apptCtrl.printAllAppointments();
+                    //choose appt 
+
 
                     break;
                 case 3:
                     handleInvActions();
                     break;
                 case 4:
+                    //print the request list
                     List<ReplenishmentRequest> reqList = repCon.getAllRequests();
                     repCon.printAllReq(reqList);
                     System.out.printf("Enter request ID to approve: ");
@@ -78,11 +92,16 @@ public class AdminMenu extends Menu{
                 case 5:
                     Authenticate.logout();
                     break;
+                case 6:
+                    contactController.printContact();
+                    break;
+                case 7:
+                    contactController.updateContact();
                 default:
                     break;
             }
 
-        }while(choice < 5);
+        }while(choice < 8);
 
     };
     

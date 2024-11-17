@@ -56,7 +56,7 @@ public class Authenticate {
         switch(role){
             case "Pharmacist": return Role.PHARMACIST;
             case "Doctor": return Role.DOCTOR;
-            case "Admin": return Role.ADMINISTRATOR;
+            case "Administrator": return Role.ADMINISTRATOR;
             case "Patient": return Role.PATIENT;
             default: return null;
         }

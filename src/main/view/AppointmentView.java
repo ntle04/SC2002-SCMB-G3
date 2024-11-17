@@ -20,6 +20,8 @@ public class AppointmentView {
     //     }
     // }
 
+    
+
     // Method to print confirmation of scheduled appointment
     public void printAppointmentDetails(Appointment appointment) {
         System.out.println("Appointment Details:");
