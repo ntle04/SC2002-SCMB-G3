@@ -18,7 +18,8 @@ public class AvailabilitySlotView {
         else if(Authenticate.getLoggedInUser().getRole() == Role.PATIENT){
             int index = 1;
             System.out.println("Available Slots:");
-            for (AvailabilitySlot slot : slots) {
+            System.out.println("Doctor: " + slots.get(0).getDoctorId());
+            for (AvailabilitySlot slot : slots) {	
                 System.out.println(index++ + "." + slot.getTimeSlot().getTime());
             }
         }

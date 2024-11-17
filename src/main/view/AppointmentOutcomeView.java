@@ -22,18 +22,18 @@ public class AppointmentOutcomeView {
     //     System.out.println(outcome.getNotes());
     // }
     
-    // public void displayPatientOutcome(AppointmentOutcome outcome) {
-    //     System.out.println("=== Your Appointment Outcome ===");
-    //     System.out.println("Date: " + outcome.getAppointmentDate());
-    //     System.out.println("Service Type: " + outcome.getServiceType());
-    //     System.out.println("\nPrescribed Medications:");
-    //     for (Prescription prescription : outcome.getPrescriptions()) {
-    //         System.out.println("- " + prescription.getPrescriptionName() + 
-    //                          " (Status: " + prescription.getStatus() + ")");
-    //     }
-    //     System.out.println("\nConsultation Notes:");
-    //     System.out.println(outcome.getNotes());
-    // }
+     public void displayPatientOutcome(AppointmentOutcome outcome) {
+         System.out.println("=== Your Appointment Outcome ===");
+         System.out.println("Date: " + outcome.getAppointmentDate());
+         System.out.println("Service Type: " + outcome.getServiceType());
+         System.out.println("\nPrescribed Medications:");
+         for (Prescription prescription : outcome.getPrescriptions()) {
+             System.out.println("- " + prescription.getPrescriptionId() + 
+                              " (Status: " + prescription.getPrescriptionStatus() + ")");
+         }
+         System.out.println("\nConsultation Notes:");
+         System.out.println(outcome.getNotes());
+     }
     
     // public void displayPharmacistOutcome(AppointmentOutcome outcome) {
     //     System.out.println("=== Prescription Order ===");

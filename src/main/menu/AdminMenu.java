@@ -37,7 +37,7 @@ public class AdminMenu extends Menu{
 
     private AppointmentController apptCtrl = new AppointmentController();
 
-    private static final String FILE_PATH = Config.STAFF_LIST_FILE_PATH;
+    private static final String file_path = Config.STAFF_LIST_FILE_PATH;
     Scanner sc = new Scanner(System.in);
 
     
@@ -47,10 +47,16 @@ public class AdminMenu extends Menu{
         System.out.println("2. View Appointments details");
         System.out.println("3. View and Manage Medication Inventory");
         System.out.println("4. Approve Replenishment Requests");
-        System.out.println("5. Logout");
+        System.out.println("5. View personal information");
+        System.out.println("6. Update personal information");
+        System.out.println("7. Logout");
     }
 
     public void handleUserInput(){
+        Person loggedInUser = Authenticate.getLoggedInUser();
+		Contact contact = loggedInUser.getContact();
+		ContactController contactController = new ContactController(contact);
+
         int choice = -1;
 
         do{
@@ -73,6 +79,7 @@ public class AdminMenu extends Menu{
                     handleInvActions();
                     break;
                 case 4:
+                    //print the request list
                     List<ReplenishmentRequest> reqList = repCon.getAllRequests();
                     repCon.printAllReq(reqList);
                     System.out.printf("Enter request ID to approve: ");
@@ -85,11 +92,16 @@ public class AdminMenu extends Menu{
                 case 5:
                     Authenticate.logout();
                     break;
+                case 6:
+                    contactController.printContact();
+                    break;
+                case 7:
+                    contactController.updateContact();
                 default:
                     break;
             }
 
-        }while(choice < 5);
+        }while(choice < 8);
 
     };
     

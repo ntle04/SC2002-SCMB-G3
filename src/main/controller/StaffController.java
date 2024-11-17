@@ -1,6 +1,8 @@
 package main.controller;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +13,7 @@ import main.csvUitls.*;
 
 import main.model.Appointment;
 import main.model.Contact;
+import main.model.Medicine;
 import main.model.Person;
 import main.controller.PersonController;
 import main.model.Staff;
@@ -99,12 +102,14 @@ public class StaffController {
         
         staffList.add(newStaff);
         System.out.println("Created Staff");
+        saveAllChanges();
         this.view.printStaffRecord(newStaff);
     }
 
     public void removeStaff(){
         Person person = getStaffDetails();
         staffList.remove(person);
+        saveAllChanges();
         System.out.println("Removed Staff");
     }
 
@@ -114,6 +119,7 @@ public class StaffController {
         Contact contact = person.getContact();
         ContactController conCon = new ContactController(contact);
         conCon.updateContact();
+        saveAllChanges();
         view.printUpdatedStaffContact(contact, id);
         view.printUpdateConfirmation();
     }
@@ -138,6 +144,18 @@ public class StaffController {
                             return age >= minAge && age <= maxAge;
                         })
                         .collect(Collectors.toList());
+    }
+
+    //save to csv
+    private void saveAllChanges() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file_path))) {
+            for (Staff staff : staffList) {
+                writer.write(staff.toCSV());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /*
