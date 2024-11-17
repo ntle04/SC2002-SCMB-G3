@@ -61,8 +61,7 @@ import main.util.TimeSlot;
 
         //for csv
         public AppointmentSlot(String appointmentSlotId, String availabilitySlotId, String patientId, ApptStatus status) {
-            idCounter = IdGenerator.generateNewId(FILE_PATH);
-            this.appointmentSlotId = "AS" + idCounter;
+            this.appointmentSlotId = appointmentSlotId;
             this.availabilitySlotId = availabilitySlotId;
             this.patientId = patientId;
             this.status = status;
