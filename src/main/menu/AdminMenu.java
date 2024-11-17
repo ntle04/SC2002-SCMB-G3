@@ -58,7 +58,7 @@ public class AdminMenu extends Menu{
                     handleStaffActions();
                     break;
                 case 2:
-                    
+
                     break;
                 case 3:
                     handleInvActions();
@@ -149,7 +149,19 @@ public class AdminMenu extends Menu{
 
     public void handleInvActions(){
         int choice = -1;
+        printInvActions();
+        choice = sc.nextInt();
 
+        switch(choice){
+            case 1:
+                inv.createMedicine();
+                break;
+            case 2:
+                inv.removeMedicine();
+                break;
+            case 3:
+                inv.updateMedicine();
+        }
     }
 
 
