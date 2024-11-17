@@ -227,12 +227,12 @@ public class AppointmentController {
 
     public Appointment getConfirmedAppointmentByPatientId(String patientId){
         loadAppointments();
-        System.out.println("Get confirmed appts by pateint id");
-        System.out.println("size of arr: " + appointments);
+        System.out.println("Get confirmed appointments by Patient Id");
+        //System.out.println("size of arr: " + appointments);
         for (Appointment record : appointments) {
             System.out.println("ID: " + record.getAppointmentId());
-            System.out.println("status: " + record.getStatus());
-            System.out.println("patient id: " + record.getPatientId());
+            System.out.println("Status: " + record.getStatus());
+            System.out.println("Patient Id: " + record.getPatientId());
             if (record.getStatus() == ApptStatus.CONFIRMED && record.getPatientId().equals(patientId)) {
                 System.out.println(record.getAppointmentId());
                 return record;
