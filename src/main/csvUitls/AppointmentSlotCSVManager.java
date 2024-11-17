@@ -14,7 +14,7 @@ public class AppointmentSlotCSVManager {
     private static final String FILE_PATH = Config.APPOINTMENT_SLOTS_FILE_PATH;
     private final String[] HEADER = {"appointmentSlotId,doctorId,patientId,timeslot,status,availabilitySlotId"};
 
-    public List<AppointmentSlot> loadAppointmentSlots() throws IOException {
+    /*public List<AppointmentSlot> loadAppointmentSlots() throws IOException {
         List<String[]> data = CSVHelper.readCSV(FILE_PATH);
         List<AppointmentSlot> appointmentSlots = new ArrayList<>();
         for (String[] row : data) {
@@ -23,6 +23,33 @@ public class AppointmentSlotCSVManager {
             ApptStatus status = ApptStatus.valueOf(row[4]);
             String availabilitySlotId = row[5];
             appointmentSlots.add(new AppointmentSlot( availabilitySlotId, patientId, status));
+        }
+        return appointmentSlots;
+    }*/
+
+    public List<AppointmentSlot> loadAppointmentSlots() throws IOException {
+        List<String[]> data = CSVHelper.readCSV(FILE_PATH);
+        List<AppointmentSlot> appointmentSlots = new ArrayList<>();
+        
+        for (String[] row : data) {
+            String appointmentSlotId = row[0];
+            String availabilitySlotId = row[5];
+            String patientId = row[2];
+            ApptStatus status = ApptStatus.valueOf(row[4]);
+            
+            // Use the constructor that takes appointmentSlotId
+            appointmentSlots.add(new AppointmentSlot(
+                appointmentSlotId,    // Use the ID from CSV
+                availabilitySlotId,
+                patientId,
+                status
+            ));
+            
+            // Debug output
+            System.out.println("Loading slot - ID: " + appointmentSlotId + 
+                             ", AvailID: " + availabilitySlotId + 
+                             ", PatientID: " + patientId + 
+                             ", Status: " + status);
         }
         return appointmentSlots;
     }

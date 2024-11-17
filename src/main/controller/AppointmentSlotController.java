@@ -188,6 +188,18 @@ public class AppointmentSlotController {
         return filteredSlots;
     }
 
+    public List<AppointmentSlot> filterSlotsByDoctorIdandStatus(String doctorId) {
+        List<AppointmentSlot> filteredSlots = new ArrayList<>();
+        for (AppointmentSlot slot : appointmentSlots) {
+            if (slot.getAvailabilitySlot().getDoctorId().trim().equalsIgnoreCase(doctorId.trim()) & slot.getStatus() == ApptStatus.PENDING) {
+                //System.out.println(slot.getAvailabilitySlot().getAvailabilitySlotId());
+                filteredSlots.add(slot);
+            }
+        }
+        return filteredSlots;
+    }
+
+
 
     public AppointmentSlot getAppointmentSlotById(String slotId) {
         loadAppointmentSlots(); //get latest data
@@ -204,7 +216,7 @@ public class AppointmentSlotController {
 
 
     public void printPendingAppointmentSlots(){
-        view.printPendingAppointmentSlots(filterSlotsByDoctorId(Authenticate.getLoggedInUser().getId()));
+        view.printPendingAppointmentSlots(filterSlotsByDoctorIdandStatus(Authenticate.getLoggedInUser().getId()));
     }
    
 }

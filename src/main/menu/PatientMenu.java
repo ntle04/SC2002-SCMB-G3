@@ -31,7 +31,7 @@ public class PatientMenu extends Menu{
 	PatientController patientController;
     AvailabilitySlotController availSlotController = new AvailabilitySlotController();
     AvailabilitySlotView availView = new AvailabilitySlotView();
-    //AppointmentSlotController apptSlotController = new AppointmentSlotController();
+    AppointmentSlotController apptSlotController = new AppointmentSlotController();
 	// ContactController contactController = new ContactController(currentUser.getContact());
 	AppointmentController apptController = new AppointmentController();
 	
@@ -103,8 +103,8 @@ public class PatientMenu extends Menu{
 			        break;
 			    case 4:
 			    	// TODO patientController schedule appt
-                    //AvailabilitySlot selectedSlot = selectSlot(availSlotController.getAvailabilitySlotsByDoctor("D0001"));
-                    //apptSlotController.bookAppointment(Authenticate.getLoggedInUser().getId(), selectedSlot.getAvailabilitySlotId());
+                    AvailabilitySlot selectedSlot = selectSlot(availSlotController.getAvailabilitySlotsByDoctor("D0001"));
+                    apptSlotController.bookAppointment(Authenticate.getLoggedInUser().getId(), selectedSlot.getAvailabilitySlotId());
 			        break;
 			    case 5:
 			    	// TODO patientController reschedule appt

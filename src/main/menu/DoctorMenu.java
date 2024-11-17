@@ -114,8 +114,7 @@ public class DoctorMenu extends Menu{
 
 
                 case 5://Accept or Decline requests
-                    apptSlotController.printPendingAppointmentSlots();
-                    int selectedSlot = sc.nextInt();
+                    //int selectedSlot = sc.nextInt();
                     //List<AppointmentSlot> slots = apptSlotController.filterSlotsByDoctorId(loggedInUser.getId());
                     //AppointmentSlot chosen = slots.get(selectedSlot - 1);
                     AppointmentSlot chosen = selectAppointment();
@@ -162,7 +161,7 @@ public class DoctorMenu extends Menu{
 
     };
 
-    private AppointmentSlot selectAppointment() {
+    /*private AppointmentSlot selectAppointment() {
         List<AppointmentSlot> slots = apptSlotController.filterSlotsByDoctorId(Authenticate.getLoggedInUser().getId());
         
         // Display available slots with indices
@@ -186,6 +185,39 @@ public class DoctorMenu extends Menu{
         
         System.out.println("Invalid selection. Please try again.");
         return selectAppointment(); // Retry on invalid input
+    }*/
+
+    private AppointmentSlot selectAppointment() {
+        List<AppointmentSlot> slots = apptSlotController.filterSlotsByDoctorIdandStatus(Authenticate.getLoggedInUser().getId());
+    
+        // Display available slots with indices
+        apptSlotController.printPendingAppointmentSlots();
+    
+        Scanner scanner = new Scanner(System.in);
+        int choice = -1; // Default invalid choice
+    
+        while (true) {
+            System.out.println("Enter the index of the slot you'd like to accept: ");
+    
+            // Check if input is a valid integer
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+    
+                // Validate if choice is within range
+                if (choice >= 0 && choice < slots.size()) {
+                    AppointmentSlot selectedSlot = slots.get(choice - 1);
+                    System.out.println("Appointment Slot ID: " + selectedSlot.getAppointmentSlotId());
+                    System.out.println("Availability Slot ID: " + selectedSlot.getAvailabilitySlotId());
+                    return selectedSlot;
+                } else {
+                    System.out.println("Invalid selection. Please select a valid index.");
+                }
+            } else {
+                System.out.println("Invalid input. Please enter a valid integer.");
+                scanner.next(); // Consume the invalid input
+            }
+        }
     }
+    
    
 }
