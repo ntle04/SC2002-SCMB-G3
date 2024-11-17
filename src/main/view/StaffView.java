@@ -1,6 +1,9 @@
 package main.view;
 
+import java.util.List;
+
 import main.model.Contact;
+import main.model.ReplenishmentRequest;
 import main.model.Staff;
 
 public class StaffView {
@@ -20,12 +23,17 @@ public class StaffView {
         System.out.println("Address: " + contact.getAddress());
     	
     }
- 
-    public void printUpdateInformation(String email) {
-    	System.out.println("Email: " + email); 
-    }
     
     public String printUpdateConfirmation() {
     	return "Staff information updated successfully!";
     }
+
+    public void printAllStaff(List<Staff> staffList) {
+        for (Staff staff : staffList) {
+            printStaffRecord(staff);
+            System.out.println("-------------------------");
+        }
+    }
+
+
 }
