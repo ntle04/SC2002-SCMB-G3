@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import main.model.Patient;
+import main.util.TimeSlot;
 import main.csvUitls.Config;
 import main.view.PatientView;
 
@@ -54,7 +55,7 @@ public class PatientController {
     
     public List<Patient> getPatientList()
     {
-    	return patientList;	
+    	return loadAllPatientsFromFile();
     }
     
     //create new
@@ -62,6 +63,16 @@ public class PatientController {
         patientList.add(patient);
         System.out.println("Created Patient");
         this.view.printPatientRecord(patient);
+    }
+
+    public Patient getPatientById(String patientId){
+        List<Patient> patients = loadAllPatientsFromFile();
+        for (Patient patient : patients) {
+            if (patient.getId().equals(patientId) ) {
+                return patient;
+            }
+        }
+        return null;
     }
 
 }

@@ -28,7 +28,7 @@ public class PatientMenu extends Menu{
 
 	Person currentUser = Authenticate.getLoggedInUser();
 
-	PatientController patientController;
+	PatientController patientController = new PatientController();
     AvailabilitySlotController availSlotController = new AvailabilitySlotController();
     AvailabilitySlotView availView = new AvailabilitySlotView();
     AppointmentSlotController apptSlotController = new AppointmentSlotController();
@@ -91,7 +91,8 @@ public class PatientMenu extends Menu{
 			
 			switch (choice) {
 			    case 1:
-			    	patientController.viewPatientRecord(selectedPatient); 
+					Patient patient = patientController.getPatientById(Authenticate.getLoggedInUser().getId());
+			    	patientController.viewPatientRecord(patient); 
 			        break;
 			    case 2:
 			    	// TODO Update Personal Information
