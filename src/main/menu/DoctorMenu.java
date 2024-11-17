@@ -1,16 +1,20 @@
 package main.menu;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 //import main.controller.DoctorController;
 import main.controller.PatientController;
+import main.controller.AppointmentOutcomeController;
 import main.controller.AppointmentSlotController;
 import main.controller.Authenticate;
 import main.controller.AvailabilitySlotController;
 import main.controller.ContactController;
 import main.util.ApptStatus;
 import main.util.TimeSlot;
+import main.model.Appointment;
 import main.model.AppointmentSlot;
 //import main.view.DoctorView;
 import main.model.AvailabilitySlot;
@@ -18,6 +22,7 @@ import main.model.Contact;
 import main.model.Doctor;
 import main.model.Patient;
 import main.model.Person;
+import main.model.Prescription;
 
 
 public class DoctorMenu extends Menu{
@@ -45,6 +50,7 @@ public class DoctorMenu extends Menu{
         Person loggedInUser = Authenticate.getLoggedInUser();
         Contact contact = loggedInUser.getContact();
         ContactController contactController = new ContactController(contact);
+        // AppointmentOutcomeController outcomeCtrl = new AppointmentOutcomeController();
        
          //Doctor doctor = new Doctor(loggedInUser.getId(), loggedInUser.getContact(), loggedInUser.getRole(), new ArrayList<Patient>(), new ArrayList<AvailabilitySlot>(), new ArrayList<Appointment>() );
 
@@ -149,6 +155,8 @@ public class DoctorMenu extends Menu{
 
 
                 case 7://record appt outcome
+                    
+                    // promptForPrescriptions();
                     break;
 
 
@@ -187,5 +195,45 @@ public class DoctorMenu extends Menu{
         System.out.println("Invalid selection. Please try again.");
         return selectAppointment(); // Retry on invalid input
     }
+
+    // public void createAppointmentOutcome(){
+    //     AppointmentSlot appointmentSlot = selectAppointment();
+    //     AppointmentOutcomeController outcomeCtrl = new AppointmentOutcomeController();
+    //     outcomeCtrl.addOutcome()
+    // }
+
+
+
+    // public void promptForPrescriptions(){
+    //     Scanner scanner = new Scanner(System.in);
+
+    //     System.out.println("1. Add Prescriptions to Appointment Outcome");
+
+    //     System.out.print("How many prescriptions do you want to add? ");
+    //     int numPrescriptions = scanner.nextInt();
+    //     scanner.nextLine(); // consume newline
+
+    //     ArrayList<Prescription> prescriptions = new ArrayList<>();
+
+    //     for (int i = 0; i < numPrescriptions; i++) {
+    //         System.out.println("Enter details for prescription " + (i + 1) + ":");
+    //         System.out.print("Medicine ID: ");
+    //         String medId = scanner.nextLine();
+
+    //         System.out.print("Dosage: ");
+    //         String dosage = scanner.nextLine();
+
+    //         System.out.print("Quantity: ");
+    //         String quantity = scanner.nextLine();
+    //         scanner.nextLine();
+
+    //         LocalDate currentDate = LocalDate.now();
+    //         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    //         String dateAsString = currentDate.format(formatter);
+
+
+    //         prescriptions.add(new Prescription(medId, dosage, quantity, dateAsString));
+    //     }
+    // }
    
 }

@@ -23,7 +23,8 @@ public class PrescriptionCSVManager {
             String qty = row[3];
             PrescriptionStatus status = PrescriptionStatus.valueOf(row[4]);
             String date = row[5];
-            prescriptions.add(new Prescription(prescriptionId, medId, dosage, qty, status, date));
+            String outcomeId = row[6];
+            prescriptions.add(new Prescription(outcomeId, prescriptionId, medId, dosage, qty, status, date));
         }
         return prescriptions;
     }
@@ -31,6 +32,7 @@ public class PrescriptionCSVManager {
     public void addPrescription(Prescription prescription) throws IOException {
 
         String[] data = new String[]{
+            prescription.getOutcomeId(),
             prescription.getPrescriptionId(),
             prescription.getMedId(),
             prescription.getDosage(),
@@ -44,6 +46,7 @@ public class PrescriptionCSVManager {
 
     public void updatePrescription(Prescription prescription) throws IOException {
         String[] updatedRecord = {
+            prescription.getOutcomeId(),
             prescription.getPrescriptionId(),
             prescription.getMedId(),
             prescription.getDosage(),

@@ -268,7 +268,6 @@ public class AppointmentController {
     public Appointment getConfirmedAppointmentByPatientId(String patientId){
         loadAppointments();
         System.out.println("Get confirmed appointments by Patient Id");
-        //System.out.println("size of arr: " + appointments);
         for (Appointment record : appointments) {
             System.out.println("ID: " + record.getAppointmentId());
             System.out.println("Status: " + record.getStatus());

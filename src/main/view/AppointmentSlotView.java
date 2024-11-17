@@ -8,8 +8,6 @@ public class AppointmentSlotView {
 
     public void printPendingAppointmentSlots(List<AppointmentSlot> filteredSlots){
         int index = 1;
-
-        System.out.println("Pending Appointment Slots:");
         for (AppointmentSlot slot : filteredSlots) {
             System.out.println(index++ + ". Patient ID: " + slot.getPatientId() + ", Time: " + slot.getAvailabilitySlot().getTimeSlot().getTime() + " APPT ID: " + slot.getAppointmentSlotId());
         }

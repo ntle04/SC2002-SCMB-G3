@@ -36,7 +36,7 @@ public class AppointmentView {
         System.out.println("Status: " + appointment.getStatus());
 
         if(appointment.getStatus() == ApptStatus.COMPLETED){
-            //apptOCtrl.printPatientOutcome(appointment.getAppointmentOutcomeId());
+            apptOCtrl.printPatientOutcome(appointment.getAppointmentOutcomeId());
         }
     }
 

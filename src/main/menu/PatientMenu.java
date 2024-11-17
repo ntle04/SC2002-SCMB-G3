@@ -133,10 +133,15 @@ public class PatientMenu extends Menu{
 				case 8: 
 					// TODO patientController view Past Appointment Outcome Records
 					
-					Appointment appt = apptController.getConfirmedAppointmentByPatientId(Authenticate.getLoggedInUser().getId());
+					List<Appointment> appts = apptController.getConfirmedAppointmentsByPatientId(Authenticate.getLoggedInUser().getId());
+					for (Appointment record : appts) {
+						outcomeController.printPatientOutcome(record.getAppointmentOutcomeId());
+					}
+
+					
+
 
 					//outcomeController.addOutcome(appt.getAppointmentId(), LocalDate.now(), LocalTime.now(), "s", "D0001", selectedPatient.getId());
-					outcomeController.printPatientOutcome(appt.getAppointmentId());
 					//outcomeController.viewOutcomeAsPatient(appt.getAppointmentId(), selectedPatient.getId());
 					break;
 				case 9: 

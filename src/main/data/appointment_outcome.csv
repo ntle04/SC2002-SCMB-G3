@@ -1,6 +1,5 @@
-﻿appointmentId,appointmentDate,appointmentTime,serviceType,notes,patientId,doctorId
-APP0001,19/11/2024,1000,Consultation and analysis for fever,3 days MC due to fever,P0001,D0001
-APP0001,20/11/2024,1030,Consultation and analysis for cough,2 days MC due to cough,P0002,D0001
-APP0001,21/11/2024,1100,Consultation and analysis for skin rashes,1 day MC due to skin rashes,P0003,D0001
-APP0001,22/11/2024,1130,Consultation and analysis for skin rashes,1 day MC due to skin rashes,P0009,D0001
-,,,,,,
+﻿outcomeId,appointmentId,appointmentDate,appointmentTime,serviceType,notes,patientId,doctorId
+,APP0001,19/11/2024,1000,Consultation and analysis for fever,3 days MC due to fever,P0001,D0001
+,APP0001,20/11/2024,1030,Consultation and analysis for cough,2 days MC due to cough,P0002,D0001
+,APP0001,21/11/2024,1100,Consultation and analysis for skin rashes,1 day MC due to skin rashes,P0003,D0001
+,APP0001,22/11/2024,1130,Consultation and analysis for skin rashes,1 day MC due to skin rashes,P0009,D0001
