@@ -22,11 +22,11 @@ import java.util.Scanner;
 public class Inventory {
     private static final String file_path = Config.MEDICATION_INVENTORY_FILE_PATH;
     Scanner sc = new Scanner(System.in);
-    private ArrayList<Medicine> medicationInventory;
+    private static ArrayList<Medicine> medicationInventory = new ArrayList<>();
     public Inventory(){
         medicationInventory = new ArrayList<Medicine>();
     }
-
+    
     public static Inventory fromCSV(String csvLine) {
         String[] values = csvLine.split(",");
         
@@ -50,9 +50,8 @@ public class Inventory {
 
 
             Medicine medicine = new Medicine(id, name, quantity, salePrice, lastPurchase, SLEnum);
-            Inventory inventory = new Inventory();
-            inventory.addMedicine(medicine);
-            return inventory;
+            medicationInventory.add(medicine);
+            return new Inventory();
 
         } catch (NumberFormatException | ParseException e) {
             System.out.println("Error parsing CSV line: " + csvLine);
@@ -114,6 +113,7 @@ public class Inventory {
                     System.out.println("6. Quit");
                     
                     choice = sc.nextInt();
+                    sc.nextLine();
                     switch(choice){
                         case 1:
                             System.out.printf("Enter new medication name: ");
@@ -155,7 +155,7 @@ public class Inventory {
         return medicationInventory.isEmpty();
     }
 
-    public List<Medicine>getAllMedicines(){
+    public ArrayList<Medicine>getAllMedicines(){
         return medicationInventory;
     }
 
