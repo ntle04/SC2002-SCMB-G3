@@ -94,9 +94,10 @@ public class AdminMenu extends Menu{
                     break;
                 case 6:
                     contactController.updateContact();
+                    break;
                 case 7:
                     Authenticate.logout();
-                    return;
+                    break;
                 default:
                     break;
             }
@@ -220,6 +221,7 @@ public class AdminMenu extends Menu{
                 repCon.updateRequestStatus(reqId, RequestStatus.valueOf(status));
                 System.out.println("Updated replenishment request status");
                 String medId = req.getMedId();
+                System.out.println(medId);
                 for(Medicine med : inv.getAllMedicines()){
                     if(med.getMedId().equals(medId)){
                         int qty = req.getQty();
