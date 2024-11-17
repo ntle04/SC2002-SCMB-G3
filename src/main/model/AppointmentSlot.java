@@ -123,6 +123,10 @@ import main.util.TimeSlot;
         return status;
     }
 
+    public void setStatus(ApptStatus status) {
+        this.status = status;
+    }
+
     public AvailabilitySlot getAvailabilitySlot() {
         return availSlotController.getAvailabilitySlotById(getAvailabilitySlotId());
     }
@@ -141,10 +145,10 @@ import main.util.TimeSlot;
         System.out.println("from appt slot model: status: " + availabilitySlot.isAvailable());
     }*/
 
-    public void cancelAppointment() {
-        this.status = ApptStatus.CANCELLED;
-        availSlotController.getAvailabilitySlotById(availabilitySlotId).setAvailability(true);
-    }
+    // public void cancelAppointment() {
+    //     this.status = ApptStatus.CANCELLED;
+    //     availSlotController.getAvailabilitySlotById(availabilitySlotId).setAvailability(true);
+    // }
 
     public void completeAppointment() {
         this.status = ApptStatus.COMPLETED;

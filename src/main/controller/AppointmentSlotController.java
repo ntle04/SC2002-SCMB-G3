@@ -21,6 +21,7 @@ public class AppointmentSlotController {
     private AppointmentSlotView view = new AppointmentSlotView();
     private AvailabilitySlotController availSlotController = new AvailabilitySlotController();
     private AppointmentCSVManager apptCSVManager = new AppointmentCSVManager();
+    private AppointmentController apptController = new AppointmentController();
 
     public AppointmentSlotController() {
         this.appointmentSlots = new ArrayList<>();
@@ -112,23 +113,46 @@ public class AppointmentSlotController {
     }
     
 
-    public void cancelAppointment(String doctorId, String patientId, TimeSlot timeSlot) {
+    // public void cancelAppointment(String appointmentId) {
 
-        for (AppointmentSlot slot : appointmentSlots) {
-            // Check if the slot matches both doctorId, patientId and timeSlot
-            if (slot.getAvailabilitySlot().getDoctorId().equals(doctorId) && slot.getPatientId().equals(patientId) && slot.getAvailabilitySlot().getTimeSlot() == timeSlot) {
-                try {
-                    apptSlotCSVManager.updateAppointmentSlot(slot);
-                    slot.cancelAppointment();
-                    System.out.println("Appointment cancelled.");
-                } catch (IOException e) {
-                    System.out.println("Error cancelling appointment: " + e.getMessage());
-                }
+    //     for (AppointmentSlot slot : appointmentSlots) {
+    //         // Check if the slot matches both doctorId, patientId and timeSlot
+    //         if (slot.ge().equals(appointmentId)) {
+    //             try {
+    //                 //change appt status & update appt csv
+    //                 apptController.cancelAppointment(slot);
+    //                 //change appt slot & avail slot status in model
+    //                 slot.cancelAppointment();
 
-                break;
-            }
-        }
+    //                 //update in csv
+                    
+
+    //                 apptSlotCSVManager.updateAppointmentSlot(slot);
+
+    //                 System.out.println("Appointment cancelled.");
+    //             } catch (IOException e) {
+    //                 System.out.println("Error cancelling appointment: " + e.getMessage());
+    //             }
+
+    //             break;
+    //         }
+    //     }
         
+    // }
+
+    public void cancelAppointmentSlot(String appointmentSlotId) {
+        try {
+            AppointmentSlot appointmentSlot = getAppointmentSlotById(appointmentSlotId);
+            //update appt slot status
+            appointmentSlot.setStatus(ApptStatus.CANCELLED);
+            //update appt csv
+            apptSlotCSVManager.updateAppointmentSlot(appointmentSlot);
+
+            System.out.println("Appointment slot canceled successfully.");
+            return;
+        } catch (IOException e) {
+            System.out.println("Error canceling appointment: " + e.getMessage());
+        }
     }
 
     public List<AppointmentSlot> filterSlotsByDoctorId(String doctorId) {

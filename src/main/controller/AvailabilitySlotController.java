@@ -7,7 +7,9 @@ import java.util.List;
 import main.csvUitls.AvailabilitySlotCSVManager;
 import main.csvUitls.Config;
 import main.csvUitls.IdGenerator;
+import main.model.AppointmentSlot;
 import main.model.AvailabilitySlot;
+import main.util.ApptStatus;
 import main.util.TimeSlot;
 import main.view.AvailabilitySlotView;
 
@@ -62,6 +64,21 @@ public class AvailabilitySlotController {
             System.out.println("Availability slot updated successfully.");
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    public void cancelAvailabilitySlot(String availabilitySlotId) {
+        try {
+            AvailabilitySlot availabilitySlot = getAvailabilitySlotById(availabilitySlotId);
+            //update appt slot status
+            availabilitySlot.setStatus(true);
+            //update appt csv
+            csvManager.updateAvailabilitySlot(availabilitySlot);
+
+            System.out.println("Availability slot canceled successfully.");
+            return;
+        } catch (IOException e) {
+            System.out.println("Error canceling appointment: " + e.getMessage());
         }
     }
 
