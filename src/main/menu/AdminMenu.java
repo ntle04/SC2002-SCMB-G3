@@ -80,8 +80,7 @@ public class AdminMenu extends Menu{
                     apptCtrl.printAllAppointments();
                     System.out.println("--------------------------------------------------");
                     System.out.println("============= Completed Appointments =============");
-                    apptOut.printAdminOutcomes(null);
-
+                    apptOut.printAllAdminOutcomes();
 
                     break;
                 case 3:

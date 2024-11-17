@@ -22,6 +22,7 @@ public class AppointmentOutcomeController {
     public AppointmentOutcomeController() {
         this.view = new AppointmentOutcomeView();
         //this.outcomes = new ArrayList<AppointmentOutcome>();
+        outcomes = new ArrayList<>();
         loadAppointmentOutcomes();
     }
     
@@ -29,7 +30,6 @@ public class AppointmentOutcomeController {
         try {
         	outcomes = csvManager.loadAppointmentOutcomes();
         } catch (IOException e) {
-            System.out.println("Error loading appointment outcomes: " + e.getMessage());
         }
 
         System.out.println("Finish loading data");
@@ -101,9 +101,14 @@ public class AppointmentOutcomeController {
         }
     }
 
-      public void printAdminOutcomes(List<AppointmentOutcome> outcomes){
-        for(AppointmentOutcome appt : outcomes){
-            view.displayAdminOutcome(appt);
+      public void printAllAdminOutcomes(){
+        loadAppointmentOutcomes();
+        for(AppointmentOutcome outcome : outcomes){
+            System.out.println("=== Appointment Outcome Record ===");
+            System.out.println("Appointment ID: " + outcome.getAppointmentId());
+            System.out.println("Doctor ID: " + outcome.getDoctorId());
+            System.out.println("Patient ID: " + outcome.getPatientId());
+            System.out.println("Date: " + outcome.getAppointmentDate());
         }
       }
      
