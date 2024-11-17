@@ -22,7 +22,7 @@ public class AppointmentSlotCSVManager {
             String patientId = row[2];
             ApptStatus status = ApptStatus.valueOf(row[4]);
             String availabilitySlotId = row[5];
-            appointmentSlots.add(new AppointmentSlot(appointmentSlotId, availabilitySlotId, patientId, status));
+            appointmentSlots.add(new AppointmentSlot( availabilitySlotId, patientId, status));
         }
         return appointmentSlots;
     }

@@ -70,6 +70,17 @@ import main.util.TimeSlot;
             // this.availabilitySlot = availSlotController.getAvailabilitySlotById(availabilitySlotId);
         }
 
+        public AppointmentSlot(String availabilitySlotId, String patientId, ApptStatus status) {
+            idCounter = IdGenerator.generateNewId(FILE_PATH);
+            this.appointmentSlotId = "AS" + idCounter;
+            this.availabilitySlotId = availabilitySlotId;
+            this.patientId = patientId;
+            this.status = status;
+            // Load the availability slot when creating appointment slot
+            // AvailabilitySlotController availSlotController = new AvailabilitySlotController();
+            // this.availabilitySlot = availSlotController.getAvailabilitySlotById(availabilitySlotId);
+        }
+
         
         // Modified constructor
         // public AppointmentSlot(String appointmentSlotId, String availabilitySlotId, String patientId, ApptStatus status) {

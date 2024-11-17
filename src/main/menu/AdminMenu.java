@@ -6,7 +6,7 @@ import java.util.List;
 import main.util.Role;
 import main.util.RequestStatus;
 import main.csvUitls.*;
-
+import main.controller.AppointmentController;
 // import controllers
 import main.controller.Authenticate;
 import main.controller.StaffController;
@@ -16,6 +16,7 @@ import main.controller.ReplenishmentRequestController;
 //import models
 import main.model.Staff;
 import main.model.Administrator;
+import main.model.Appointment;
 import main.model.Inventory;
 import main.model.Person;
 import main.model.Contact;
@@ -33,6 +34,8 @@ public class AdminMenu extends Menu{
     //private Administrator admin = new Administrator();
     private Inventory inv = new Inventory();
     private ReplenishmentRequestController repCon = new ReplenishmentRequestController();
+
+    private AppointmentController apptCtrl = new AppointmentController();
 
     private static final String file_path = Config.STAFF_LIST_FILE_PATH;
     Scanner sc = new Scanner(System.in);
@@ -66,6 +69,10 @@ public class AdminMenu extends Menu{
                     handleStaffActions();
                     break;
                 case 2:
+                    //show list of appointments
+                    apptCtrl.printAllAppointments();
+                    //choose appt 
+
 
                     break;
                 case 3:
