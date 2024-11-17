@@ -5,10 +5,13 @@ import main.util.Role;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import main.model.Contact;
 
 public class Staff extends Person{
+    private Contact contact;
     public Staff(String id, Contact contact, Role role) {
         super(id, contact, role);
+        this.contact = contact;
     }
 
     public static Staff fromCSV(String csvLine) {
@@ -43,6 +46,23 @@ public class Staff extends Person{
         } catch (NumberFormatException | ParseException e) {
             System.out.println("Error parsing CSV line: " + csvLine);
             return null;
+        }
+    }
+    
+    public char getGender(){
+        return contact.getGender();
+    }
+
+    public String getAge(){
+        return contact.getAge();
+    }
+
+    public int getIntAge(){
+        String age = contact.getAge();
+        try{
+            return Integer.parseInt(age);
+        } catch(NumberFormatException e){
+            return -1;
         }
     }
 }

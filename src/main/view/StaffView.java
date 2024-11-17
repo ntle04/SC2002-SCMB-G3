@@ -1,6 +1,9 @@
 package main.view;
 
+import java.util.List;
+
 import main.model.Contact;
+import main.model.ReplenishmentRequest;
 import main.model.Staff;
 
 public class StaffView {
@@ -28,4 +31,13 @@ public class StaffView {
     public String printUpdateConfirmation() {
     	return "Staff information updated successfully!";
     }
+
+    public void printAllReq(List<Staff> staffList) {
+        for (Staff staff : staffList) {
+            printStaffRecord(staff);
+            System.out.println("-------------------------");
+        }
+    }
+
+
 }

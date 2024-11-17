@@ -17,7 +17,7 @@ import main.csvUitls.Config;
 
 public class Inventory {
     private ArrayList<Medicine> medicationInventory;
-    Inventory(){
+    public Inventory(){
         medicationInventory = new ArrayList<Medicine>();
     }
 
