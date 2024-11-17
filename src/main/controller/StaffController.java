@@ -19,7 +19,7 @@ import main.view.StaffView;
 
 public class StaffController {
     Scanner sc = new Scanner(System.in);
-    public static final String FILE_PATH = "STAFF_LIST_FILE_PATH";
+    private static final String file_path = Config.STAFF_LIST_FILE_PATH;
     PersonController pc = new PersonController();
 
 
@@ -74,7 +74,7 @@ public class StaffController {
     }
 
     public void createStaff() {
-        String id = IdGenerator.generateNewId(FILE_PATH);
+        String id = IdGenerator.generateNewId(file_path);
         System.out.println("Enter staff role in uppercase:");
         String role = sc.nextLine();
         Role roleEnum = Role.valueOf(role);

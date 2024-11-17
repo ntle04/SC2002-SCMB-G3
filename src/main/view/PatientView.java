@@ -1,5 +1,4 @@
 package main.view;
-import java.util.List;
 import main.model.Contact;
 import main.model.Patient;
 
@@ -7,6 +6,7 @@ public class PatientView {
 
     // Display the patient medical record
     public void printPatientRecord(Patient patient) {    
+    	System.out.println("------------------------------");
     	System.out.println("Patient ID: " + patient.getId());
         System.out.println("Name: " + patient.getContact().getName());
         System.out.println("DOB: " + patient.getContact().getDOB()); 
@@ -15,6 +15,7 @@ public class PatientView {
         System.out.println("Blood Type: " + patient.getPatientBloodType());
         System.out.println("Diagnoses: " + patient.getDiagnosis());
         System.out.println("Treatments: " + patient.getTreatment(patient.getId()));
+        System.out.println("------------------------------");
     }
     
     public void printUpdatedPatientContact(Contact contact, String patientId) {
