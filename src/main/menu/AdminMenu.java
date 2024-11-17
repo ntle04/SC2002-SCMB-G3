@@ -76,9 +76,9 @@ public class AdminMenu extends Menu{
                     handleStaffActions();
                     break;
                 case 2:
-                    System.out.println("============== Upcoming Appointments =============");
-                    apptCtrl.printAllAppointments();
-                    System.out.println("--------------------------------------------------");
+                    System.out.println("============= Scheduled Appointments =============");
+                    List<Appointment> appointments = apptCtrl.getAllAppointments();
+                    apptCtrl.printScheduledAppointments(appointments);
                     System.out.println("============= Completed Appointments =============");
                     apptOut.printAllAdminOutcomes();
 
