@@ -136,8 +136,8 @@ public class PatientMenu extends Menu{
 					Appointment appt = apptController.getConfirmedAppointmentByPatientId(Authenticate.getLoggedInUser().getId());
 
 					//outcomeController.addOutcome(appt.getAppointmentId(), LocalDate.now(), LocalTime.now(), "s", "D0001", selectedPatient.getId());
-					
-					outcomeController.viewOutcomeAsPatient(appt.getAppointmentId(), selectedPatient.getId());
+					outcomeController.printPatientOutcome(appt.getAppointmentId());
+					//outcomeController.viewOutcomeAsPatient(appt.getAppointmentId(), selectedPatient.getId());
 					break;
 				case 9: 
 					// logout
