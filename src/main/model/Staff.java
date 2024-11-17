@@ -9,9 +9,11 @@ import main.model.Contact;
 
 public class Staff extends Person{
     private Contact contact;
+    private String id;
     public Staff(String id, Contact contact, Role role) {
         super(id, contact, role);
         this.contact = contact;
+        this.id = id;
     }
 
     public static Staff fromCSV(String csvLine) {
@@ -64,5 +66,19 @@ public class Staff extends Person{
         } catch(NumberFormatException e){
             return -1;
         }
+    }
+
+    public String toCSV() {
+        String name = contact.getName();
+        Role role = getRole();
+        String roleString = role.name();
+        String age = contact.getAge();
+        String dob = contact.getDOB();
+        char gender = contact.getGender();
+        String contactNum = contact.getContactNumber();
+        String email = contact.getEmail();
+        String address = contact.getAddress();
+
+        return id + "," + name + "," + roleString + "," + age + "," + dob + "," + gender + "," + contactNum + "," + email + "," + address;
     }
 }
