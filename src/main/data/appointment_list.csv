@@ -1,2 +1,2 @@
 apptId,doctorId,patientId,timeslot,status,appointmentSlotId,appointmentOutcomeId
-null,P0001,D0001,0900 - 0930,CONFIRMED,AS0001,null
+APP0001,D0001,P0001,0900 - 0930,CANCELLED,AS0001,null

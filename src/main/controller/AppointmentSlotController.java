@@ -21,7 +21,7 @@ public class AppointmentSlotController {
     private AppointmentSlotView view = new AppointmentSlotView();
     private AvailabilitySlotController availSlotController = new AvailabilitySlotController();
     private AppointmentCSVManager apptCSVManager = new AppointmentCSVManager();
-    private AppointmentController apptController = new AppointmentController();
+    // private AppointmentController apptController = new AppointmentController();
 
     public AppointmentSlotController() {
         this.appointmentSlots = new ArrayList<>();
@@ -143,12 +143,16 @@ public class AppointmentSlotController {
     public void cancelAppointmentSlot(String appointmentSlotId) {
         try {
             AppointmentSlot appointmentSlot = getAppointmentSlotById(appointmentSlotId);
-            //update appt slot status
-            appointmentSlot.setStatus(ApptStatus.CANCELLED);
-            //update appt csv
-            apptSlotCSVManager.updateAppointmentSlot(appointmentSlot);
+            if(appointmentSlot!=null){
+                //update appt slot status
+                appointmentSlot.setStatus(ApptStatus.CANCELLED);
+                //update appt csv
+                apptSlotCSVManager.updateAppointmentSlot(appointmentSlot);
 
-            System.out.println("Appointment slot canceled successfully.");
+                System.out.println("Appointment slot canceled successfully.");
+            }else{
+                System.out.println("Appointment slot not found.");
+            }
             return;
         } catch (IOException e) {
             System.out.println("Error canceling appointment: " + e.getMessage());
@@ -169,10 +173,13 @@ public class AppointmentSlotController {
     public AppointmentSlot getAppointmentSlotById(String slotId) {
         loadAppointmentSlots(); //get latest data
         for (AppointmentSlot slot : appointmentSlots) {
+            System.out.println("ID: " + slot.getAppointmentSlotId());
+            System.out.println("params: " + slotId);
             if (slot.getAppointmentSlotId().equals(slotId)) {
                 return slot;
             }
         }
+        System.out.println("Appointment slot with specified ID not found");
         return null;
     }
 

@@ -21,11 +21,11 @@ public class AppointmentController {
     // private AppointmentView view;
     private List<Appointment> appointments;
     private AppointmentCSVManager apptCSVManager = new AppointmentCSVManager();
-    private AppointmentController apptCtrl = new AppointmentController();
+    // private AppointmentController apptCtrl = new AppointmentController();
     private AppointmentSlotController apptSlotCtrl = new AppointmentSlotController();
-    private AppointmentSlotCSVManager apptSlotCSVManager = new AppointmentSlotCSVManager();
+    // private AppointmentSlotCSVManager apptSlotCSVManager = new AppointmentSlotCSVManager();
     private AvailabilitySlotController availSlotCtrl = new AvailabilitySlotController();
-    private AvailabilitySlotCSVManager availCSVManager = new AvailabilitySlotCSVManager();
+    // private AvailabilitySlotCSVManager availCSVManager = new AvailabilitySlotCSVManager();
     // private AppointmentOutcome apptOutcome;
 
     // Constructor
@@ -169,9 +169,17 @@ public class AppointmentController {
             //update appt csv
             apptCSVManager.updateAppointment(appointment.getAppointmentId(), appointment);
             //update appt slot status
+            System.out.println("updating appt slot...");
+            System.out.println("ID: " + appointment.getAppointmentId());
+            System.out.println("slot id: " + appointment.getAppointmentSlotId());
             apptSlotCtrl.cancelAppointmentSlot(appointment.getAppointmentSlotId());
             //update availability slot status n csv
+            System.out.println("updating avail slot...");
+            System.out.println("ID: " + appointment.getAppointmentId());
+            System.out.println("status: " + appointment.getAppointmentSlotId());
+
             AppointmentSlot apptSlot = apptSlotCtrl.getAppointmentSlotById(appointment.getAppointmentSlotId());
+            System.out.println("status: " + apptSlot.getAvailabilitySlotId());
             availSlotCtrl.cancelAvailabilitySlot(apptSlot.getAvailabilitySlotId());
             System.out.println("Appointment canceled successfully.");
             return;
@@ -206,8 +214,14 @@ public class AppointmentController {
 
     public Appointment getConfirmedAppointmentByPatientId(String patientId){
         loadAppointments();
+        System.out.println("Get confirmed appts by pateint id");
+        System.out.println("size of arr: " + appointments);
         for (Appointment record : appointments) {
+            System.out.println("ID: " + record.getAppointmentId());
+            System.out.println("status: " + record.getStatus());
+            System.out.println("patient id: " + record.getPatientId());
             if (record.getStatus() == ApptStatus.CONFIRMED && record.getPatientId().equals(patientId)) {
+                System.out.println(record.getAppointmentId());
                 return record;
             }
         }
