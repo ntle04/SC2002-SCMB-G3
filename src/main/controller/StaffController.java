@@ -18,6 +18,7 @@ import main.model.Person;
 import main.controller.PersonController;
 import main.model.Staff;
 import main.util.Role;
+import main.util.AgeCalc;
 import main.view.StaffView;
 
 public class StaffController {
@@ -65,55 +66,8 @@ public class StaffController {
     	return staffList;	
     }
 
-    // public Staff getStaffById(){
-    //     System.out.println("Retrieving staff details...");
-    //     System.out.printf("Enter staff ID: ");
-    //     String id = sc.nextLine();
-    //     System.out.printf("Enter staff role: ");
-    //     String role = sc.next();
-    //     Role roleEnum = Role.valueOf(role.toUpperCase());
-    //     String line;
-
-    //     try (BufferedReader br = new BufferedReader(new FileReader(file_path))) {
-    //         while ((line = br.readLine()) != null) {
-    //             String[] values = line.split(",");
-
-    //             String name, age, dob, gender, contactNumber, email, address;
-
-    //             if (values[0].equals(id)) {
-    //                     name = values[1];
-    //                     age = values[2];
-    //                     dob = values[3];
-    //                     gender = values[4];
-    //                     contactNumber = values[5];
-    //                     email = values[6];
-    //                     address = values[7];
-                    
-    //                 // Create a new Contact object from the CSV data
-    //                 Contact contact = new Contact(name, age, dob, gender.charAt(0), contactNumber, email, address);
-    //                 Staff staff = new Staff(id, contact, roleEnum);
-    //                 return staff;
-    //             }
-    //         } 
-    //     }
-    //     catch (IOException e) {
-    //         e.printStackTrace();
-    //     }
-    //     return null;
-    // }
-    
-    // public Person getStaffDetails(){
-    //     System.out.println("Retrieving staff details...");
-    //     System.out.println("Enter staff id:");
-    //     String id = sc.nextLine();
-    //     System.out.println("Enter role of staff:");
-    //     String role = sc.nextLine();
-    //     Role roleEnum = Role.valueOf(role);
-    //     Person person = pc.getPersonById(id, roleEnum);
-    //     return person;
-    // }
-
     public void createStaff() {
+        AgeCalc calc = new AgeCalc();
         System.out.println("Enter staff role in uppercase:");
         String role = sc.nextLine();
         char x = role.charAt(0);
@@ -121,10 +75,9 @@ public class StaffController {
         String id = x + IdGenerator.generateNewId(file_path);
         System.out.println("Enter staff name:");
         String name = sc.nextLine();
-        System.out.println("Enter staff age:");
-        String age = sc.nextLine();
         System.out.println("Enter staff date of birth (dd/MM/yyyy):");
         String dob = sc.nextLine();
+        String age = calc.calculateAge(dob);
         System.out.println("Enter staff gender (M/F):");
         char gender = sc.next().charAt(0);
         System.out.println("Enter staff contact number:");
@@ -159,28 +112,79 @@ public class StaffController {
     }
 
     public void updateStaff(){
+        int choice = -1;
         System.out.println("Enter staff ID: ");
         String id = sc.nextLine();
         for(Staff staff : staffList){
             if(staff.getId().equals(id)){
-                Contact contact = staff.getContact();
-                ContactController conCon = new ContactController(contact);
-                conCon.updateContact();
+                do{
+                    printUpdateMenu();
+
+                    choice = sc.nextInt();
+                    sc.nextLine();
+
+                    switch(choice){
+                        case 1:
+                            System.out.printf("Enter new name: ");
+                            String name = sc.nextLine();
+                            staff.getContact().setName(name);
+                            System.out.println("Updated staff name");
+                            break;
+                        case 2:
+                            System.out.printf("Enter new role (DOCTOR, ADMINISTRATOR, PHARMACIST): ");
+                            String role = sc.nextLine().toUpperCase();
+                            staff.setRole(Role.valueOf(role));
+                            System.out.println("Updated staff role");
+                            break;
+                        case 3:
+                            AgeCalc calc = new AgeCalc();
+                            System.out.printf("Enter new date of birth (dd/MM/yyyy): ");
+                            String dob = sc.nextLine();
+                            staff.getContact().setDOB(dob);
+                            String age = calc.calculateAge(dob);
+                            staff.getContact().setAge(age);
+                            System.out.println("Updated staff date of birth and age");
+                            break;
+                        case 4:
+                            System.out.printf("Enter new gender: ");
+                            char gender = sc.next().charAt(0);
+                            staff.getContact().setGender(gender);
+                            System.out.println("Updated staff gender");
+                            break;
+                        case 5:
+                            System.out.printf("Enter new email address: ");
+                            String email = sc.nextLine();
+                            staff.getContact().setEmail(email);
+                            System.out.println("Updated staff email address");
+                            break;
+                        case 6:
+                            System.out.printf("Enter new address: ");
+                            String add = sc.nextLine();
+                            staff.getContact().setAddress(add);
+                            System.out.println("Updated staff address");
+                            break;
+                    }
+                } while(choice < 6);
                 saveAllChanges();
-                view.printUpdatedStaffContact(contact, id);
-                view.printUpdateConfirmation();
+                System.out.println("Staff information has been updated! \n");
+                view.printAllStaff(staffList);
                 return;
             }
         } 
         System.out.println("Staff does not exist.");
     }
 
-    // public void removeStaff(){
-    //     Staff staff = getStaffById();
-    //     staffList.remove(staff);
-    //     saveAllChanges();
-    //     System.out.println("Removed Staff");
-    // }
+    public void printUpdateMenu(){
+        System.out.println("Enter your choice: ");
+        System.out.println("1. Update name");
+        System.out.println("2. Update role");
+        System.out.println("3. Update date of birth");
+        System.out.println("4. Update gender");
+        System.out.println("5. Update email address");
+        System.out.println("6. Update address");
+        System.out.println("7: Return");
+    }
+
 
     // public void updateStaff(){
     //     Person person = getStaffDetails();
@@ -227,8 +231,6 @@ public class StaffController {
                         })
                         .collect(Collectors.toList());
     }
-
-
 
     /*
     public void sortByGender(){

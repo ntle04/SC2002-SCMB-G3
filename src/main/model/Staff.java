@@ -10,10 +10,12 @@ import main.model.Contact;
 public class Staff extends Person{
     private Contact contact;
     private String id;
+    // private Role role;
     public Staff(String id, Contact contact, Role role) {
         super(id, contact, role);
         this.contact = contact;
         this.id = id;
+        // this.role = role;
     }
 
     public static Staff fromCSV(String csvLine) {
@@ -31,7 +33,7 @@ public class Staff extends Person{
 			String age = values[3].trim();
 			String dob = values[4].trim();
             
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             Date parseDob = dateFormat.parse(dob);
             
             Character gender = values[5].trim().charAt(0);
@@ -68,6 +70,30 @@ public class Staff extends Person{
 
     public Contact getContact(){
         return contact;
+    }
+
+    public void setName(String name){
+        contact.setName(name);
+    }
+
+    // public void setRole(Role role){
+    //     this.role = role;
+    // }
+
+    public void setDOB(String dob){
+        contact.setDOB(dob);
+    }
+
+    public void setEmail(String email){
+        contact.setEmail(email);
+    }
+
+    public void setAddress(String add){
+        contact.setAddress(add);
+    }
+
+    public void setGender(char gen){
+        contact.setGender(gen);
     }
 
     public String toCSV() {

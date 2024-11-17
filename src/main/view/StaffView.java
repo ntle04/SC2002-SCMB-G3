@@ -11,7 +11,8 @@ public class StaffView {
     public void printStaffRecord(Staff staff) {    
     	System.out.println("Staff ID: " + staff.getId());
         System.out.println("Name: " + staff.getContact().getName());
-        System.out.println("Name: " + staff.getContact().getAge());
+        System.out.println("Role: " + staff.getRole());
+        System.out.println("Age: " + staff.getContact().getAge());
         System.out.println("DOB: " + staff.getContact().getDOB()); 
         System.out.println("Gender: " + staff.getContact().getGender());
         System.out.println("Email: " + staff.getContact().getEmail());

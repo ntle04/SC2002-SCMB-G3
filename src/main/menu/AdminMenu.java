@@ -142,9 +142,10 @@ public class AdminMenu extends Menu{
             case 4:
                 List<Staff> staffList = staffCon.getStaffList();
                 staffView.printAllStaff(staffList);
+                break;
             case 5:
                 staffFilter();
-
+                break;
         }
     }
 
@@ -161,7 +162,7 @@ public class AdminMenu extends Menu{
             case 1: 
                 System.out.println("Enter staff role (Doctor, Pharmacist, Administrator):");
                 String role = sc.nextLine();
-                List<Staff> roleFiltered = staffCon.filterByRole(role);
+                List<Staff> roleFiltered = staffCon.filterByRole(role.toUpperCase());
                 staffView.printAllStaff(roleFiltered);
                 break;
             case 2:
