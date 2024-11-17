@@ -46,7 +46,7 @@ public class CSVHelper {
     
 
     //updates one by overwriting all data in csv
-    public static void updateCSVById(String filePath, String id, String[] updatedRecord, String[] header) throws IOException {
+    /*public static void updateCSVById(String filePath, String id, String[] updatedRecord, String[] header) throws IOException {
         System.out.println("updating CSV");
         List<String[]> data = new ArrayList<>();
 
@@ -77,6 +77,44 @@ public class CSVHelper {
             // writer.newLine();
 
             // Write the updated records
+            for (String[] row : data) {
+                writer.write(String.join(",", row));
+                writer.newLine();
+            }
+        }
+    }*/
+
+    public static void updateCSVById(String filePath, String id, String[] updatedRecord, String[] header) throws IOException {
+        List<String[]> data = new ArrayList<>();
+        boolean recordFound = false;
+    
+        // Read the existing CSV file
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            boolean isFirstLine = true;
+            while ((line = reader.readLine()) != null) {
+                if (isFirstLine) {
+                    isFirstLine = false;
+                    data.add(line.trim().split(","));
+                    continue;
+                }
+                
+                String[] row = line.trim().split(",");
+                if (row[0].equals(id)) {
+                    data.add(updatedRecord);
+                    recordFound = true;
+                } else {
+                    data.add(row);
+                }
+            }
+        }
+    
+        if (!recordFound) {
+            System.out.println("Warning: No record found with ID: " + id);
+        }
+    
+        // Write the updated data back to the file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (String[] row : data) {
                 writer.write(String.join(",", row));
                 writer.newLine();
