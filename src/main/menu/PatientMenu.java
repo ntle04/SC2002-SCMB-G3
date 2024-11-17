@@ -3,8 +3,11 @@ package main.menu;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import main.controller.AppointmentController;
+import main.controller.AppointmentOutcomeController;
 import main.controller.AppointmentSlotController;
 import main.controller.Authenticate;
 import main.controller.ContactController;
@@ -30,7 +33,9 @@ public class PatientMenu extends Menu{
     //AppointmentSlotController apptSlotController = new AppointmentSlotController();
 	// ContactController contactController = new ContactController(currentUser.getContact());
 	AppointmentController apptController = new AppointmentController();
-
+	
+	
+	AppointmentOutcomeController outcomeController = new AppointmentOutcomeController();
 
     public void printMenu(){
         System.out.println("=== Patient Menu ===");
@@ -118,7 +123,13 @@ public class PatientMenu extends Menu{
 					break;
 				case 8: 
 					// TODO patientController view Past Appointment Outcome Records
-		            break;
+					
+					Appointment appt = apptController.getConfirmedAppointmentByPatientId(Authenticate.getLoggedInUser().getId());
+
+					//outcomeController.addOutcome(appt.getAppointmentId(), LocalDate.now(), LocalTime.now(), "s", "D0001", selectedPatient.getId());
+					
+					outcomeController.viewOutcomeAsPatient(appt.getAppointmentId(), selectedPatient.getId());
+					break;
 				case 9: 
 					// logout
 					Authenticate.logout();
@@ -127,7 +138,7 @@ public class PatientMenu extends Menu{
 		            break;
 		    }
 				
-		}while(choice < 8);
+		}while(choice < 9);
 			
 	}
 

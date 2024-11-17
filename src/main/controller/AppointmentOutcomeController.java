@@ -11,19 +11,20 @@ import main.util.PrescriptionStatus;
 import main.view.AppointmentOutcomeView;
 
 public class AppointmentOutcomeController {
-    private AppointmentOutcome model;
+    //private AppointmentOutcome model;
     private AppointmentOutcomeView view;
     private List<AppointmentOutcome> outcomes;
 
-    public AppointmentOutcomeController(AppointmentOutcome model, AppointmentOutcomeView view) {
-        this.model = model;
-        this.view = view;
-        
+    public AppointmentOutcomeController() { //AppointmentOutcome model, AppointmentOutcomeView view
+        //this.model = model;
+        this.view = new AppointmentOutcomeView();
+        this.outcomes = new ArrayList<AppointmentOutcome>();
     }
     
     // Doctor functions
     public void addOutcome(String appointmentId, LocalDate appointmentDate, LocalTime appointmentTime, String serviceType, String doctorId, String patientId) {
-        AppointmentOutcome outcome = new AppointmentOutcome(appointmentId, appointmentDate, appointmentTime, serviceType, doctorId, patientId); outcomes.add(outcome);
+        AppointmentOutcome outcome = new AppointmentOutcome(appointmentId, appointmentDate, appointmentTime, serviceType, doctorId, patientId); 
+        outcomes.add(outcome);
     }
     
  /*   public void addPrescription(String appointmentId, String prescriptionName) { 
@@ -63,12 +64,16 @@ public class AppointmentOutcomeController {
     //     }
     // }
     
-    // public void viewOutcomeAsPatient(String appointmentId, String patientId) {
-    //     AppointmentOutcome outcome = findOutcome(appointmentId);
-    //     if (outcome != null && outcome.getPatientId().equals(patientId)) {
-    //         view.displayPatientOutcome(outcome);
-    //     }
-    // }
+    public void viewOutcomeAsPatient(String appointmentId, String patientId) {
+         AppointmentOutcome outcome = findOutcome(appointmentId);
+        if (outcome != null && outcome.getPatientId().equals(patientId)) {
+             view.displayPatientOutcome(outcome);
+         }
+        else
+        {
+        	System.out.println("=== No Appointment Outcome ===");
+        }
+     }
     
     // public void viewOutcomeAsPharmacist(String appointmentId) {
     //     AppointmentOutcome outcome = findOutcome(appointmentId);
@@ -84,10 +89,10 @@ public class AppointmentOutcomeController {
     //     }
     // }
     
-    // private AppointmentOutcome findOutcome(String appointmentId) {
-    //     return outcomes.stream()
-    //                   .filter(o -> o.getAppointmentId().equals(appointmentId))
-    //                   .findFirst()
-    //                   .orElse(null);
-    // }
+     private AppointmentOutcome findOutcome(String appointmentId) {
+         return outcomes.stream()
+                       .filter(o -> o.getAppointmentId().equals(appointmentId))
+                       .findFirst()
+                       .orElse(null);
+     }
 }
