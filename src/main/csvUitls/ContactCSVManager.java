@@ -79,6 +79,7 @@ public class ContactCSVManager {
                         line = String.join(",", fields);
                     }else{
                         System.out.println("updating staff contact");
+                        System.out.println("updated name: " + updatedContact.getName());
                         fields[1] = updatedContact.getName();
                         fields[3] = updatedContact.getAge();
                         fields[4] = updatedContact.getDOB();

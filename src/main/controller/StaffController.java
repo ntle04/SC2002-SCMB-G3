@@ -119,9 +119,9 @@ public class StaffController {
         Contact contact = person.getContact();
         ContactController conCon = new ContactController(contact);
         conCon.updateContact();
-        saveAllChanges();
-        view.printUpdatedStaffContact(contact, id);
-        view.printUpdateConfirmation();
+        // saveAllChanges();
+        // view.printUpdatedStaffContact(contact, id);
+        // view.printUpdateConfirmation();
     }
 
     public List<Staff> filterByRole(String role){

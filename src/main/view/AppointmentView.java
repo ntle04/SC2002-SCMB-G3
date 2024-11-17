@@ -3,10 +3,14 @@ package main.view;
 import java.util.Date;
 import java.util.List;
 
+import main.controller.AppointmentOutcomeController;
 import main.model.Appointment;
 import main.model.AppointmentOutcome;
+import main.util.ApptStatus;
 
 public class AppointmentView {
+
+    AppointmentOutcomeController apptOCtrl = new AppointmentOutcomeController();
 
     // // Print available slots for a specific appointment
     // public void printAvailableSlots(int appointmentId, String doctorName, Date appointmentDate, Date appointmentTime, List<AppointmentSlots> slots) {
@@ -28,7 +32,12 @@ public class AppointmentView {
         System.out.println("Appointment ID: " + appointment.getAppointmentId());
         System.out.println("Doctor ID: " + appointment.getDoctorId());
         System.out.println("Patient ID: " + appointment.getPatientId());
-        System.out.println("Time: " + appointment.getTimeSlot());
+        System.out.println("Time: " + appointment.getTimeSlot().getTime());
+        System.out.println("Status: " + appointment.getStatus());
+
+        if(appointment.getStatus() == ApptStatus.COMPLETED){
+            //apptOCtrl.printPatientOutcome(appointment.getAppointmentOutcomeId());
+        }
     }
 
     // // Method to print schedule confirmation message
