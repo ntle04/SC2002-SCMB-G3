@@ -114,8 +114,24 @@ public class DoctorMenu extends Menu{
 
 
                 case 5://Accept or Decline requests
-                    AppointmentSlot selectedSlot = selectAppointment();
-                    apptSlotController.confirmAppointment(selectedSlot.getAppointmentSlotId());
+                    apptSlotController.printPendingAppointmentSlots();
+                    int selectedSlot = sc.nextInt();
+                    //List<AppointmentSlot> slots = apptSlotController.filterSlotsByDoctorId(loggedInUser.getId());
+                    //AppointmentSlot chosen = slots.get(selectedSlot - 1);
+                    AppointmentSlot chosen = selectAppointment();
+                    System.out.print("Enter A to accept appt and D to decline");
+                    String reqchoice = sc.nextLine();
+                    char character = reqchoice.charAt(0);
+                    if(character == 'A'){
+                        apptSlotController.confirmAppointment(chosen.getAppointmentSlotId());
+                    }
+                    else if(character == 'D'){
+                        //apptSlotController.cancelAppointmentSlot(chosen.getAppointmentSlotId());
+                        //availabilitySlotController.cancelAvailabilitySlot(chosen.getAvailabilitySlotId());
+                    }
+                    else{
+                        break;
+                    }
                     break;
 
                 case 6://view upcoming appointments
@@ -158,7 +174,7 @@ public class DoctorMenu extends Menu{
         int choice = scanner.nextInt();
 
         // Validate the choice and return the corresponding slot
-        int index = 1;
+        int index = 0;
         for (AppointmentSlot slot : slots) {
             if (index == choice) {
                 System.out.println("Appointment Slot ID: " + slot.getAppointmentSlotId());

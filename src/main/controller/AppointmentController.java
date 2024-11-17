@@ -6,8 +6,11 @@ import java.util.Date;
 import java.util.List;
 
 import main.csvUitls.AppointmentCSVManager;
+import main.csvUitls.AppointmentSlotCSVManager;
+import main.csvUitls.AvailabilitySlotCSVManager;
 import main.model.Appointment;
 import main.model.AppointmentOutcome;
+import main.model.AppointmentSlot;
 import main.model.AvailabilitySlot;
 import main.util.ApptStatus;
 import main.util.TimeSlot;
@@ -17,12 +20,17 @@ public class AppointmentController {
     // private Appointment model;
     // private AppointmentView view;
     private List<Appointment> appointments;
-    private AppointmentCSVManager csvManager = new AppointmentCSVManager();
+    private AppointmentCSVManager apptCSVManager = new AppointmentCSVManager();
+    private AppointmentController apptCtrl = new AppointmentController();
+    private AppointmentSlotController apptSlotCtrl = new AppointmentSlotController();
+    private AppointmentSlotCSVManager apptSlotCSVManager = new AppointmentSlotCSVManager();
+    private AvailabilitySlotController availSlotCtrl = new AvailabilitySlotController();
+    private AvailabilitySlotCSVManager availCSVManager = new AvailabilitySlotCSVManager();
     // private AppointmentOutcome apptOutcome;
 
     // Constructor
-    public AppointmentController() {
-    }
+    // public AppointmentController() {
+    // }
 
     // // To view available appointment slots
     // public List<AppointmentSlots> viewAvailableSlots() {
@@ -77,8 +85,9 @@ public class AppointmentController {
 
 
     private void loadAppointments() {
+        System.out.println("loading appointments: ");
         try {
-            appointments = csvManager.readAppointments();
+            appointments = apptCSVManager.readAppointments();
         } catch (IOException e) {
             System.out.println("Error loading appointments: " + e.getMessage());
         }
@@ -86,7 +95,7 @@ public class AppointmentController {
 
     public void scheduleAppointment(Appointment appointment) {
         try {
-            csvManager.addAppointment(appointment);
+            apptCSVManager.addAppointment(appointment);
             System.out.println("Appointment scheduled successfully.");
         } catch (IOException e) {
             System.out.println("Error scheduling appointment: " + e.getMessage());
@@ -95,11 +104,11 @@ public class AppointmentController {
 
     public void rescheduleAppointment(String appointmentId, TimeSlot newTimeslot) {
         try {
-            List<Appointment> appointments = csvManager.readAppointments();
+            List<Appointment> appointments = apptCSVManager.readAppointments();
             for (Appointment appointment : appointments) {
                 if (appointment.getAppointmentId().equals(appointmentId)) {
                     appointment.setTimeSlot(newTimeslot);
-                    csvManager.updateAppointment(appointmentId, appointment);
+                    apptCSVManager.updateAppointment(appointmentId, appointment);
                     System.out.println("Appointment rescheduled successfully.");
                     return;
                 }
@@ -110,18 +119,62 @@ public class AppointmentController {
         }
     }
 
-    public void cancelAppointment(String appointmentId) {
+    // public void cancelAppointment(String appointmentId) {
+    //     try {
+    //         List<Appointment> appointments = csvManager.readAppointments();
+    //         for (Appointment appointment : appointments) {
+    //             if (appointment.getAppointmentId().equals(appointmentId)) {
+    //                 appointment.setStatus(ApptStatus.CANCELLED);
+    //                 csvManager.updateAppointment(appointmentId, appointment);
+    //                 System.out.println("Appointment canceled successfully.");
+    //                 return;
+    //             }
+    //         }
+    //         System.out.println("Appointment not found.");
+    //     } catch (IOException e) {
+    //         System.out.println("Error canceling appointment: " + e.getMessage());
+    //     }
+    // }
+
+    //  public void cancelAppointment(String appointmentId) {
+
+    //     for (Appointment slot : appointments) {
+    //         if (slot.getAppointmentId().equals(appointmentId)) {
+    //             try {
+    //                 //change appt status
+    //                 apptCtrl.cancelAppointment(slot);
+    //                 //change appt slot & avail slot status in model
+    //                 slot.cancelAppointment();
+
+    //                 //update in csv
+                    
+
+    //                 apptSlotCSVManager.updateAppointmentSlot(slot);
+
+    //                 System.out.println("Appointment cancelled.");
+    //             } catch (IOException e) {
+    //                 System.out.println("Error cancelling appointment: " + e.getMessage());
+    //             }
+
+    //             break;
+    //         }
+    //     }
+        
+    // }
+
+    public void cancelAppointment(Appointment appointment) {
         try {
-            List<Appointment> appointments = csvManager.readAppointments();
-            for (Appointment appointment : appointments) {
-                if (appointment.getAppointmentId().equals(appointmentId)) {
-                    appointment.setStatus(ApptStatus.CANCELLED);
-                    csvManager.updateAppointment(appointmentId, appointment);
-                    System.out.println("Appointment canceled successfully.");
-                    return;
-                }
-            }
-            System.out.println("Appointment not found.");
+            //update appt status
+            appointment.setStatus(ApptStatus.CANCELLED);
+            //update appt csv
+            apptCSVManager.updateAppointment(appointment.getAppointmentId(), appointment);
+            //update appt slot status
+            apptSlotCtrl.cancelAppointmentSlot(appointment.getAppointmentSlotId());
+            //update availability slot status n csv
+            AppointmentSlot apptSlot = apptSlotCtrl.getAppointmentSlotById(appointment.getAppointmentSlotId());
+            availSlotCtrl.cancelAvailabilitySlot(apptSlot.getAvailabilitySlotId());
+            System.out.println("Appointment canceled successfully.");
+            return;
         } catch (IOException e) {
             System.out.println("Error canceling appointment: " + e.getMessage());
         }
@@ -133,7 +186,7 @@ public class AppointmentController {
         List<Appointment> filteredRecords = new ArrayList<>();
         loadAppointments();
         for (Appointment record : appointments) {
-            if (record.getStatus() == ApptStatus.COMPLETED && record.getDoctorId() == doctorId) {
+            if (record.getStatus() == ApptStatus.COMPLETED && record.getDoctorId().equals(doctorId)) {
                 filteredRecords.add(record);
             }
         }
@@ -144,18 +197,29 @@ public class AppointmentController {
         List<Appointment> filteredRecords = new ArrayList<>();
         loadAppointments();
         for (Appointment record : appointments) {
-            if (record.getStatus() == ApptStatus.COMPLETED && record.getPatientId() == patientId) {
+            if (record.getStatus() == ApptStatus.COMPLETED && record.getPatientId().equals(patientId)) {
                 filteredRecords.add(record);
             }
         }
         return filteredRecords;
     }
 
+    public Appointment getConfirmedAppointmentByPatientId(String patientId){
+        loadAppointments();
+        for (Appointment record : appointments) {
+            if (record.getStatus() == ApptStatus.CONFIRMED && record.getPatientId().equals(patientId)) {
+                return record;
+            }
+        }
+        System.out.print("No appointment found.");
+        return null;
+    }
+
     public List<Appointment> getAppointmentsByPatientId(String patientId){
         List<Appointment> filteredRecords = new ArrayList<>();
         loadAppointments();
         for (Appointment record : appointments) {
-            if (record.getPatientId() == patientId) {
+            if (record.getPatientId().equals(patientId)) {
                 filteredRecords.add(record);
             }
         }

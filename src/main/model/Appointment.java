@@ -105,8 +105,8 @@ public class Appointment {
 	// 	this.appointmentTime = newAppointmentTime;
 	// }
 
-	// public void cancelAppointment(int appointmentId) {
-	// 	this.appointmentId = appointmentId;
+	// public void cancelAppointment() {
+	// 	this.status = ApptStatus.CANCELLED;
 	// }
 
 	public String[] toCSVRecord() {
