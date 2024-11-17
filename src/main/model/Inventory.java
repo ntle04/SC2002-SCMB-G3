@@ -44,8 +44,9 @@ public class Inventory {
 
 
             Medicine medicine = new Medicine(id, name, quantity, salePrice, lastPurchase, SLEnum);
-
-            return new Inventory();
+            Inventory inventory = new Inventory();
+            inventory.addMedicine(medicine);
+            return inventory;
 
         } catch (NumberFormatException | ParseException e) {
             System.out.println("Error parsing CSV line: " + csvLine);
