@@ -62,13 +62,17 @@ public class AppointmentView {
 
     //maybe need
 
-    // // Method to print scheduled appointments
-    // public void printScheduledAppointment(List<Appointment> appointments) {
-    //     System.out.println("Scheduled Appointments:");
-    //     for (Appointment appointment : appointments) {
-    //         System.out.println("- " + appointment.toString()); // Assuming Appointment has a meaningful toString method
-    //     }
-    // }
+    // Method to print scheduled appointments
+    public void printScheduledAppointments(List<Appointment> appointments) {
+        System.out.println("Scheduled Appointments:");
+        for (Appointment appointment : appointments) {
+            System.out.println("Appointment ID: " + appointment.getAppointmentId());
+            System.out.println("Time: " + appointment.getTimeSlot());
+            System.out.println("Patient ID: " + appointment.getPatientId());
+            System.out.println("Doctor ID: " + appointment.getDoctorId());
+            System.out.println("----------------------------");
+        }
+    }
 
     // // Method to print past appointment outcomes
     // public void printPastAppointmentOutcome(int appointmentId, List<AppointmentOutcome> outcomes) {

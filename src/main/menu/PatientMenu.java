@@ -117,7 +117,8 @@ public class PatientMenu extends Menu{
 			        break;
 			    case 7:
 					// TODO patientController view schedule appt
-					apptController.getAppointmentsByPatientId(Authenticate.getLoggedInUser().getId());
+					List<Appointment> schedAppointments = apptController.getConfirmedAppointmentsByPatientId(Authenticate.getLoggedInUser().getId());
+					apptController.printScheduledAppointments(schedAppointments);
 					break;
 				case 8: 
 					// TODO patientController view Past Appointment Outcome Records

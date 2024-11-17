@@ -18,7 +18,7 @@ import main.view.AppointmentView;
 
 public class AppointmentController {
     // private Appointment model;
-    // private AppointmentView view;
+    private AppointmentView apptView = new AppointmentView();
     private List<Appointment> appointments;
     private AppointmentCSVManager apptCSVManager = new AppointmentCSVManager();
     // private AppointmentController apptCtrl = new AppointmentController();
@@ -85,7 +85,6 @@ public class AppointmentController {
 
 
     private void loadAppointments() {
-        System.out.println("loading appointments: ");
         try {
             appointments = apptCSVManager.readAppointments();
         } catch (IOException e) {
@@ -212,6 +211,20 @@ public class AppointmentController {
         return filteredRecords;
     }
 
+    public List<Appointment> getConfirmedAppointmentsByPatientId(String patientId){
+        List<Appointment> filteredRecords = new ArrayList<>();
+        loadAppointments();
+        for (Appointment record : appointments) {
+            if (record.getStatus() == ApptStatus.CONFIRMED && record.getPatientId().equals(patientId)) {
+                filteredRecords.add(record);
+            }
+        }
+        if(filteredRecords.size() < 1){
+            System.out.println("No scheduled appointments");
+        }
+        return filteredRecords;
+    }
+
     public Appointment getConfirmedAppointmentByPatientId(String patientId){
         loadAppointments();
         System.out.println("Get confirmed appts by pateint id");
@@ -238,5 +251,9 @@ public class AppointmentController {
             }
         }
         return filteredRecords;
+    }
+
+    public void printScheduledAppointments(List<Appointment> appointments){
+        apptView.printScheduledAppointments(appointments);
     }
 }
