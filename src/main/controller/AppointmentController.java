@@ -187,6 +187,14 @@ public class AppointmentController {
         }
     }
 
+    public List<Appointment> getAllAppointments(){
+        loadAppointments();
+        if(appointments.size()<1){
+            System.out.println("No appointments to load.");
+        }
+        return appointments;
+    }
+
 
 
     public List<Appointment> getCompletedAppointmentsByDoctorId(String doctorId){
@@ -251,6 +259,13 @@ public class AppointmentController {
             }
         }
         return filteredRecords;
+    }
+
+    public void printAllAppointments(){
+        List<Appointment> records = getAllAppointments();
+        for (Appointment record : records) {
+            apptView.printAppointmentDetails(record);
+        }
     }
 
     public void printScheduledAppointments(List<Appointment> appointments){
