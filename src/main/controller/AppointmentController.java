@@ -119,12 +119,21 @@ public class AppointmentController {
     public void rescheduleAppointment(String appointmentId, TimeSlot newTimeslot) {
         try {
             List<Appointment> appointments = apptCSVManager.readAppointments();
+            List<AvailabilitySlot> availability = availSlotCtrl.getAvailabilitylist();
             for (Appointment appointment : appointments) {
                 if (appointment.getAppointmentId().equals(appointmentId)) {
                     appointment.setTimeSlot(newTimeslot);
                     apptCSVManager.updateAppointment(appointmentId, appointment);
                     System.out.println("Appointment rescheduled successfully.");
+                    for(AvailabilitySlot avail : availability){
+                        AppointmentSlot apptslot = apptSlotCtrl.getAppointmentSlotById(appointment.getAppointmentSlotId());
+                        if(avail.getAvailabilitySlotId().equals(apptslot.getAvailabilitySlotId()))
+                        {
+                            availSlotCtrl.updateAvailability(avail.getDoctorId(),avail.getTimeSlot(),false);
+                        }
+                    }
                     return;
+
                 }
             }
             System.out.println("Appointment not found.");

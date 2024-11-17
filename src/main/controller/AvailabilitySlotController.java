@@ -34,9 +34,20 @@ public class AvailabilitySlotController {
         }
     }
 
+    public List<AvailabilitySlot> getAvailabilitylist(){
+        try {
+            availabilitySlots = csvManager.loadAvailabilities();
+            return availabilitySlots;
+        } catch (IOException e) {
+            System.out.println("Error loading availabilities: " + e.getMessage());
+        }
+                return availabilitySlots;
+    }
+
     public void addAvailabilitySlots(String doctorId, List<TimeSlot> slots) {
-        List<AvailabilitySlot> newAvailabilitySlots = new ArrayList<>();
+        
         for (TimeSlot slot : slots) {
+            List<AvailabilitySlot> newAvailabilitySlots = new ArrayList<>();
             AvailabilitySlot newSlot = new AvailabilitySlot(doctorId, slot);
             newAvailabilitySlots.add(newSlot);
         
@@ -48,6 +59,7 @@ public class AvailabilitySlotController {
         }
         }
     }
+    
 
     public void updateAvailability(String doctorId, TimeSlot timeSlot, boolean isAvailable) {
         for (AvailabilitySlot slot : availabilitySlots) {
@@ -97,7 +109,7 @@ public class AvailabilitySlotController {
         List<AvailabilitySlot> doctorSlots = new ArrayList<>();
         loadAvailabilities(); //get latest data
         for (AvailabilitySlot slot : availabilitySlots) {
-            if (slot.getDoctorId().equals(doctorId)) {
+            if (slot.getDoctorId().equals(doctorId) & slot.isAvailable()) {
                 doctorSlots.add(slot);
             }
         }

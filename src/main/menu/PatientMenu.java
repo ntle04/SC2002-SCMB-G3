@@ -16,6 +16,7 @@ import main.model.Contact;
 import main.model.Patient;
 import main.model.Person;
 import main.util.Role;
+import main.util.TimeSlot;
 import main.view.AvailabilitySlotView;
 import main.controller.AvailabilitySlotController;
 
@@ -26,11 +27,11 @@ public class PatientMenu extends Menu{
 	// Person currentUser = Authenticate.getLoggedInUser();
 
 	// PatientController patientController;
-    // AvailabilitySlotController availSlotController = new AvailabilitySlotController();
+    AvailabilitySlotController availSlotController = new AvailabilitySlotController();
     AvailabilitySlotView availView = new AvailabilitySlotView();
     // AppointmentSlotController apptSlotController = new AppointmentSlotController();
 	// // ContactController contactController = new ContactController(currentUser.getContact());
-	// AppointmentController apptController = new AppointmentController();
+	 AppointmentController apptController = new AppointmentController();
 
 
     public void printMenu(){
@@ -98,7 +99,7 @@ public class PatientMenu extends Menu{
 			        break;
 			    case 3:
 			    	// TODO patientController view available appt slots	
-					// availSlotController.printAvailabilitySlotsByDoctor("D0001");
+					availSlotController.printAvailabilitySlotsByDoctor("D0001");
 			        break;
 			    case 4:
 			    	// TODO patientController schedule appt
@@ -107,6 +108,15 @@ public class PatientMenu extends Menu{
 			        break;
 			    case 5:
 			    	// TODO patientController reschedule appt
+					TimeSlot.printAllTimeSlots();
+					System.out.print("Enter the index of new timeslot: ");
+					
+                    int index = sc.nextInt();
+					TimeSlot newTimeSlot = TimeSlot.getByIndex(index);
+					Appointment selected = apptController.getConfirmedAppointmentByPatientId(loggedInUser.getId());
+					String selectedId = selected.getAppointmentId();
+
+					apptController.rescheduleAppointment(selectedId,newTimeSlot);
 
 			        break;
 			    case 6:

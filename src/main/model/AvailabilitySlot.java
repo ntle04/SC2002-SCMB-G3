@@ -69,6 +69,16 @@ public class AvailabilitySlot {
         }
     }
 
+    /*public String getPatientId(AppointmentSlot id){
+        //List<Patient> list = patientapptmanager.loadpatients();
+        //patientapptmanager.csv should have the the apptid and the patient id inside
+        for(Patient patient : list){
+
+        }
+
+
+    }*/
+
     public String getDoctorId() {
         return doctorId;
     }
