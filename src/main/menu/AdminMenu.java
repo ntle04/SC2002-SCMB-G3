@@ -204,8 +204,7 @@ public class AdminMenu extends Menu{
     }
 
     public void approveUpdateReq(){
-        List<ReplenishmentRequest> reqList = repCon.getAllRequests();
-        
+        List<ReplenishmentRequest> reqList = repCon.getAllRequests();        
         repCon.printAllReq(reqList);
         
         //update request list
@@ -213,21 +212,19 @@ public class AdminMenu extends Menu{
         String reqId = sc.nextLine();
         System.out.printf("Enter updated status (Approved, Pending, Denied): ");
         String status = sc.nextLine().toUpperCase();
-
+        repCon.updateRequestStatus(reqId, RequestStatus.valueOf(status));
+        System.out.println("Updated replenishment request status");
         
         //update medicine inventory
         for(ReplenishmentRequest req : reqList){
             if(req.getReqId().equals(reqId)){
-                repCon.updateRequestStatus(reqId, RequestStatus.valueOf(status));
-                System.out.println("Updated replenishment request status");
                 String medId = req.getMedId();
-                System.out.println(medId);
                 for(Medicine med : inv.getAllMedicines()){
                     if(med.getMedId().equals(medId)){
                         int qty = req.getQty();
-                        int oldQty = Integer.valueOf(med.getQuantity());
-                        String newQty = String.valueOf(oldQty + qty);
-                        med.setQuantity(newQty);
+                        int oldQty = Integer.parseInt(med.getQuantity());
+                        int newQty = qty + oldQty;
+                        med.setQuantity(String.valueOf(newQty));
                     }
                 }
             }
@@ -239,5 +236,4 @@ public class AdminMenu extends Menu{
         System.out.println("Request Id not found");
         return;
     }
-
 }
