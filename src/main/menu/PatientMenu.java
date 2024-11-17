@@ -3,14 +3,16 @@ package main.menu;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import main.controller.AppointmentController;
+import main.controller.AppointmentOutcomeController;
 import main.controller.AppointmentSlotController;
 import main.controller.Authenticate;
 import main.controller.ContactController;
 import main.controller.PatientController;
 import main.model.Appointment;
-// import main.model.Appointment;
 import main.model.AvailabilitySlot;
 import main.model.Contact;
 import main.model.Patient;
@@ -24,15 +26,17 @@ import main.controller.AvailabilitySlotController;
 public class PatientMenu extends Menu{
 	
 
-	// Person currentUser = Authenticate.getLoggedInUser();
+	Person currentUser = Authenticate.getLoggedInUser();
 
-	// PatientController patientController;
+	PatientController patientController;
     AvailabilitySlotController availSlotController = new AvailabilitySlotController();
     AvailabilitySlotView availView = new AvailabilitySlotView();
-    // AppointmentSlotController apptSlotController = new AppointmentSlotController();
-	// // ContactController contactController = new ContactController(currentUser.getContact());
-	 AppointmentController apptController = new AppointmentController();
-
+    //AppointmentSlotController apptSlotController = new AppointmentSlotController();
+	// ContactController contactController = new ContactController(currentUser.getContact());
+	AppointmentController apptController = new AppointmentController();
+	
+	
+	AppointmentOutcomeController outcomeController = new AppointmentOutcomeController();
 
     public void printMenu(){
         System.out.println("=== Patient Menu ===");
@@ -51,35 +55,31 @@ public class PatientMenu extends Menu{
 		Person loggedInUser = Authenticate.getLoggedInUser();
 		Contact contact = loggedInUser.getContact();
 		ContactController contactController = new ContactController(contact);
+		patientController  = new PatientController();
 		
-		// //Patient patient = new Patient(loggedInUser.getId(), loggedInUser.getContact(), loggedInUser.getRole(), 
-		// //		"O-", new ArrayList<Appointment>(), new ArrayList<String>(), new ArrayList<String>() );
+		Patient selectedPatient = null;	
+		List<Patient> patients = patientController.getPatientList();
 		
-		// patientController  = new PatientController();
-		
-		// Patient selectedPatient = null;
-		// // Patient patient = patientController.getPatientList().stream().filter(a -> a.getId() == loggedInUser.getId()).collect(Collectors.toList()).get(0);
-		// for(Patient patient : patientController.getPatientList()) 
-		// { 
-		//    if(patient.getId().equals(loggedInUser.getId()) )
-		//    { 
-		// 	   selectedPatient = patient;
-		//    }
-		//    else
-		//    {
-		// 	   // TODO user set bloodtype etc
-		// 	   List<Appointment> patientAppointment = new ArrayList<Appointment>();
-		// 	   List<String> diagnosis = new ArrayList<String>();
-		// 	   List<String> treatment = new ArrayList<String>();
+		for(Patient patient : new ArrayList<>(patients))
+		{ 
+			if(patient.getId().equals(loggedInUser.getId()) )
+			{ 
+				selectedPatient = patient;
+				break;
+			}	
+		}
+		if (selectedPatient == null)
+		{
+			List<Appointment> patientAppointment = new ArrayList<Appointment>();
+			List<String> diagnosis = new ArrayList<String>();
+			List<String> treatment = new ArrayList<String>();
 			   
-		// 	   selectedPatient = new Patient(loggedInUser.getId(), contact, Role.PATIENT, 
-		// 			   "O-", patientAppointment,  diagnosis, treatment);
-		// 			   //null, null, null, null);
-			     
-		// 	   patientController.createPatient(selectedPatient);
-		//    }
-		// }
-		
+			selectedPatient = new Patient(loggedInUser.getId(), contact, Role.PATIENT, 
+			"O-", patientAppointment,  diagnosis, treatment);
+			   //null, null, null, null);
+				     
+			patientController.createPatient(selectedPatient);
+		}   
 		
 		int choice = -1;
 		Scanner sc = new Scanner(System.in);
@@ -91,7 +91,7 @@ public class PatientMenu extends Menu{
 			
 			switch (choice) {
 			    case 1:
-			    	// patientController.viewPatientRecord(Authenticate.getLoggedInUser());
+			    	patientController.viewPatientRecord(selectedPatient); 
 			        break;
 			    case 2:
 			    	// TODO Update Personal Information
@@ -103,8 +103,8 @@ public class PatientMenu extends Menu{
 			        break;
 			    case 4:
 			    	// TODO patientController schedule appt
-                    // AvailabilitySlot selectedSlot = selectSlot(availSlotController.getAvailabilitySlotsByDoctor("D0001"));
-                    // apptSlotController.bookAppointment(Authenticate.getLoggedInUser().getId(), selectedSlot.getAvailabilitySlotId());
+                    //AvailabilitySlot selectedSlot = selectSlot(availSlotController.getAvailabilitySlotsByDoctor("D0001"));
+                    //apptSlotController.bookAppointment(Authenticate.getLoggedInUser().getId(), selectedSlot.getAvailabilitySlotId());
 			        break;
 			    case 5:
 			    	// TODO patientController reschedule appt
@@ -121,18 +121,24 @@ public class PatientMenu extends Menu{
 			        break;
 			    case 6:
 			    	// TODO patientController cancel schedule appt
-					// Appointment latestAppointment = apptController.getConfirmedAppointmentByPatientId(Authenticate.getLoggedInUser().getId());
-
+					Appointment latestAppointment = apptController.getConfirmedAppointmentByPatientId(Authenticate.getLoggedInUser().getId());
 					
-					// apptController.cancelAppointment(latestAppointment);
+					apptController.cancelAppointment(latestAppointment);
 			        break;
 			    case 7:
 					// TODO patientController view schedule appt
-					// apptController.getAppointmentsByPatientId(Authenticate.getLoggedInUser().getId());
+					List<Appointment> schedAppointments = apptController.getConfirmedAppointmentsByPatientId(Authenticate.getLoggedInUser().getId());
+					apptController.printScheduledAppointments(schedAppointments);
 					break;
 				case 8: 
 					// TODO patientController view Past Appointment Outcome Records
-		            break;
+					
+					Appointment appt = apptController.getConfirmedAppointmentByPatientId(Authenticate.getLoggedInUser().getId());
+
+					//outcomeController.addOutcome(appt.getAppointmentId(), LocalDate.now(), LocalTime.now(), "s", "D0001", selectedPatient.getId());
+					
+					outcomeController.viewOutcomeAsPatient(appt.getAppointmentId(), selectedPatient.getId());
+					break;
 				case 9: 
 					// logout
 					Authenticate.logout();
@@ -141,7 +147,7 @@ public class PatientMenu extends Menu{
 		            break;
 		    }
 				
-		}while(choice < 8);
+		}while(choice < 9);
 			
 	}
 

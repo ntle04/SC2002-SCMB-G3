@@ -26,7 +26,6 @@ public class AppointmentSlotController {
     private AppointmentCSVManager apptCSVManager = new AppointmentCSVManager();
     // private AppointmentController apptController = new AppointmentController();
 
-
     public AppointmentSlotController() {
         this.appointmentSlots = new ArrayList<>();
         loadAppointmentSlots();
@@ -166,7 +165,6 @@ public class AppointmentSlotController {
                 appointmentSlot.setStatus(ApptStatus.CANCELLED);
                 //update appt csv
                 apptSlotCSVManager.updateAppointmentSlot(appointmentSlot);
-
 
                 System.out.println("Appointment slot canceled successfully.");
             }else{

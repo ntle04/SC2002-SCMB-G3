@@ -10,6 +10,10 @@ public class PrescriptionController {
     private List<Prescription> prescriptions = new ArrayList<>();
     private PrescriptionView view = new PrescriptionView();
 
+    public PrescriptionController(){
+        
+    }
+
     public PrescriptionController(List<Prescription> prescriptions, PrescriptionView view){
         this.prescriptions = prescriptions;
         this.view = view;

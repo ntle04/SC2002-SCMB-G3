@@ -17,6 +17,7 @@ public class Appointment {
 	private static final String FILE_PATH = Config.APPOINTMENT_LIST_FILE_PATH;
     private static String idCounter = IdGenerator.generateNewId(FILE_PATH);
 
+	//for csv
 	public Appointment(String appointmentId, String patientId, String doctorId, TimeSlot timeslot, ApptStatus status, String appointmentSlotId, String appointmentOutcomeId) {
 		this.appointmentId = appointmentId;
 		this.appointmentSlotId = appointmentSlotId;

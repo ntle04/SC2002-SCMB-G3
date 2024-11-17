@@ -23,7 +23,6 @@ public class AvailabilitySlot {
 
     //for new records
     public AvailabilitySlot(String doctorId, TimeSlot timeSlot) {
-        
         this.availabilitySlotId = "AV" + idCounter;
         this.doctorId = doctorId;
         this.timeSlot = timeSlot;
