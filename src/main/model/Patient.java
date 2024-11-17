@@ -1,13 +1,10 @@
 package main.model;
-import main.util.RequestStatus;
-// import java.util.stream.Collectors;
 import main.util.Role;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.time.LocalDate;
 import java.util.List;
 
 public class Patient extends Person{ //extended to Person class
@@ -84,10 +81,10 @@ public class Patient extends Person{ //extended to Person class
         	String id = values[0].trim();
             String name = values[1].trim();
 			String age = values[2].trim();
-			String dob = values[3].trim();
-            
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
-            Date parseDob = dateFormat.parse(dob);
+
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date dateDob = dateFormat.parse(values[3].trim());
+            String dob = dateFormat.format(dateDob);
             
             Character gender = values[4].trim().charAt(0);
             String contactNumber = values[5].trim();   
@@ -103,7 +100,7 @@ public class Patient extends Person{ //extended to Person class
             return new Patient(id, contact, Role.PATIENT, patientBloodType, patientAppointment, diagnosis, treatment);
 
         } catch (NumberFormatException | ParseException e) {
-            System.out.println("Error parsing CSV line: " + csvLine);
+            System.out.println("Error parsing CSV line: " + e.getMessage());
             return null;
         }
     }
