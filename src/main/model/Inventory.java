@@ -150,11 +150,6 @@ public class Inventory {
         return false;
     }
 
-    public void setQuantity(Medicine med, String qty){
-        med.setQuantity(qty);
-        saveAllChanges();
-    }
-
     public boolean isEmpty(){
         return medicationInventory.isEmpty();
     }

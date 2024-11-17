@@ -19,6 +19,7 @@ import main.model.Staff;
 import main.model.Administrator;
 import main.model.Appointment;
 import main.model.Inventory;
+import main.model.Medicine;
 import main.model.Person;
 import main.model.Contact;
 import main.model.ReplenishmentRequest;
@@ -48,11 +49,11 @@ public class AdminMenu extends Menu{
 
     
     public void printMenu(){
-        System.out.println("=== Adminstrator Menu ===");
+        System.out.println("========== Adminstrator Menu ==========");
         System.out.println("1. View and Manage Hospital Staff");
         System.out.println("2. View Appointments details");
         System.out.println("3. View and Manage Medication Inventory");
-        System.out.println("4. Approve Replenishment Requests");
+        System.out.println("4. Update Replenishment Requests");
         System.out.println("5. View personal information");
         System.out.println("6. Update personal information");
         System.out.println("7. Logout");
@@ -76,7 +77,7 @@ public class AdminMenu extends Menu{
                     handleStaffActions();
                     break;
                 case 2:
-                    System.out.println("================= All Appointments ================");
+                    System.out.println("=========== All Appointments ==========");
                     apptCtrl.printAllAppointments();
                     // System.out.println("============= Completed Appointments =============");
                     // apptOut.printAllAdminOutcomes();
@@ -86,15 +87,7 @@ public class AdminMenu extends Menu{
                     handleInvActions();
                     break;
                 case 4:
-                    //print the request list
-                    List<ReplenishmentRequest> reqList = repCon.getAllRequests();
-                    repCon.printAllReq(reqList);
-                    System.out.printf("Enter request ID to approve: ");
-                    String reqId = sc.nextLine();
-                    System.out.printf("Enter updated status (Approved, Pending, Denied): ");
-                    String status = sc.nextLine();
-                    RequestStatus statEnum = RequestStatus.valueOf(status.toUpperCase());
-                    repCon.updateRequestStatus(reqId, statEnum);
+                    approveUpdateReq();
                     break;
                 case 5:
                     contactController.printContact();
@@ -208,4 +201,41 @@ public class AdminMenu extends Menu{
                 break;
         }
     }
+
+    public void approveUpdateReq(){
+        List<ReplenishmentRequest> reqList = repCon.getAllRequests();
+        
+        repCon.printAllReq(reqList);
+        
+        //update request list
+        System.out.printf("Enter request ID: ");
+        String reqId = sc.nextLine();
+        System.out.printf("Enter updated status (Approved, Pending, Denied): ");
+        String status = sc.nextLine().toUpperCase();
+
+        
+        //update medicine inventory
+        for(ReplenishmentRequest req : reqList){
+            if(req.getReqId().equals(reqId)){
+                repCon.updateRequestStatus(reqId, RequestStatus.valueOf(status));
+                System.out.println("Updated replenishment request status");
+                String medId = req.getMedId();
+                for(Medicine med : inv.getAllMedicines()){
+                    if(med.getMedId().equals(medId)){
+                        int qty = req.getQty();
+                        int oldQty = Integer.valueOf(med.getQuantity());
+                        String newQty = String.valueOf(oldQty + qty);
+                        med.setQuantity(newQty);
+                    }
+                }
+            }
+            inv.saveAllChanges();
+            reqList = repCon.getAllRequests(); //update reqList
+            System.out.println("Updated medication inventory");
+            return;
+        }
+        System.out.println("Request Id not found");
+        return;
+    }
+
 }
