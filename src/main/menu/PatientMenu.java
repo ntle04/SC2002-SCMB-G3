@@ -23,14 +23,14 @@ import main.controller.AvailabilitySlotController;
 public class PatientMenu extends Menu{
 	
 
-	Person currentUser = Authenticate.getLoggedInUser();
+	// Person currentUser = Authenticate.getLoggedInUser();
 
-	PatientController patientController;
-    AvailabilitySlotController availSlotController = new AvailabilitySlotController();
+	// PatientController patientController;
+    // AvailabilitySlotController availSlotController = new AvailabilitySlotController();
     AvailabilitySlotView availView = new AvailabilitySlotView();
-    AppointmentSlotController apptSlotController = new AppointmentSlotController();
-	ContactController contactController = new ContactController(currentUser.getContact());
-	AppointmentController apptController = new AppointmentController();
+    // AppointmentSlotController apptSlotController = new AppointmentSlotController();
+	// // ContactController contactController = new ContactController(currentUser.getContact());
+	// AppointmentController apptController = new AppointmentController();
 
 
     public void printMenu(){
@@ -47,9 +47,9 @@ public class PatientMenu extends Menu{
     }
 
 	public void handleUserInput(){
-		// Person loggedInUser = Authenticate.getLoggedInUser();
-		// Contact contact = loggedInUser.getContact();
-		// ContactController contactController = new ContactController(contact);
+		Person loggedInUser = Authenticate.getLoggedInUser();
+		Contact contact = loggedInUser.getContact();
+		ContactController contactController = new ContactController(contact);
 		
 		// //Patient patient = new Patient(loggedInUser.getId(), loggedInUser.getContact(), loggedInUser.getRole(), 
 		// //		"O-", new ArrayList<Appointment>(), new ArrayList<String>(), new ArrayList<String>() );
@@ -98,12 +98,12 @@ public class PatientMenu extends Menu{
 			        break;
 			    case 3:
 			    	// TODO patientController view available appt slots	
-					availSlotController.printAvailabilitySlotsByDoctor("D0001");
+					// availSlotController.printAvailabilitySlotsByDoctor("D0001");
 			        break;
 			    case 4:
 			    	// TODO patientController schedule appt
-                    AvailabilitySlot selectedSlot = selectSlot(availSlotController.getAvailabilitySlotsByDoctor("D0001"));
-                    apptSlotController.bookAppointment(Authenticate.getLoggedInUser().getId(), selectedSlot.getAvailabilitySlotId());
+                    // AvailabilitySlot selectedSlot = selectSlot(availSlotController.getAvailabilitySlotsByDoctor("D0001"));
+                    // apptSlotController.bookAppointment(Authenticate.getLoggedInUser().getId(), selectedSlot.getAvailabilitySlotId());
 			        break;
 			    case 5:
 			    	// TODO patientController reschedule appt
@@ -118,7 +118,7 @@ public class PatientMenu extends Menu{
 			        break;
 			    case 7:
 					// TODO patientController view schedule appt
-					apptController.getAppointmentsByPatientId(currentUser.getId());
+					// apptController.getAppointmentsByPatientId(Authenticate.getLoggedInUser().getId());
 					break;
 				case 8: 
 					// TODO patientController view Past Appointment Outcome Records
@@ -133,16 +133,18 @@ public class PatientMenu extends Menu{
 				
 		}while(choice < 8);
 			
-	};
+	}
 
-	 public AvailabilitySlot selectSlot(List<AvailabilitySlot> slots) {
+	public AvailabilitySlot selectSlot(List<AvailabilitySlot> slots) {
         // Display available slots with indices
         availView.printAvailabilitySlots(slots);
+
 
         // Get the user's choice
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter the index of the slot you'd like to select: ");
         int choice = scanner.nextInt();
+
 
         // Validate the choice and return the corresponding slot
         int index = 1;
@@ -154,9 +156,10 @@ public class PatientMenu extends Menu{
                 index++;
             }
         }
-        
+       
         System.out.println("Invalid selection. Please try again.");
         return selectSlot(slots); // Retry on invalid input
     }
+
 
 }
