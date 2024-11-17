@@ -1,0 +1,5 @@
+﻿appointmentId,appointmentDate,appointmentTime,serviceType,prescriptions,notes,patientId,doctorId,createOutcome,updateOutcome
+null,19/11/2024,1000,Consultation and analysis for fever,Paracetemol 500mg,3 days MC due to fever,P0001,D0001,SUCCESS,UPDATED SUCCESSFULLY
+null,20/11/2024,1030,Consultation and analysis for cough,Fluimucil 100mg,2 days MC due to cough,P0002,D0001,SUCCESS,UPDATED SUCCESSFULLY
+null,21/11/2024,1100,Consultation and analysis for skin rashes,Telfast 180mg,1 day MC due to skin rashes,P0003,D0002,SUCCESS,UPDATED SUCCESSFULLY
+null,22/11/2024,1130,Consultation and analysis for skin rashes,Telfast 180mg,1 day MC due to skin rashes,P0009,D0002,UNSUCCESSFUL,Error: patientId not found

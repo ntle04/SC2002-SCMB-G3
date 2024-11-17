@@ -49,7 +49,7 @@ public class AppointmentSlotController {
         }
     }
 
-    public void confirmAppointment(String appointmentSlotId) {
+    /*public void confirmAppointment(String appointmentSlotId) {
         for (AppointmentSlot slot : appointmentSlots) {
             // Check if the slot matches both doctorId, patientId and timeSlot
             if (slot.getAppointmentSlotId().equals(appointmentSlotId)) {
@@ -69,7 +69,47 @@ public class AppointmentSlotController {
                 break;
             }
         }
+    }*/
+
+    public void confirmAppointment(String appointmentSlotId) {
+        for (AppointmentSlot slot : appointmentSlots) {
+            if (slot.getAppointmentSlotId().equals(appointmentSlotId)) {
+                try {
+                    // First update the availability slot
+                    AvailabilitySlot availSlot = slot.getAvailabilitySlot();
+                    if (availSlot != null) {
+                        availSlot.setAvailability(false);
+                        availSlotCSVManager.updateAvailabilitySlot(availSlot);
+                        
+                        // Then confirm the appointment
+                        slot.confirmAppointment();
+                        apptSlotCSVManager.updateAppointmentSlot(slot);
+                        
+                        // Create the appointment record
+                        Appointment newAppointment = new Appointment(
+                            availSlot.getDoctorId(),
+                            slot.getPatientId(),
+                            availSlot.getTimeSlot(),
+                            slot.getAppointmentSlotId(),
+                            null
+                        );
+                        apptCSVManager.addAppointment(newAppointment);
+                        
+                        System.out.println("Appointment confirmed successfully.");
+                        return;
+                    } else {
+                        System.out.println("Error: Associated availability slot not found");
+                    }
+                } catch (IOException e) {
+                    System.out.println("Error confirming appointment: " + e.getMessage());
+                    e.printStackTrace();
+                }
+                break;
+            }
+        }
+        System.out.println("Appointment slot not found with ID: " + appointmentSlotId);
     }
+    
 
     public void cancelAppointment(String doctorId, String patientId, TimeSlot timeSlot) {
 
