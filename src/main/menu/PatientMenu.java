@@ -107,7 +107,6 @@ public class PatientMenu extends Menu{
 			    case 6:
 			    	// TODO patientController cancel schedule appt
 					Appointment latestAppointment = apptController.getConfirmedAppointmentByPatientId(Authenticate.getLoggedInUser().getId());
-
 					
 					apptController.cancelAppointment(latestAppointment);
 			        break;

@@ -1,5 +1,8 @@
 package main.menu;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import main.controller.Authenticate;
@@ -7,6 +10,8 @@ import main.controller.ContactController;
 import main.controller.PrescriptionController;
 import main.controller.ReplenishmentRequestController;
 import main.model.Pharmacist;
+import main.model.Prescription;
+import main.view.InventoryView;
 import main.model.Person;
 import main.model.Contact;
 
@@ -14,6 +19,7 @@ public class PharmacistMenu extends Menu{
 
     private Pharmacist model = new Pharmacist();
     private ReplenishmentRequestController requestController = new ReplenishmentRequestController();
+    private InventoryView invView= new InventoryView();
 
     public void printMenu(){
         System.out.println("=== Pharmacist Menu ===");
@@ -49,11 +55,14 @@ public class PharmacistMenu extends Menu{
                     contactController.updateContact();
                     break;
                 case 3:
+                    //add prescription
+                    promptForPrescriptions();
                     break;
                 case 4:
                     // prescriptionController.updatePrescriptionStatus();
                     break;
                 case 5:
+                    invView.printInventory(null);
                     break;
                 case 6:
                     model.submitReplenishmentRequest();
@@ -69,6 +78,38 @@ public class PharmacistMenu extends Menu{
         }while(choice < 8);
 
     };
+
+    public void promptForPrescriptions(){
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("1. Add Prescriptions to Appointment Outcome");
+
+        System.out.print("How many prescriptions do you want to add? ");
+        int numPrescriptions = scanner.nextInt();
+        scanner.nextLine(); // consume newline
+
+        ArrayList<Prescription> prescriptions = new ArrayList<>();
+
+        for (int i = 0; i < numPrescriptions; i++) {
+            System.out.println("Enter details for prescription " + (i + 1) + ":");
+            System.out.print("Medicine ID: ");
+            String medId = scanner.nextLine();
+
+            System.out.print("Dosage: ");
+            String dosage = scanner.nextLine();
+
+            System.out.print("Quantity: ");
+            String quantity = scanner.nextLine();
+            scanner.nextLine();
+
+            LocalDate currentDate = LocalDate.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            String dateAsString = currentDate.format(formatter);
+
+
+            prescriptions.add(new Prescription(medId, dosage, quantity, dateAsString));
+        }
+    }
 
     
     
