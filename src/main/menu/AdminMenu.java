@@ -66,6 +66,7 @@ public class AdminMenu extends Menu{
                     handleInvActions();
                     break;
                 case 4:
+                    //print the request list
                     List<ReplenishmentRequest> reqList = repCon.getAllRequests();
                     repCon.printAllReq(reqList);
                     System.out.printf("Enter request ID to approve: ");
