@@ -265,6 +265,29 @@ public class AppointmentController {
         return filteredRecords;
     }
 
+    public List<Appointment> getConfirmedAppointmentsByDoctorId(String doctorId){
+        List<Appointment> filteredRecords = new ArrayList<>();
+        loadAppointments();
+        System.out.println("Get confirmed appointments by Doctor Id");
+        for (Appointment record : appointments) {
+            System.out.println("ID: " + record.getAppointmentId());
+            System.out.println("Status: " + record.getStatus());
+            System.out.println("Doctor Id: " + record.getDoctorId());
+            if (record.getStatus() == ApptStatus.CONFIRMED && record.getPatientId().equals(doctorId)) {
+                System.out.println(record.getAppointmentId());
+                filteredRecords.add(record);
+            }
+        }
+        if(filteredRecords.size()<1){
+            System.out.print("No appointment found.");
+            return null;
+        }else{
+            return filteredRecords;
+        }
+
+        
+    }
+
     public Appointment getConfirmedAppointmentByPatientId(String patientId){
         loadAppointments();
         System.out.println("Get confirmed appointments by Patient Id");

@@ -1,5 +1,1 @@
-medId,name,quantity,salePrice,lastPurchase,stockLevel
-Med0001,Paracetemol 500mg  ,3 , 2.50,12/05/2024,LOW
-Med0002,Telfast 180mg      ,30,15.05,29/07/2024,MEDIUM
-Med0003,Fluimucil 100mg    ,70,15.00,03/10/2024,HIGH
-Med0004,Robitussin DM 100ml,20,12.10,18/06/2024,LOW
+0001,Paracetamol 500mg,10,2.50,13/10/2024,LOW

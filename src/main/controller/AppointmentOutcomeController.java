@@ -101,5 +101,10 @@ public class AppointmentOutcomeController {
         }
     }
 
+      public void printAdminOutcomes(List<AppointmentOutcome> outcomes){
+        for(AppointmentOutcome appt : outcomes){
+            view.displayAdminOutcome(appt);
+        }
+      }
      
 }

@@ -46,4 +46,13 @@ public class AppointmentOutcomeView {
                               " (Status: " + prescription.getPrescriptionStatus() + ")");
          }
      }
+
+     public void displayAdminOutcome(AppointmentOutcome outcome){
+        System.out.println("=== Appointment Outcome Record ===");
+        System.out.println("Appointment ID: " + outcome.getAppointmentId());
+        System.out.println("Doctor ID: " + outcome.getDoctorId());
+        System.out.println("Patient ID: " + outcome.getPatientId());
+        System.out.println("Date: " + outcome.getAppointmentDate());
+     }
+
 }

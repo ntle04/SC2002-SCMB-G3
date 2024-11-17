@@ -12,6 +12,7 @@ import main.controller.Authenticate;
 import main.controller.StaffController;
 import main.controller.ContactController;
 import main.controller.ReplenishmentRequestController;
+import main.controller.AppointmentOutcomeController;
 
 //import models
 import main.model.Staff;
@@ -21,10 +22,13 @@ import main.model.Inventory;
 import main.model.Person;
 import main.model.Contact;
 import main.model.ReplenishmentRequest;
+import main.model.AppointmentOutcome;
 
 //import views
 import main.view.StaffView;
+import main.view.AppointmentOutcomeView;
 import main.view.InventoryView;
+import main.view.AppointmentOutcomeView;
 import main.view.ReplenishmentRequestView;
 
 
@@ -33,9 +37,11 @@ public class AdminMenu extends Menu{
     private StaffController staffCon = new StaffController(staffView);
     //private Administrator admin = new Administrator();
     private Inventory inv = new Inventory();
+    private InventoryView invView = new InventoryView();
     private ReplenishmentRequestController repCon = new ReplenishmentRequestController();
 
     private AppointmentController apptCtrl = new AppointmentController();
+    private AppointmentOutcomeController apptOut = new AppointmentOutcomeController();
 
     private static final String file_path = Config.STAFF_LIST_FILE_PATH;
     Scanner sc = new Scanner(System.in);
@@ -63,15 +69,18 @@ public class AdminMenu extends Menu{
             printMenu();
             System.out.println("Enter your choice: ");
             choice = sc.nextInt();
+            sc.nextLine();
             
             switch (choice) {
                 case 1:
                     handleStaffActions();
                     break;
                 case 2:
-                    //show list of appointments
+                    System.out.println("============== Upcoming Appointments =============");
                     apptCtrl.printAllAppointments();
-                    //choose appt 
+                    System.out.println("--------------------------------------------------");
+                    System.out.println("============= Completed Appointments =============");
+                    apptOut.printAdminOutcomes(null);
 
 
                     break;
@@ -89,13 +98,13 @@ public class AdminMenu extends Menu{
                     RequestStatus statEnum = RequestStatus.valueOf(status.toUpperCase());
                     repCon.updateRequestStatus(reqId, statEnum);
                     break;
-                case 5:
+                case 7:
                     Authenticate.logout();
                     break;
-                case 6:
+                case 5:
                     contactController.printContact();
                     break;
-                case 7:
+                case 6:
                     contactController.updateContact();
                 default:
                     break;
@@ -118,6 +127,7 @@ public class AdminMenu extends Menu{
         int choice = -1;
         printStaffActions();
         choice = sc.nextInt();
+        sc.nextLine();
 
         switch(choice){
             case 1:
@@ -145,6 +155,7 @@ public class AdminMenu extends Menu{
         System.out.println("3. Age");
 
         int choice = sc.nextInt();
+        sc.nextLine();
 
         switch(choice){
             case 1: 
@@ -172,25 +183,30 @@ public class AdminMenu extends Menu{
 
     public void printInvActions(){
         System.out.println("Select your choice:");
-        System.out.println("1. Add stock");
-        System.out.println("2. Remove stock");
-        System.out.println("3. Update stock");
+        System.out.println("1. View inventory");
+        System.out.println("2. Add stock");
+        System.out.println("3. Remove stock");
+        System.out.println("4. Update stock");
     }
 
     public void handleInvActions(){
         int choice = -1;
         printInvActions();
         choice = sc.nextInt();
-
+        sc.nextLine();
         switch(choice){
             case 1:
-                inv.createMedicine();
+                invView.printInventory(inv);
                 break;
             case 2:
-                inv.removeMedicine();
+                inv.createMedicine();
                 break;
             case 3:
+                inv.removeMedicine();
+                break;
+            case 4:
                 inv.updateMedicine();
+                break;
         }
     }
 }

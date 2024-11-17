@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 //import main.controller.DoctorController;
 import main.controller.PatientController;
+import main.controller.AppointmentController;
 import main.controller.AppointmentOutcomeController;
 import main.controller.AppointmentSlotController;
 import main.controller.Authenticate;
@@ -31,6 +32,7 @@ public class DoctorMenu extends Menu{
     AvailabilitySlotController availabilitySlotController = new AvailabilitySlotController();
     // DoctorController doctorController = new DoctorController(null, null);
     AppointmentSlotController apptSlotController = new AppointmentSlotController();
+    AppointmentController apptController = new AppointmentController();
 
 
     public void printMenu(){
@@ -120,11 +122,10 @@ public class DoctorMenu extends Menu{
 
 
                 case 5://Accept or Decline requests
-                    apptSlotController.printPendingAppointmentSlots();
-                    int selectedSlot = sc.nextInt();
+                    //int selectedSlot = sc.nextInt();
                     //List<AppointmentSlot> slots = apptSlotController.filterSlotsByDoctorId(loggedInUser.getId());
                     //AppointmentSlot chosen = slots.get(selectedSlot - 1);
-                    AppointmentSlot chosen = selectAppointment();
+                    AppointmentSlot chosen = selectAppointmentSlot();
                     System.out.print("Enter A to accept appt and D to decline");
                     String reqchoice = sc.nextLine();
                     char character = reqchoice.charAt(0);
@@ -170,16 +171,18 @@ public class DoctorMenu extends Menu{
 
     };
 
-    private AppointmentSlot selectAppointment() {
+     /*private AppointmentSlot selectAppointment() {
         List<AppointmentSlot> slots = apptSlotController.filterSlotsByDoctorId(Authenticate.getLoggedInUser().getId());
-        
+       
         // Display available slots with indices
         apptSlotController.printPendingAppointmentSlots();
+
 
         // Get the user's choice
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter the index of the slot you'd like to accept: ");
         int choice = scanner.nextInt();
+
 
         // Validate the choice and return the corresponding slot
         int index = 0;
@@ -191,15 +194,81 @@ public class DoctorMenu extends Menu{
             }
             index++;
         }
-        
+       
         System.out.println("Invalid selection. Please try again.");
         return selectAppointment(); // Retry on invalid input
+    }*/
+
+
+    private AppointmentSlot selectAppointmentSlot() {
+        List<AppointmentSlot> slots = apptSlotController.filterSlotsByDoctorIdandStatus(Authenticate.getLoggedInUser().getId());
+   
+        // Display available slots with indices
+        apptSlotController.printAppointmentSlots(slots);
+   
+        Scanner scanner = new Scanner(System.in);
+        int choice = -1; // Default invalid choice
+   
+        while (true) {
+            System.out.println("Enter the index of the slot you'd like to accept: ");
+   
+            // Check if input is a valid integer
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+   
+                // Validate if choice is within range
+                if (choice >= 0 && choice <= slots.size()) {
+                    AppointmentSlot selectedSlot = slots.get(choice - 1);
+                    System.out.println("Appointment Slot ID: " + selectedSlot.getAppointmentSlotId());
+                    System.out.println("Availability Slot ID: " + selectedSlot.getAvailabilitySlotId());
+                    return selectedSlot;
+                } else {
+                    System.out.println("Invalid selection. Please select a valid index.");
+                }
+            } else {
+                System.out.println("Invalid input. Please enter a valid integer.");
+                scanner.next(); // Consume the invalid input
+            }
+        }
     }
+
+    // private Appointment selectAppointment() {
+    //     List<Appointment> appts = apptController.ge(Authenticate.getLoggedInUser().getId());
+   
+    //     // Display available slots with indices
+    //     apptController.printScheduledAppointments(appts);
+   
+    //     Scanner scanner = new Scanner(System.in);
+    //     int choice = -1; // Default invalid choice
+   
+    //     while (true) {
+    //         System.out.println("Enter the index of the appointment you'd like to complete: ");
+   
+    //         // Check if input is a valid integer
+    //         if (scanner.hasNextInt()) {
+    //             choice = scanner.nextInt();
+   
+    //             // Validate if choice is within range
+    //             if (choice >= 0 && choice < slots.size()) {
+    //                 AppointmentSlot selectedSlot = slots.get(choice - 1);
+    //                 System.out.println("Appointment Slot ID: " + selectedSlot.getAppointmentSlotId());
+    //                 System.out.println("Availability Slot ID: " + selectedSlot.getAvailabilitySlotId());
+    //                 return selectedSlot;
+    //             } else {
+    //                 System.out.println("Invalid selection. Please select a valid index.");
+    //             }
+    //         } else {
+    //             System.out.println("Invalid input. Please enter a valid integer.");
+    //             scanner.next(); // Consume the invalid input
+    //         }
+    //     }
+    // }
+
 
     // public void createAppointmentOutcome(){
     //     AppointmentSlot appointmentSlot = selectAppointment();
     //     AppointmentOutcomeController outcomeCtrl = new AppointmentOutcomeController();
-    //     outcomeCtrl.addOutcome()
+    //     outcomeCtrl.addOutcome(appointmentSlot.)
     // }
 
 
