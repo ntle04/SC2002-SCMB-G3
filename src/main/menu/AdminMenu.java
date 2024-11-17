@@ -98,14 +98,14 @@ public class AdminMenu extends Menu{
                     RequestStatus statEnum = RequestStatus.valueOf(status.toUpperCase());
                     repCon.updateRequestStatus(reqId, statEnum);
                     break;
-                case 7:
-                    Authenticate.logout();
-                    break;
                 case 5:
                     contactController.printContact();
                     break;
                 case 6:
                     contactController.updateContact();
+                case 7:
+                    Authenticate.logout();
+                    return;
                 default:
                     break;
             }

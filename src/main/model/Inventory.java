@@ -1,5 +1,6 @@
 package main.model;
 
+import main.util.RequestStatus;
 import main.util.StockLevel;
 import main.model.Medicine;
 import main.csvUitls.*;
@@ -22,40 +23,38 @@ import java.util.Scanner;
 public class Inventory {
     private static final String file_path = Config.MEDICATION_INVENTORY_FILE_PATH;
     Scanner sc = new Scanner(System.in);
-    private static ArrayList<Medicine> medicationInventory = new ArrayList<>();
+    private static ArrayList<Medicine> medicationInventory;
     public Inventory(){
-        medicationInventory = new ArrayList<Medicine>();
+        medicationInventory = new ArrayList<>();
+        loadAllMedicines();
     }
     
-    public static Inventory fromCSV(String csvLine) {
+    public static void fromCSV(String csvLine) {
         String[] values = csvLine.split(",");
         
         if (values.length != 6) {
-            return null; // If data doesn't match expected format, return null
+            return; // If data doesn't match expected format, return null
         }
         
         try {
             // Parse values from CSV line
-        	String id = values[0].trim();
+            String medId = values[0].trim();
             String name = values[1].trim();
-			String quantity = values[2].trim();
-			String salePrice = values[3].trim();
+            String qty = values[2].trim();
+            String salePrice = values[3].trim();
+            
             String lastPurchase = values[4].trim();
             
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
-            Date parseLP = dateFormat.parse(lastPurchase);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date parseDob = dateFormat.parse(lastPurchase);
             
             String stockLevel = values[5].trim();
-            StockLevel SLEnum = StockLevel.valueOf(stockLevel);
 
-
-            Medicine medicine = new Medicine(id, name, quantity, salePrice, lastPurchase, SLEnum);
-            medicationInventory.add(medicine);
-            return new Inventory();
+            Medicine m = new Medicine(medId, name, qty, salePrice, lastPurchase, StockLevel.valueOf(stockLevel));
+            medicationInventory.add(m);
 
         } catch (NumberFormatException | ParseException e) {
             System.out.println("Error parsing CSV line: " + csvLine);
-            return null;
         }
     }
 
@@ -64,7 +63,7 @@ public class Inventory {
     }
 
     public void createMedicine(){
-        String id = IdGenerator.generateNewId(file_path);
+        String id = "Med" + IdGenerator.generateNewId(file_path);
         System.out.printf("Enter medication name: ");
         String name = sc.nextLine();
         System.out.printf("Enter quantity: ");
@@ -74,8 +73,8 @@ public class Inventory {
         System.out.printf("Enter last purchase date (dd/MM/yy): ");
         String lastPurchase = sc.nextLine();
         System.out.printf("Enter stock level (low, medium, high): ");
-        String stock = sc.nextLine();
-        StockLevel stockEnum = StockLevel.valueOf(stock.toUpperCase());
+        String stock = sc.nextLine().toUpperCase();
+        StockLevel stockEnum = StockLevel.valueOf(stock);
 
         Medicine medicine = new Medicine(id, name, quantity, salePrice, lastPurchase, stockEnum);
         addMedicine(medicine);
@@ -135,7 +134,7 @@ public class Inventory {
                             String lastPurchase = sc.nextLine();
                             medicine.setLastPurchase(lastPurchase);
                         case 5:
-                            System.out.printf("Enter new stock level: ");
+                            System.out.printf("Enter new stock level (low, medium, high): ");
                             String stock = sc.nextLine();
                             StockLevel stockEnum = StockLevel.valueOf(stock.toUpperCase());
                             medicine.setStockLevel(stockEnum);
@@ -151,6 +150,11 @@ public class Inventory {
         return false;
     }
 
+    public void setQuantity(Medicine med, String qty){
+        med.setQuantity(qty);
+        saveAllChanges();
+    }
+
     public boolean isEmpty(){
         return medicationInventory.isEmpty();
     }
@@ -159,8 +163,19 @@ public class Inventory {
         return medicationInventory;
     }
 
+    private static void loadAllMedicines(){
+        try (BufferedReader reader = new BufferedReader(new FileReader(file_path))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                fromCSV(line); // This will add medicines to the medicationInventory list
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     //save to csv
-    private void saveAllChanges() {
+    public void saveAllChanges() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file_path))) {
             for (Medicine request : medicationInventory) {
                 writer.write(request.toCSV());

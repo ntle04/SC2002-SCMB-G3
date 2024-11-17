@@ -68,8 +68,8 @@ public class StaffController {
 
     public void createStaff() {
         AgeCalc calc = new AgeCalc();
-        System.out.println("Enter staff role in uppercase:");
-        String role = sc.nextLine();
+        System.out.println("Enter staff role (DOCTOR, PHARMACIST, ADMINISTRATOR):");
+        String role = sc.nextLine().toUpperCase();
         char x = role.charAt(0);
         Role roleEnum = Role.valueOf(role);        
         String id = x + IdGenerator.generateNewId(file_path);
@@ -80,6 +80,7 @@ public class StaffController {
         String age = calc.calculateAge(dob);
         System.out.println("Enter staff gender (M/F):");
         char gender = sc.next().charAt(0);
+        sc.nextLine();
         System.out.println("Enter staff contact number:");
         String contactNum = sc.nextLine();
         System.out.println("Enter staff email:");
@@ -148,23 +149,30 @@ public class StaffController {
                         case 4:
                             System.out.printf("Enter new gender: ");
                             char gender = sc.next().charAt(0);
+                            sc.nextLine();
                             staff.getContact().setGender(gender);
                             System.out.println("Updated staff gender");
                             break;
                         case 5:
+                            System.out.println("Enter new phone number");
+                            String num = sc.nextLine();
+                            staff.getContact().setContactNumber(num);
+                            System.out.println("Updated staff contact number");
+                            break;
+                        case 6:
                             System.out.printf("Enter new email address: ");
                             String email = sc.nextLine();
                             staff.getContact().setEmail(email);
                             System.out.println("Updated staff email address");
                             break;
-                        case 6:
+                        case 7:
                             System.out.printf("Enter new address: ");
                             String add = sc.nextLine();
                             staff.getContact().setAddress(add);
                             System.out.println("Updated staff address");
                             break;
                     }
-                } while(choice < 6);
+                } while(choice < 8);
                 saveAllChanges();
                 System.out.println("Staff information has been updated! \n");
                 view.printAllStaff(staffList);
@@ -180,9 +188,10 @@ public class StaffController {
         System.out.println("2. Update role");
         System.out.println("3. Update date of birth");
         System.out.println("4. Update gender");
-        System.out.println("5. Update email address");
-        System.out.println("6. Update address");
-        System.out.println("7: Return");
+        System.out.println("5. Update contact number");
+        System.out.println("6. Update email address");
+        System.out.println("7. Update address");
+        System.out.println("8: Return");
     }
 
 
