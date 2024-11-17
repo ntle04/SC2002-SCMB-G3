@@ -67,6 +67,10 @@ public class Staff extends Person{
         }
     }
 
+    public Contact getContact(){
+        return contact;
+    }
+
     public String toCSV() {
         String name = contact.getName();
         Role role = getRole();

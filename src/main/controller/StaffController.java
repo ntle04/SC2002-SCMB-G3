@@ -65,53 +65,53 @@ public class StaffController {
     	return staffList;	
     }
 
-    public Staff getStaffById(){
-        System.out.println("Retrieving staff details...");
-        System.out.printf("Enter staff ID: ");
-        String id = sc.nextLine();
-        System.out.printf("Enter staff role: ");
-        String role = sc.next();
-        Role roleEnum = Role.valueOf(role.toUpperCase());
-        String line;
+    // public Staff getStaffById(){
+    //     System.out.println("Retrieving staff details...");
+    //     System.out.printf("Enter staff ID: ");
+    //     String id = sc.nextLine();
+    //     System.out.printf("Enter staff role: ");
+    //     String role = sc.next();
+    //     Role roleEnum = Role.valueOf(role.toUpperCase());
+    //     String line;
 
-        try (BufferedReader br = new BufferedReader(new FileReader(file_path))) {
-            while ((line = br.readLine()) != null) {
-                String[] values = line.split(",");
+    //     try (BufferedReader br = new BufferedReader(new FileReader(file_path))) {
+    //         while ((line = br.readLine()) != null) {
+    //             String[] values = line.split(",");
 
-                String name, age, dob, gender, contactNumber, email, address;
+    //             String name, age, dob, gender, contactNumber, email, address;
 
-                if (values[0].equals(id)) {
-                        name = values[1];
-                        age = values[2];
-                        dob = values[3];
-                        gender = values[4];
-                        contactNumber = values[5];
-                        email = values[6];
-                        address = values[7];
+    //             if (values[0].equals(id)) {
+    //                     name = values[1];
+    //                     age = values[2];
+    //                     dob = values[3];
+    //                     gender = values[4];
+    //                     contactNumber = values[5];
+    //                     email = values[6];
+    //                     address = values[7];
                     
-                    // Create a new Contact object from the CSV data
-                    Contact contact = new Contact(name, age, dob, gender.charAt(0), contactNumber, email, address);
-                    Staff staff = new Staff(id, contact, roleEnum);
-                    return staff;
-                }
-            } 
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+    //                 // Create a new Contact object from the CSV data
+    //                 Contact contact = new Contact(name, age, dob, gender.charAt(0), contactNumber, email, address);
+    //                 Staff staff = new Staff(id, contact, roleEnum);
+    //                 return staff;
+    //             }
+    //         } 
+    //     }
+    //     catch (IOException e) {
+    //         e.printStackTrace();
+    //     }
+    //     return null;
+    // }
     
-    public Person getStaffDetails(){
-        System.out.println("Retrieving staff details...");
-        System.out.println("Enter staff id:");
-        String id = sc.nextLine();
-        System.out.println("Enter role of staff:");
-        String role = sc.nextLine();
-        Role roleEnum = Role.valueOf(role);
-        Person person = pc.getPersonById(id, roleEnum);
-        return person;
-    }
+    // public Person getStaffDetails(){
+    //     System.out.println("Retrieving staff details...");
+    //     System.out.println("Enter staff id:");
+    //     String id = sc.nextLine();
+    //     System.out.println("Enter role of staff:");
+    //     String role = sc.nextLine();
+    //     Role roleEnum = Role.valueOf(role);
+    //     Person person = pc.getPersonById(id, roleEnum);
+    //     return person;
+    // }
 
     public void createStaff() {
         System.out.println("Enter staff role in uppercase:");
@@ -145,23 +145,54 @@ public class StaffController {
     }
 
     public void removeStaff(){
-        Staff staff = getStaffById();
-        staffList.remove(staff);
-        saveAllChanges();
-        System.out.println("Removed Staff");
+        System.out.println("Enter staff ID: ");
+        String id = sc.nextLine();
+        for(Staff staff : staffList){
+            if(staff.getId().equals(id)){
+                staffList.remove(staff);
+                System.out.println("Removed staff.");
+                saveAllChanges();
+                return;
+            }
+        }
+        System.out.println("Staff does not exist.");
     }
 
     public void updateStaff(){
-        Person person = getStaffDetails();
-        String id = person.getId();
-        Contact contact = person.getContact();
-        ContactController conCon = new ContactController(contact);
-        conCon.updateContact();
-        // staffList = getStaffList();
-        //saveAllChanges();
-        // view.printUpdatedStaffContact(contact, id);
-        // view.printUpdateConfirmation();
+        System.out.println("Enter staff ID: ");
+        String id = sc.nextLine();
+        for(Staff staff : staffList){
+            if(staff.getId().equals(id)){
+                Contact contact = staff.getContact();
+                ContactController conCon = new ContactController(contact);
+                conCon.updateContact();
+                saveAllChanges();
+                view.printUpdatedStaffContact(contact, id);
+                view.printUpdateConfirmation();
+                return;
+            }
+        } 
+        System.out.println("Staff does not exist.");
     }
+
+    // public void removeStaff(){
+    //     Staff staff = getStaffById();
+    //     staffList.remove(staff);
+    //     saveAllChanges();
+    //     System.out.println("Removed Staff");
+    // }
+
+    // public void updateStaff(){
+    //     Person person = getStaffDetails();
+    //     String id = person.getId();
+    //     Contact contact = person.getContact();
+    //     ContactController conCon = new ContactController(contact);
+    //     conCon.updateContact();
+    //     staffList = getStaffList();
+    //     //saveAllChanges();
+    //     view.printUpdatedStaffContact(contact, id);
+    //     view.printUpdateConfirmation();
+    // }
 
     //save to csv
     public void saveAllChanges() {
