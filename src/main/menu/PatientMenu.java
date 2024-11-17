@@ -60,21 +60,20 @@ public class PatientMenu extends Menu{
 			{ 
 				selectedPatient = patient;
 				break;
-			}
-			else
-			{
-				List<Appointment> patientAppointment = new ArrayList<Appointment>();
-				List<String> diagnosis = new ArrayList<String>();
-				List<String> treatment = new ArrayList<String>();
-				   
-				selectedPatient = new Patient(loggedInUser.getId(), contact, Role.PATIENT, 
-				"O-", patientAppointment,  diagnosis, treatment);
-				   //null, null, null, null);
-					     
-				patientController.createPatient(selectedPatient);
-				break;
-			}   
+			}	
 		}
+		if (selectedPatient == null)
+		{
+			List<Appointment> patientAppointment = new ArrayList<Appointment>();
+			List<String> diagnosis = new ArrayList<String>();
+			List<String> treatment = new ArrayList<String>();
+			   
+			selectedPatient = new Patient(loggedInUser.getId(), contact, Role.PATIENT, 
+			"O-", patientAppointment,  diagnosis, treatment);
+			   //null, null, null, null);
+				     
+			patientController.createPatient(selectedPatient);
+		}   
 		
 		int choice = -1;
 		Scanner sc = new Scanner(System.in);

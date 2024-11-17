@@ -4,6 +4,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 import main.util.Role;
+import main.util.RequestStatus;
 import main.csvUitls.*;
 
 // import controllers
@@ -18,6 +19,7 @@ import main.model.Administrator;
 import main.model.Inventory;
 import main.model.Person;
 import main.model.Contact;
+import main.model.ReplenishmentRequest;
 
 //import views
 import main.view.StaffView;
@@ -28,7 +30,7 @@ import main.view.ReplenishmentRequestView;
 public class AdminMenu extends Menu{
     private StaffView staffView = new StaffView();
     private StaffController staffCon = new StaffController(staffView);
-    private Administrator admin = new Administrator();
+    //private Administrator admin = new Administrator();
     private Inventory inv = new Inventory();
     private ReplenishmentRequestController repCon = new ReplenishmentRequestController();
 
@@ -64,8 +66,17 @@ public class AdminMenu extends Menu{
                     handleInvActions();
                     break;
                 case 4:
+                    List<ReplenishmentRequest> reqList = repCon.getAllRequests();
+                    repCon.printAllReq(reqList);
+                    System.out.printf("Enter request ID to approve: ");
+                    String reqId = sc.nextLine();
+                    System.out.printf("Enter updated status (Approved, Pending, Denied): ");
+                    String status = sc.nextLine();
+                    RequestStatus statEnum = RequestStatus.valueOf(status.toUpperCase());
+                    repCon.updateRequestStatus(reqId, statEnum);
                     break;
                 case 5:
+                    Authenticate.logout();
                     break;
                 default:
                     break;
@@ -163,7 +174,4 @@ public class AdminMenu extends Menu{
                 inv.updateMedicine();
         }
     }
-
-
-    
 }
