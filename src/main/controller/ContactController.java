@@ -15,11 +15,9 @@ public class ContactController {
 
     private Contact contact;
     private ContactCSVManager contactCSVManager = new ContactCSVManager();
-    // private Person currentUser = Authenticate.getLoggedInUser();
 
     String p_filePath = Config.PATIENT_LIST_FILE_PATH;
     String s_filePath = Config.STAFF_LIST_FILE_PATH;
-    // String filePath = (currentUser.getRole()==Role.PATIENT) ? p_filePath : s_filePath;
 
     public ContactController(Contact contact){
         this.contact = contact;

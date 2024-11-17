@@ -11,7 +11,7 @@ public class AppointmentSlotView {
 
         System.out.println("Pending Appointment Slots:");
         for (AppointmentSlot slot : filteredSlots) {
-            System.out.println(index++ + ". Patient ID: " + slot.getPatientId() + ", Time: " + slot.getAvailabilitySlot().getTimeSlot().getTime() + "availability slot id: " + slot.getAvailabilitySlot().getAvailabilitySlotId());
+            System.out.println(index++ + ". Patient ID: " + slot.getPatientId() + ", Time: " + slot.getAvailabilitySlot().getTimeSlot().getTime());
         }
     }
     

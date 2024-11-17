@@ -114,7 +114,7 @@ public class DoctorMenu extends Menu{
 
 
                 case 5://Accept or Decline requests
-                    AppointmentSlot selectedSlot = acceptAppointment();
+                    AppointmentSlot selectedSlot = selectAppointment();
                     apptSlotController.confirmAppointment(selectedSlot.getAppointmentSlotId());
                     break;
 
@@ -146,7 +146,7 @@ public class DoctorMenu extends Menu{
 
     };
 
-    private AppointmentSlot acceptAppointment() {
+    private AppointmentSlot selectAppointment() {
         List<AppointmentSlot> slots = apptSlotController.filterSlotsByDoctorId(Authenticate.getLoggedInUser().getId());
         
         // Display available slots with indices
@@ -160,16 +160,16 @@ public class DoctorMenu extends Menu{
         // Validate the choice and return the corresponding slot
         int index = 1;
         for (AppointmentSlot slot : slots) {
-            if (slot.getStatus() == ApptStatus.PENDING) {
-                if (index == choice) {
-                    return slot;
-                }
-                index++;
+            if (index == choice) {
+                System.out.print("Appointment Slot ID: " + slot.getAppointmentSlotId());
+                System.out.print("Availability Slot ID: " + slot.getAvailabilitySlotId());
+                return slot;
             }
+            index++;
         }
         
         System.out.println("Invalid selection. Please try again.");
-        return acceptAppointment(); // Retry on invalid input
+        return selectAppointment(); // Retry on invalid input
     }
    
 }
