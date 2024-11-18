@@ -37,11 +37,10 @@ import main.view.ReplenishmentRequestView;
 public class AdminMenu extends Menu{
     private StaffView staffView = new StaffView();
     private StaffController staffCon = new StaffController(staffView);
-    //private Administrator admin = new Administrator();
+    private ReplenishmentRequestController repCon = new ReplenishmentRequestController();
     private Inventory inv = new Inventory();
     private InventoryView invView = new InventoryView();
-    private InventoryController invCon = new InventoryController(inv);
-    private ReplenishmentRequestController repCon = new ReplenishmentRequestController();
+    private InventoryController invCon = new InventoryController(inv, repCon);
 
     private AppointmentController apptCtrl = new AppointmentController();
     private AppointmentOutcomeController apptOut = new AppointmentOutcomeController();
@@ -89,7 +88,7 @@ public class AdminMenu extends Menu{
                     handleInvActions();
                     break;
                 case 4:
-                    approveUpdateReq();
+                    invCon.approveUpdateReq();
                     break;
                 case 5:
                     contactController.printContact();
@@ -205,39 +204,39 @@ public class AdminMenu extends Menu{
         }
     }
 
-    public void approveUpdateReq(){
-        List<ReplenishmentRequest> reqList = repCon.getAllRequests();        
-        repCon.printAllReq(reqList);
+    // public void approveUpdateReq(){
+    //     List<ReplenishmentRequest> reqList = repCon.getAllRequests();        
+    //     repCon.printAllReq(reqList);
         
-        //update request list
-        System.out.printf("Enter request ID: ");
-        String reqId = sc.nextLine();
-        System.out.printf("Enter updated status (Approved, Pending, Denied): ");
-        String status = sc.nextLine().toUpperCase();
-        repCon.updateRequestStatus(reqId, RequestStatus.valueOf(status));
-        System.out.println("Updated replenishment request status");
+    //     //update request list
+    //     System.out.printf("Enter request ID: ");
+    //     String reqId = sc.nextLine();
+    //     System.out.printf("Enter updated status (Approved, Pending, Denied): ");
+    //     String status = sc.nextLine().toUpperCase();
+    //     repCon.updateRequestStatus(reqId, RequestStatus.valueOf(status));
+    //     System.out.println("Updated replenishment request status");
         
-        //update medicine inventory
-        for(ReplenishmentRequest req : reqList){
-            if(req.getReqId().equals(reqId)){
-                String medId = req.getMedId();
-                for(Medicine med : inv.getAllMedicines()){
-                    if(med.getMedId().equals(medId)){
-                        int qty = req.getQty();
-                        int oldQty = Integer.parseInt(med.getQuantity());
-                        int newQty = qty + oldQty;
+    //     //update medicine inventory
+    //     for(ReplenishmentRequest req : reqList){
+    //         if(req.getReqId().equals(reqId)){
+    //             String medId = req.getMedId();
+    //             for(Medicine med : inv.getAllMedicines()){
+    //                 if(med.getMedId().equals(medId)){
+    //                     int qty = req.getQty();
+    //                     int oldQty = Integer.parseInt(med.getQuantity());
+    //                     int newQty = qty + oldQty;
 
-                        System.out.println("old qty: " + oldQty + "new qty: " + newQty);
-                        med.setQuantity(String.valueOf(newQty));
-                    }
-                }
-            }
-            inv.saveAllChanges();
-            reqList = repCon.getAllRequests(); //update reqList
-            System.out.println("Updated medication inventory");
-            return;
-        }
-        System.out.println("Request Id not found");
-        return;
-    }
+    //                     System.out.println("old qty: " + oldQty + "new qty: " + newQty);
+    //                     med.setQuantity(String.valueOf(newQty));
+    //                 }
+    //             }
+    //         }
+    //         inv.saveAllChanges();
+    //         reqList = repCon.getAllRequests(); //update reqList
+    //         System.out.println("Updated medication inventory");
+    //         return;
+    //     }
+    //     System.out.println("Request Id not found");
+    //     return;
+    // }
 }

@@ -108,6 +108,15 @@ public class ReplenishmentRequestController {
         }
     }
 
+    public ReplenishmentRequest getRequestById(List<ReplenishmentRequest> requests, String reqId){
+        for(ReplenishmentRequest req : requests){
+            if(req.getReqId().equals(reqId)){
+                return req;
+            }
+        }
+        return null;
+    }
+
     //filter by status
     private List<ReplenishmentRequest> getRequestsByStatus(RequestStatus status) {
         return requestList.stream()

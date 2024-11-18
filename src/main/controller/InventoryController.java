@@ -3,6 +3,8 @@ package main.controller;
 import main.util.RequestStatus;
 import main.util.StockLevel;
 import main.model.Medicine;
+import main.model.ReplenishmentRequest;
+import main.controller.ReplenishmentRequestController;
 import main.model.Inventory;
 import main.csvUitls.*;
 
@@ -23,13 +25,15 @@ import java.util.Scanner;
 
 public class InventoryController {
     private Inventory inv;
+    private ReplenishmentRequestController repCon;
+
     private static final String file_path = Config.MEDICATION_INVENTORY_FILE_PATH;
     Scanner sc = new Scanner(System.in);
-    // private static ArrayList<Medicine> medicationInventory;
-    // private  ArrayList<Medicine> medicationInventory = inv.loadAllMedicines();
 
-    public InventoryController(Inventory inv){
+
+    public InventoryController(Inventory inv, ReplenishmentRequestController repCon){
         this.inv = inv;
+        this.repCon = repCon;
     }
 
     public void createMedicine(){
@@ -117,5 +121,41 @@ public class InventoryController {
         System.out.println("4. Change last purchase date");
         System.out.println("5. Change stock level");
         System.out.println("6. Quit");
+    }
+
+    public void approveUpdateReq(){
+        List<ReplenishmentRequest> reqList = repCon.getAllRequests();        
+        repCon.printAllReq(reqList);
+        
+        //update request list
+        System.out.printf("Enter request ID: ");
+        String reqId = sc.nextLine();
+        System.out.printf("Enter updated status (Approved, Pending, Denied): ");
+        String status = sc.nextLine().toUpperCase();
+        repCon.updateRequestStatus(reqId, RequestStatus.valueOf(status));
+        System.out.println("Updated replenishment request status.");
+        
+        //update medicine inventory
+        for(ReplenishmentRequest req : reqList){
+            if(req.getReqId().equals(reqId)){
+                String medId = req.getMedId();
+                for(Medicine med : inv.getAllMedicines()){
+                    if(med.getMedId().equals(medId)){
+                        int qty = req.getQty();
+                        int oldQty = Integer.parseInt(med.getQuantity());
+                        int newQty = qty + oldQty;
+
+                        System.out.println("old qty: " + oldQty + "new qty: " + newQty);
+                        med.setQuantity(String.valueOf(newQty));
+                    }
+                }
+            }
+            inv.saveAllChanges();
+            reqList = repCon.getAllRequests(); //update reqList
+            System.out.println("Updated medication inventory.");
+            return;
+        }
+        System.out.println("Request Id not found.");
+        return;
     }
 }
