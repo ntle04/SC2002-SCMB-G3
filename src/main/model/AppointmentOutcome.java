@@ -1,13 +1,10 @@
 package main.model;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.time.LocalTime;
 import java.time.LocalDate;
 
 import main.csvUitls.Config;
 import main.csvUitls.IdGenerator;
-import main.model.Prescription;
 import main.util.TimeSlot;
 
 public class AppointmentOutcome {
@@ -55,6 +52,10 @@ public class AppointmentOutcome {
         this.patientId = patientId;
    }
 
+   
+   /** 
+    * @return String
+    */
    //Getters and setters
 
    public String getOutcomeId() {

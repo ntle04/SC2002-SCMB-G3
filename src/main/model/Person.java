@@ -14,6 +14,10 @@ public class Person {
         this.role = role;
     }
 
+    
+    /** 
+     * @return String
+     */
     //to add in dob field
     // public Person(String name, char gender, String contactNumber, String email, String address){
     //     this.contact = new Contact(name, gender, contactNumber, email, address);

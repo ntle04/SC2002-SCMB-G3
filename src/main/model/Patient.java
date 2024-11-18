@@ -25,6 +25,10 @@ public class Patient extends Person{ //extended to Person class
 		this.treatment = treatment;
 	}
 
+	
+	/** 
+	 * @return String
+	 */
 	public String getPatientBloodType() {
 		return patientBloodType;
 	}

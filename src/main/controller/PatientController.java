@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import main.model.Patient;
-import main.util.TimeSlot;
 import main.csvUitls.Config;
 import main.view.PatientView;
 
@@ -23,6 +22,10 @@ public class PatientController {
         this.patientList = loadAllPatientsFromFile();
     }
 
+    
+    /** 
+     * @param patient
+     */
     // View the medical record 
     public void viewPatientRecord(Patient patient) { 
     	this.view.printPatientRecord(patient);

@@ -5,11 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import main.csvUitls.AvailabilitySlotCSVManager;
-import main.csvUitls.Config;
-import main.csvUitls.IdGenerator;
-import main.model.AppointmentSlot;
 import main.model.AvailabilitySlot;
-import main.util.ApptStatus;
 import main.util.TimeSlot;
 import main.view.AvailabilitySlotView;
 
@@ -32,6 +28,10 @@ public class AvailabilitySlotController {
         }
     }
 
+    
+    /** 
+     * @return List<AvailabilitySlot>
+     */
     public List<AvailabilitySlot> getAvailabilitylist(){
         try {
             availabilitySlots = csvManager.loadAvailabilities();

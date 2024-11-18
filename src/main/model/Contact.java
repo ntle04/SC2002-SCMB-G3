@@ -24,6 +24,10 @@ public class Contact {
         this.address = address;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getName(){
         return name;
     }

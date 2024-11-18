@@ -16,6 +16,11 @@ public class PasswordService {
 
     private String filePath = Config.CREDENTIALS_FILE_PATH;
 
+    
+    /** 
+     * @param password
+     * @return String
+     */
     private String hashPassword(String password) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");

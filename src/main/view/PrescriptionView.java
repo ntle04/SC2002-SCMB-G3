@@ -1,10 +1,13 @@
 package main.view;
 
 import main.model.Prescription;
-import java.util.ArrayList;
 import java.util.List;
 
 public class PrescriptionView {
+    
+    /** 
+     * @param prescriptions
+     */
     public void printPrescriptions(List<Prescription> prescriptions) {
         for (Prescription aPrescription : prescriptions){
         System.out.println("Prescription Details:");

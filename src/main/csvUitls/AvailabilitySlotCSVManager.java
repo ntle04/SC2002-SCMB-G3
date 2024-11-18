@@ -13,6 +13,13 @@ public class AvailabilitySlotCSVManager {
     private static final String FILE_PATH = Config.AVAILABILITY_SLOTS_FILE_PATH;
     private final String[] HEADER = {"availabilitySlotId,doctorId,timeslot,isAvailable"};
 
+    
+    /** 
+     * @param doctorId
+     * @param timeSlot
+     * @return boolean
+     * @throws IOException
+     */
     // Helper method to check if a slot already exists
     private boolean slotExists(String doctorId, TimeSlot timeSlot) throws IOException {
         List<AvailabilitySlot> existingSlots = loadAvailabilities();

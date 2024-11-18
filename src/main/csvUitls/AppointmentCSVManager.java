@@ -13,6 +13,11 @@ public class AppointmentCSVManager {
     private static final String FILE_PATH = Config.APPOINTMENT_LIST_FILE_PATH;
     private static final String[] HEADER = {"apptId", "doctorId", "patientId", "timeslot", "status", "appointmentSlotId", "appointmentOutcomeId"};
 
+    
+    /** 
+     * @return List<Appointment>
+     * @throws IOException
+     */
     public List<Appointment> readAppointments() throws IOException {
         List<String[]> records = CSVHelper.readCSV(FILE_PATH);
         List<Appointment> appointments = new ArrayList<>();

@@ -13,7 +13,6 @@ import main.model.Appointment;
 import main.model.AppointmentSlot;
 import main.model.AvailabilitySlot;
 import main.util.ApptStatus;
-import main.util.TimeSlot;
 import main.view.AppointmentSlotView;
 
 
@@ -41,6 +40,11 @@ public class AppointmentSlotController {
     }
 
 
+    
+    /** 
+     * @param patientId
+     * @param availabilitySlotId
+     */
     public void bookAppointment(String patientId, String availabilitySlotId) {
         try {
             AvailabilitySlot availabilitySlot = availSlotController.getAvailabilitySlotById(availabilitySlotId);

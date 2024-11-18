@@ -14,6 +14,12 @@ public class Authenticate {
     private static Person loggedInUser;
     private static PasswordService passwordService = new PasswordService();
 
+    
+    /** 
+     * @param id
+     * @param password
+     * @return boolean
+     */
     public static boolean validateLogin(String id, String password) {
         String filePath = Config.CREDENTIALS_FILE_PATH;
         String line;

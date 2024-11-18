@@ -11,6 +11,11 @@ public class PatientCSVManager {
     private static final String FILE_PATH = Config.PATIENT_LIST_FILE_PATH;
     private static final String[] HEADER = {"Id,name,age,dob,gender,contactNumber,email,address,patientBloodType"};
 
+    
+    /** 
+     * @param patient
+     * @throws IOException
+     */
     public void addPatient(Patient patient) throws IOException {
         List<String[]> data = new ArrayList<>();
         data.add(new String[]{

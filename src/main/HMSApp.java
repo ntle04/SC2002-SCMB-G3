@@ -7,6 +7,10 @@ import main.menu.Menu;
 
 public class HMSApp
 {
+    
+    /** 
+     * @param args
+     */
     public static void main(String [] args){
         boolean loginSucc = false;
         int attempts = 0;

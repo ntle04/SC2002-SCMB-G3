@@ -41,6 +41,10 @@ public class Appointment {
         idCounter = IdGenerator.generateNewId(FILE_PATH);
     }
 	
+	
+	/** 
+	 * @return String
+	 */
 	public String getAppointmentId() {
 		return appointmentId;
 	}

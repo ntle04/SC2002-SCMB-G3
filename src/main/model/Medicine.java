@@ -1,10 +1,6 @@
 package main.model;
 
-import java.io.IOException;
-import java.util.List;
-
 import main.csvUitls.Config;
-import main.util.Role;
 import main.util.StockLevel;
 
 public class Medicine {
@@ -26,6 +22,10 @@ public class Medicine {
         this.stockLevel = stockLevel;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String toCSV() {
         String stockString = stockLevel.name();
         return medId + "," + medName + "," + quantity + "," + salePrice + "," + lastPurchase + "," + stockString;

@@ -1,8 +1,5 @@
 package main.menu;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,7 +13,6 @@ import main.model.Prescription;
 import main.util.PrescriptionStatus;
 import main.view.InventoryView;
 import main.model.Person;
-import main.model.AppointmentOutcome;
 import main.model.Contact;
 import main.model.Inventory;
 

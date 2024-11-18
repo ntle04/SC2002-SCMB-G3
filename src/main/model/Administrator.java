@@ -1,7 +1,6 @@
 package main.model;
 
 import main.controller.*;
-import main.view.*;
 import main.util.Role;
 
 

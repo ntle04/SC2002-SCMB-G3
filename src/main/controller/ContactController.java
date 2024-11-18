@@ -23,6 +23,12 @@ public class ContactController {
         this.contact = contact;
     }
 
+    
+    /** 
+     * @param id
+     * @param role
+     * @return Contact
+     */
     public Contact loadContactById(String id, Role role) {
 
         String filePath = (role==Role.PATIENT) ? p_filePath : s_filePath;

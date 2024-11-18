@@ -15,6 +15,12 @@ public class PersonController {
 
     private ContactCSVManager csvManager = new ContactCSVManager();
 
+    
+    /** 
+     * @param personId
+     * @param role
+     * @return Person
+     */
     public Person getPersonById(String personId, Role role){
 
         String filePath = ((role == Role.PATIENT) ? PATIENT_FILE_PATH : STAFF_FILE_PATH);

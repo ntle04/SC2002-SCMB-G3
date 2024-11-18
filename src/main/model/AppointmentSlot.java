@@ -4,7 +4,6 @@ import main.controller.AvailabilitySlotController;
 import main.csvUitls.Config;
 import main.csvUitls.IdGenerator;
 import main.util.ApptStatus;
-import main.util.TimeSlot;
 
 /*public class AppointmentSlot {
     private String appointmentSlotId;
@@ -119,6 +118,10 @@ import main.util.TimeSlot;
     
     
 
+    
+    /** 
+     * @return String
+     */
     public String getAppointmentSlotId() {
         return appointmentSlotId;
     }

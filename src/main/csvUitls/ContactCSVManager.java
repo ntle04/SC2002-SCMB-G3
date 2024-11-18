@@ -14,6 +14,13 @@ import main.util.Role;
 
 public class ContactCSVManager {
 
+    
+    /** 
+     * @param filePath
+     * @param role
+     * @return List<Person>
+     * @throws IOException
+     */
     public List<Person> loadPersonsFromCSV(String filePath, Role role) throws IOException {
         List<Person> persons = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {

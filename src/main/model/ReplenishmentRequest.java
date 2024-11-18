@@ -43,6 +43,10 @@ public class ReplenishmentRequest {
         this.reqDate = reqDate;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getReqId(){
         return reqId;
     }

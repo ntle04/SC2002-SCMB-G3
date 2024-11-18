@@ -11,6 +11,11 @@ public class PrescriptionCSVManager {
     private static final String FILE_PATH = Config.PRESCRIPTION_LIST_FILE_PATH;
     private final String[] HEADER = {"prescriptionId,medId,dosage,qty,status,date,outcomeId"};
 
+    
+    /** 
+     * @return List<Prescription>
+     * @throws IOException
+     */
     public List<Prescription> loadPrescriptions() throws IOException {
         List<String[]> data = CSVHelper.readCSV(FILE_PATH);
         List<Prescription> prescriptions = new ArrayList<>();

@@ -5,6 +5,11 @@ import java.util.Date;
 import java.util.Calendar;
 
 public class AgeCalc {
+    
+    /** 
+     * @param dobString
+     * @return String
+     */
     public static String calculateAge(String dobString) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 

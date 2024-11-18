@@ -10,6 +10,12 @@ import java.util.List;
 
 public class CSVHelper {
 
+    
+    /** 
+     * @param filePath
+     * @return List<String[]>
+     * @throws IOException
+     */
     public static List<String[]> readCSV(String filePath) throws IOException {
         List<String[]> data = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {

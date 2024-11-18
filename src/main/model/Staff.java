@@ -17,6 +17,11 @@ public class Staff extends Person{
         // this.role = role;
     }
 
+    
+    /** 
+     * @param csvLine
+     * @return Staff
+     */
     public static Staff fromCSV(String csvLine) {
         String[] values = csvLine.split(",");
 

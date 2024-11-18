@@ -6,6 +6,10 @@ import main.model.Contact;
 import main.model.Staff;
 
 public class StaffView {
+    
+    /** 
+     * @param staff
+     */
     // Display the staff  record
     public void printStaffRecord(Staff staff) {    
     	System.out.println("Staff ID: " + staff.getId());

@@ -34,6 +34,10 @@ public class StaffController {
         staffList = loadAllStaffFromFile();
     }
     
+    
+    /** 
+     * @param staff
+     */
     public void viewUpdatedStaffContact(Staff staff) {
     	this.view.printUpdatedStaffContact(staff.getContact(), staff.getId());
     }

@@ -2,12 +2,10 @@ package main.csvUitls;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import main.controller.PrescriptionController;
 import main.model.AppointmentOutcome;
-import main.model.AvailabilitySlot;
 import main.model.Prescription;
 import main.util.TimeSlot;
 
@@ -18,6 +16,11 @@ public class AppointmentOutcomeCSVManager {
 
     PrescriptionController prescriptionController = new PrescriptionController();
 
+    
+    /** 
+     * @return List<AppointmentOutcome>
+     * @throws IOException
+     */
     public List<AppointmentOutcome> loadAppointmentOutcomes() throws IOException {
         List<String[]> data = CSVHelper.readCSV(FILE_PATH);
         List<AppointmentOutcome> appointmentOutcomes = new ArrayList<>();

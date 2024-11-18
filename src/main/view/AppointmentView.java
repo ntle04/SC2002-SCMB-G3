@@ -1,11 +1,9 @@
 package main.view;
 
-import java.util.Date;
 import java.util.List;
 
 import main.controller.AppointmentOutcomeController;
 import main.model.Appointment;
-import main.model.AppointmentOutcome;
 import main.util.ApptStatus;
 
 public class AppointmentView {

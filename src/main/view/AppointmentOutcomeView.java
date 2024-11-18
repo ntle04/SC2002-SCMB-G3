@@ -1,11 +1,13 @@
 package main.view;
 
-import java.util.Scanner;
-import main.controller.AppointmentOutcomeController;
 import main.model.AppointmentOutcome;
 import main.model.Prescription;
 
 public class AppointmentOutcomeView {
+     
+     /** 
+      * @param outcome
+      */
      public void displayFullOutcome(AppointmentOutcome outcome) {
          System.out.println("=== Appointment Outcome Record ===");
          System.out.println("Appointment ID: " + outcome.getAppointmentId());

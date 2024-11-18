@@ -36,6 +36,10 @@ public class PrescriptionController {
         view.printPrescriptions(prescriptions);
     }
 
+    
+    /** 
+     * @param prescription
+     */
     public void addPrescription(Prescription prescription){
         prescriptions.add(prescription);
     }

@@ -1,23 +1,9 @@
 package main.model;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.lang.reflect.Array;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 import main.controller.Authenticate;
-//import main.menu.Appointment;
-import main.util.ApptStatus;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import main.util.Role;
-import main.util.TimeSlot;
-import main.model.AppointmentSlot;
-
-import main.controller.Authenticate;
 
 public class Doctor extends Person {
     private String doctorid;
@@ -36,6 +22,10 @@ public class Doctor extends Person {
    
 
 
+    
+    /** 
+     * @return List<Patient>
+     */
     public List<Patient> getPatients() {
         return patients;
     }

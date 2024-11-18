@@ -5,8 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-//import main.controller.DoctorController;
-import main.controller.PatientController;
 import main.controller.AppointmentController;
 import main.controller.AppointmentOutcomeController;
 import main.controller.AppointmentSlotController;
@@ -18,11 +16,7 @@ import main.util.TimeSlot;
 import main.model.Appointment;
 import main.model.AppointmentOutcome;
 import main.model.AppointmentSlot;
-//import main.view.DoctorView;
-import main.model.AvailabilitySlot;
 import main.model.Contact;
-import main.model.Doctor;
-import main.model.Patient;
 import main.model.Person;
 import main.model.Prescription;
 
@@ -63,7 +57,6 @@ public class DoctorMenu extends Menu{
         //DoctorController doctorController  = new DoctorController(doctor, docview);
         int choice = -1;
         Scanner sc = new Scanner(System.in);
-        Scanner sca = new Scanner(System.in);
 
         do{
             printMenu();
@@ -171,6 +164,10 @@ public class DoctorMenu extends Menu{
 
     };
 
+     
+     /** 
+      * @return AppointmentSlot
+      */
      /*private AppointmentSlot selectAppointment() {
         List<AppointmentSlot> slots = apptSlotController.filterSlotsByDoctorId(Authenticate.getLoggedInUser().getId());
        

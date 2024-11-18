@@ -33,6 +33,18 @@ public class AppointmentOutcomeController {
         }
     }
     
+    
+    /** 
+     * @param appointmentId
+     * @param appointmentDate
+     * @param appointmentTime
+     * @param serviceType
+     * @param prescriptions
+     * @param notes
+     * @param doctorId
+     * @param patientId
+     * @return String
+     */
     // Doctor functions
     public String addOutcome(String appointmentId, String appointmentDate, TimeSlot appointmentTime, String serviceType, List<Prescription> prescriptions, String notes, String doctorId, String patientId) {
         try {

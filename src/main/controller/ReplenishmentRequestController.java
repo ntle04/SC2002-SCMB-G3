@@ -26,6 +26,10 @@ public class ReplenishmentRequestController {
         requestList = loadAllRequestsFromFile();
     }
 
+    
+    /** 
+     * @return List<ReplenishmentRequest>
+     */
     //load data from csv
     private List<ReplenishmentRequest> loadAllRequestsFromFile() {
         List<ReplenishmentRequest> requests = new ArrayList<>();

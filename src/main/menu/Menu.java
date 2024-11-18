@@ -6,6 +6,11 @@ public abstract class Menu {
     public abstract void printMenu();
     public abstract void handleUserInput();
 
+    
+    /** 
+     * @param role
+     * @return Menu
+     */
     public static Menu getMenuForRole(Role role) {
         
         if (role == null) {

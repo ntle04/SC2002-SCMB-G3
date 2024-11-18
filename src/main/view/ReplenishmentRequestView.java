@@ -11,6 +11,10 @@ public class ReplenishmentRequestView {
     SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
 
+    
+    /** 
+     * @param requests
+     */
     public void printAllReq(List<ReplenishmentRequest> requests) {
         for (ReplenishmentRequest request : requests) {
             printReq(request);

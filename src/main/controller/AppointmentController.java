@@ -30,6 +30,10 @@ public class AppointmentController {
     }
 
 
+    
+    /** 
+     * @param appointment
+     */
     public void scheduleAppointment(Appointment appointment) {
         try {
             apptCSVManager.addAppointment(appointment);

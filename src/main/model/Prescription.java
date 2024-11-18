@@ -40,6 +40,10 @@ public class Prescription {
         idCounter = IdGenerator.generateNewId(FILE_PATH);
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getOutcomeId(){
         return outcomeId;
     }

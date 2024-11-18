@@ -2,7 +2,6 @@ package main.csvUitls;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import main.model.AppointmentSlot;
@@ -13,6 +12,11 @@ public class AppointmentSlotCSVManager {
     private static final String FILE_PATH = Config.APPOINTMENT_SLOTS_FILE_PATH;
     private final String[] HEADER = {"appointmentSlotId,doctorId,patientId,timeslot,status,availabilitySlotId"};
 
+    
+    /** 
+     * @return List<AppointmentSlot>
+     * @throws IOException
+     */
     public List<AppointmentSlot> loadAppointmentSlots() throws IOException {
         List<String[]> data = CSVHelper.readCSV(FILE_PATH);
         List<AppointmentSlot> appointmentSlots = new ArrayList<>();

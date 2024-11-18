@@ -3,8 +3,6 @@ package main.menu;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 import main.controller.AppointmentController;
 import main.controller.AppointmentOutcomeController;
@@ -181,6 +179,11 @@ public class PatientMenu extends Menu{
 			
 	}
 
+	
+	/** 
+	 * @param slots
+	 * @return AvailabilitySlot
+	 */
 	public AvailabilitySlot selectSlot(List<AvailabilitySlot> slots) {
         // Display available slots with indices
         availView.printAvailabilitySlots(slots);

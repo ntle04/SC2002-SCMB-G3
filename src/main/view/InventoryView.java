@@ -4,6 +4,10 @@ import main.model.Medicine;
 
 public class InventoryView {
 
+    
+    /** 
+     * @param inventory
+     */
     // Display the medicine inventory
     public void printInventory(Inventory inventory) {    
         if(inventory.isEmpty()){

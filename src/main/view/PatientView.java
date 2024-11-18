@@ -4,6 +4,10 @@ import main.model.Patient;
 
 public class PatientView {
 
+    
+    /** 
+     * @param patient
+     */
     // Display the patient medical record
     public void printPatientRecord(Patient patient) {    
     	System.out.println("------------------------------");

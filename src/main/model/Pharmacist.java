@@ -1,10 +1,8 @@
 package main.model;
 
-import java.util.List;
 import java.util.Scanner;
 
 import main.controller.*;
-import main.util.PrescriptionStatus;
 import main.util.Role;
 import main.view.PrescriptionView;
 
