@@ -16,6 +16,7 @@ public class PrescriptionController {
 
     public PrescriptionController(){
         getAllPrescriptions();
+    	getAllPrescriptions();
     }
 
     public PrescriptionController(List<Prescription> prescriptions, PrescriptionView view){

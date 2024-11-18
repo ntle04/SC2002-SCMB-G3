@@ -95,58 +95,82 @@ public class PatientMenu extends Menu{
 			    	patientController.viewPatientRecord(patient); 
 			        break;
 			    case 2:
-			    	// TODO Update Personal Information
+			    	// Update Personal Information
 			    	contactController.updateContact();
 			        break;
 			    case 3:
-			    	// TODO patientController view available appt slots	
+			    	// View available appointment slots	
 					availSlotController.printAvailabilitySlotsByDoctor("D0001");
 			        break;
 			    case 4:
-			    	// TODO patientController schedule appt
+			    	// Schedule appointment
                     AvailabilitySlot selectedSlot = selectSlot(availSlotController.getAvailabilitySlotsByDoctor("D0001"));
                     apptSlotController.bookAppointment(Authenticate.getLoggedInUser().getId(), selectedSlot.getAvailabilitySlotId());
 			        break;
 			    case 5:
-			    	// TODO patientController reschedule appt
+			    	// Reschedule appointment
 					TimeSlot.printAllTimeSlots();
 					System.out.print("Enter the index of new timeslot: ");
 					
                     int index = sc.nextInt();
 					TimeSlot newTimeSlot = TimeSlot.getByIndex(index);
 					Appointment selected = apptController.getConfirmedAppointmentByPatientId(loggedInUser.getId());
-					String selectedId = selected.getAppointmentId();
-
-					apptController.rescheduleAppointment(selectedId,newTimeSlot);
-
+					if(selected != null)
+					{
+						String selectedId = selected.getAppointmentId();
+						apptController.rescheduleAppointment(selectedId,newTimeSlot);		
+					}
+					else
+					{
+						System.out.println("Appointment is not found");
+					}
+					
 			        break;
 			    case 6:
-			    	// TODO patientController cancel schedule appt
+			    	// Cancel schedule appointment
 					Appointment latestAppointment = apptController.getConfirmedAppointmentByPatientId(Authenticate.getLoggedInUser().getId());
+					if(latestAppointment != null)
+					{
+						apptController.cancelAppointment(latestAppointment);
+					}
+					else
+					{
+						System.out.println("Appointment is not found");
+					}
 					
-					apptController.cancelAppointment(latestAppointment);
 			        break;
 			    case 7:
-					// TODO patientController view schedule appt
+					// View schedule appointment
 					List<Appointment> schedAppointments = apptController.getConfirmedAppointmentsByPatientId(Authenticate.getLoggedInUser().getId());
-					apptController.printScheduledAppointments(schedAppointments);
+					if(schedAppointments != null)
+					{
+						apptController.printScheduledAppointments(schedAppointments);
+					}
+					else
+					{
+						System.out.println("Appointment is not found");
+					}
+					
 					break;
 				case 8: 
-					// TODO patientController view Past Appointment Outcome Records
+					// View Past Appointment Outcome Records
 					
 					List<Appointment> appts = apptController.getConfirmedAppointmentsByPatientId(Authenticate.getLoggedInUser().getId());
 					for (Appointment record : appts) {
-						outcomeController.printPatientOutcome(record.getAppointmentOutcomeId());
+						if(record != null)
+						{
+							outcomeController.printPatientOutcome(record.getAppointmentId());
+						}
+						else
+						{
+							System.out.println("Appointment is not found");
+						}
+						
 					}
 
-					
-
-
-					//outcomeController.addOutcome(appt.getAppointmentId(), LocalDate.now(), LocalTime.now(), "s", "D0001", selectedPatient.getId());
-					//outcomeController.viewOutcomeAsPatient(appt.getAppointmentId(), selectedPatient.getId());
 					break;
 				case 9: 
-					// logout
+					// Log out
 					Authenticate.logout();
 		            break;
 		        default:

@@ -124,7 +124,7 @@ public class ContactController {
                 }
                 case 4:{
                     System.out.print("New contact number: ");
-                    String contactNumber = sc.next();
+                    String contactNumber = sc.nextLine();
                     contact.setContactNumber(contactNumber);
                     try {
                         contactCSVManager.updateContactInCSV(filePath, currentUser.getId(), currentUser.getRole(), currentUser.getContact());
@@ -134,7 +134,7 @@ public class ContactController {
                 }
                 case 5:{
                     System.out.print("New email: ");
-                    String email = sc.next();
+                    String email = sc.nextLine();
                     contact.setEmail(email);
                     try {
                         contactCSVManager.updateContactInCSV(filePath, currentUser.getId(), currentUser.getRole(), currentUser.getContact());
@@ -144,7 +144,7 @@ public class ContactController {
                 }
                 case 6:{
                     System.out.print("New address: ");
-                    String address = sc.next();
+                    String address = sc.nextLine();
                     contact.setAddress(address);
                     try {
                         contactCSVManager.updateContactInCSV(filePath, currentUser.getId(), currentUser.getRole(), currentUser.getContact());
