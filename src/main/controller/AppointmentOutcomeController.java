@@ -24,10 +24,13 @@ public class AppointmentOutcomeController {
     private void loadAppointmentOutcomes() {
         try {
         	outcomes = csvManager.loadAppointmentOutcomes();
+            if (outcomes == null) {
+                System.out.println("No records found.");
+                outcomes = new ArrayList<>();
+            }
         } catch (IOException e) {
+            outcomes = new ArrayList<>();
         }
-
-        System.out.println("Finish loading data");
     }
     
     // Doctor functions

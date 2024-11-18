@@ -67,12 +67,7 @@ public class PrescriptionController {
                 filteredList.add(prescription);
             }
         }
-        if(prescriptions.size()>=1){
-            return prescriptions;
-        }else{
-            System.out.println("No prescriptions in database");
-            return null;
-        }
+        return filteredList;
     }
 
 

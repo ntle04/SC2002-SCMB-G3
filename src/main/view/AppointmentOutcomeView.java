@@ -13,11 +13,16 @@ public class AppointmentOutcomeView {
          System.out.println("Service Type: " + outcome.getServiceType());
          System.out.println("Doctor ID: " + outcome.getDoctorId());
          System.out.println("Patient ID: " + outcome.getPatientId());
-         System.out.println("\nPrescriptions:");
-         for (Prescription prescription : outcome.getPrescriptions()) {
-             System.out.println("- " + prescription.getPrescriptionId() + 
-                              " (Status: " + prescription.getPrescriptionStatus() + ")");
+         if(!outcome.getPrescriptions().isEmpty()){
+            System.out.println("\nPrescriptions:");
+            for (Prescription prescription : outcome.getPrescriptions()) {
+                System.out.println("- " + prescription.getPrescriptionId() + 
+                                 " (Status: " + prescription.getPrescriptionStatus() + ")");
+            }
+         }else{
+            System.out.println("\nNo prescriptions prescribed.");
          }
+         
          System.out.println("\nConsultation Notes:");
          System.out.println(outcome.getNotes());
      }

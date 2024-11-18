@@ -23,6 +23,7 @@ public class CSVHelper {
                 data.add(line.trim().split(","));
             }
         }
+        System.out.println("csv helper size: " + data.size());
         return data;
     }
 
