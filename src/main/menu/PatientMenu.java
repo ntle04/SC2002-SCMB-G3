@@ -136,7 +136,7 @@ public class PatientMenu extends Menu{
 					
 					List<Appointment> appts = apptController.getConfirmedAppointmentsByPatientId(Authenticate.getLoggedInUser().getId());
 					for (Appointment record : appts) {
-						outcomeController.printPatientOutcome(record.getAppointmentOutcomeId());
+						outcomeController.printPatientOutcome(record.getAppointmentId());
 					}
 
 					

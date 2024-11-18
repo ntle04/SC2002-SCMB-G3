@@ -15,7 +15,7 @@ public class PrescriptionController {
     private PrescriptionCSVManager csvManager = new PrescriptionCSVManager();
 
     public PrescriptionController(){
-        
+    	getAllPrescriptions();
     }
 
     public PrescriptionController(List<Prescription> prescriptions, PrescriptionView view){
