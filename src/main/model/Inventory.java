@@ -65,6 +65,15 @@ public class Inventory {
         return medicationInventory;
     }
 
+    public Medicine getMedicineById(String medId){
+        for(Medicine med : medicationInventory){
+            if(med.getMedId().equals(medId)){
+                return  med;
+            }
+        }
+        return null;
+    }
+
     private void loadAllMedicines(){
         try (BufferedReader reader = new BufferedReader(new FileReader(file_path))) {
             String line;
