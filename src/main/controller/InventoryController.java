@@ -4,23 +4,10 @@ import main.util.RequestStatus;
 import main.util.StockLevel;
 import main.model.Medicine;
 import main.model.ReplenishmentRequest;
-import main.controller.ReplenishmentRequestController;
 import main.model.Inventory;
 import main.csvUitls.*;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.Scanner;
 
 public class InventoryController {

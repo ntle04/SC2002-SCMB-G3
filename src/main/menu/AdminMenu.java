@@ -1,37 +1,26 @@
 package main.menu;
 
 import java.util.Scanner;
-import java.util.ArrayList;
 import java.util.List;
-import main.util.Role;
-import main.util.RequestStatus;
-import main.csvUitls.*;
 import main.controller.AppointmentController;
+
 // import controllers
 import main.controller.Authenticate;
 import main.controller.StaffController;
 import main.controller.ContactController;
 import main.controller.ReplenishmentRequestController;
-import main.controller.AppointmentOutcomeController;
 import main.controller.InventoryController;
 
 //import models
 import main.model.Staff;
-import main.model.Administrator;
-import main.model.Appointment;
 import main.model.Inventory;
-import main.model.Medicine;
 import main.model.Person;
 import main.model.Contact;
-import main.model.ReplenishmentRequest;
-import main.model.AppointmentOutcome;
+
 
 //import views
 import main.view.StaffView;
-import main.view.AppointmentOutcomeView;
 import main.view.InventoryView;
-import main.view.AppointmentOutcomeView;
-import main.view.ReplenishmentRequestView;
 
 
 public class AdminMenu extends Menu{
@@ -43,9 +32,7 @@ public class AdminMenu extends Menu{
     private InventoryController invCon = new InventoryController(inv, repCon);
 
     private AppointmentController apptCtrl = new AppointmentController();
-    private AppointmentOutcomeController apptOut = new AppointmentOutcomeController();
 
-    private static final String file_path = Config.STAFF_LIST_FILE_PATH;
     Scanner sc = new Scanner(System.in);
 
     
@@ -80,9 +67,6 @@ public class AdminMenu extends Menu{
                 case 2:
                     System.out.println("=========== All Appointments ==========");
                     apptCtrl.printAllAppointments();
-                    // System.out.println("============= Completed Appointments =============");
-                    // apptOut.printAllAdminOutcomes();
-
                     break;
                 case 3:
                     handleInvActions();
@@ -203,40 +187,4 @@ public class AdminMenu extends Menu{
                 break;
         }
     }
-
-    // public void approveUpdateReq(){
-    //     List<ReplenishmentRequest> reqList = repCon.getAllRequests();        
-    //     repCon.printAllReq(reqList);
-        
-    //     //update request list
-    //     System.out.printf("Enter request ID: ");
-    //     String reqId = sc.nextLine();
-    //     System.out.printf("Enter updated status (Approved, Pending, Denied): ");
-    //     String status = sc.nextLine().toUpperCase();
-    //     repCon.updateRequestStatus(reqId, RequestStatus.valueOf(status));
-    //     System.out.println("Updated replenishment request status");
-        
-    //     //update medicine inventory
-    //     for(ReplenishmentRequest req : reqList){
-    //         if(req.getReqId().equals(reqId)){
-    //             String medId = req.getMedId();
-    //             for(Medicine med : inv.getAllMedicines()){
-    //                 if(med.getMedId().equals(medId)){
-    //                     int qty = req.getQty();
-    //                     int oldQty = Integer.parseInt(med.getQuantity());
-    //                     int newQty = qty + oldQty;
-
-    //                     System.out.println("old qty: " + oldQty + "new qty: " + newQty);
-    //                     med.setQuantity(String.valueOf(newQty));
-    //                 }
-    //             }
-    //         }
-    //         inv.saveAllChanges();
-    //         reqList = repCon.getAllRequests(); //update reqList
-    //         System.out.println("Updated medication inventory");
-    //         return;
-    //     }
-    //     System.out.println("Request Id not found");
-    //     return;
-    // }
 }
