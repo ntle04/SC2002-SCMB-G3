@@ -1,17 +1,12 @@
 package main.csvUitls;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.time.format.DateTimeFormatter;
 
 import main.controller.PrescriptionController;
 import main.model.AppointmentOutcome;
 import main.model.Prescription;
-import main.util.ApptStatus;
 import main.util.TimeSlot;
 
 public class AppointmentOutcomeCSVManager {
@@ -71,8 +66,6 @@ public class AppointmentOutcomeCSVManager {
     }
 
     public void updateAppointmentOutcome(AppointmentOutcome appointmentOutcome) throws IOException {
-
-        System.out.println("in appt outcome csv");
 
         String[] updatedRecord = {
             String.valueOf(appointmentOutcome.getOutcomeId()),

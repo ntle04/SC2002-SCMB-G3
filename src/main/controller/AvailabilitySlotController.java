@@ -19,8 +19,6 @@ public class AvailabilitySlotController {
     private AvailabilitySlotCSVManager csvManager = new AvailabilitySlotCSVManager();
     private AvailabilitySlotView view = new AvailabilitySlotView();
 
-        private static final String FILE_PATH = Config.AVAILABILITY_SLOTS_FILE_PATH;
-
     public AvailabilitySlotController() {
         this.availabilitySlots = new ArrayList<>();
         loadAvailabilities();
@@ -51,15 +49,13 @@ public class AvailabilitySlotController {
             AvailabilitySlot newSlot = new AvailabilitySlot(doctorId, slot);
             newAvailabilitySlots.add(newSlot);
         
-        try {
-            csvManager.addAvailabilities(newAvailabilitySlots);
-            System.out.println("Availability slots added successfully.");
-        } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
-        }
+            try {
+                csvManager.addAvailabilities(newAvailabilitySlots);
+                System.out.println("Availability slots added successfully.");
+            } catch (IOException e) {
+            }
         }
     }
-    
 
     public void updateAvailability(String doctorId, TimeSlot timeSlot, boolean isAvailable) {
         for (AvailabilitySlot slot : availabilitySlots) {
@@ -75,7 +71,6 @@ public class AvailabilitySlotController {
             csvManager.updateAvailabilitySlots(availabilitySlots);
             System.out.println("Availability slot updated successfully.");
         } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
         }
     }
 
@@ -90,7 +85,6 @@ public class AvailabilitySlotController {
             System.out.println("Availability slot canceled successfully.");
             return;
         } catch (IOException e) {
-            System.out.println("Error canceling appointment: " + e.getMessage());
         }
     }
 
@@ -101,7 +95,6 @@ public class AvailabilitySlotController {
             csvManager.updateAvailabilitySlots(availabilitySlots);
             System.out.println("Availability slots updated successfully.");
         } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
         }
     }
 

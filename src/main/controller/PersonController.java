@@ -13,7 +13,6 @@ public class PersonController {
     private static final String PATIENT_FILE_PATH = Config.PATIENT_LIST_FILE_PATH;
     private static final String STAFF_FILE_PATH = Config.STAFF_LIST_FILE_PATH;
 
-    // private PatientController patientController = new PatientController();
     private ContactCSVManager csvManager = new ContactCSVManager();
 
     public Person getPersonById(String personId, Role role){
@@ -31,7 +30,6 @@ public class PersonController {
                 }
             }
         } catch (IOException e) {
-            System.err.println("Error updating contact: " + e.getMessage());
         }
 
         System.out.println("Person not found");

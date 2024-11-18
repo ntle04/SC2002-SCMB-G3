@@ -99,7 +99,6 @@ public class ContactController {
                     try {
                         contactCSVManager.updateContactInCSV(filePath, currentUser.getId(), currentUser.getRole(), currentUser.getContact());
                     } catch (IOException e) {
-                        System.out.println("Error: " + e);
                     }
                     break;
                 }
@@ -110,7 +109,6 @@ public class ContactController {
                     try {
                         contactCSVManager.updateContactInCSV(filePath, currentUser.getId(), currentUser.getRole(), currentUser.getContact());
                     } catch (IOException e) {
-                        System.out.println("Error: " + e);
                     }
                     break;
                 }
@@ -121,7 +119,6 @@ public class ContactController {
                     try {
                         contactCSVManager.updateContactInCSV(filePath, currentUser.getId(), currentUser.getRole(), currentUser.getContact());
                     } catch (IOException e) {
-                        System.out.println("Error: " + e);
                     }
                     break;
                 }
@@ -132,7 +129,6 @@ public class ContactController {
                     try {
                         contactCSVManager.updateContactInCSV(filePath, currentUser.getId(), currentUser.getRole(), currentUser.getContact());
                     } catch (IOException e) {
-                        System.out.println("Error: " + e);
                     }
                     break;
                 }
@@ -143,7 +139,6 @@ public class ContactController {
                     try {
                         contactCSVManager.updateContactInCSV(filePath, currentUser.getId(), currentUser.getRole(), currentUser.getContact());
                     } catch (IOException e) {
-                        System.out.println("Error: " + e);
                     }
                     break;
                 }
@@ -154,7 +149,6 @@ public class ContactController {
                     try {
                         contactCSVManager.updateContactInCSV(filePath, currentUser.getId(), currentUser.getRole(), currentUser.getContact());
                     } catch (IOException e) {
-                        System.out.println("Error: " + e);
                     }
                     break;
                 }

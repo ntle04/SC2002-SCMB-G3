@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import main.model.Appointment;
-import main.model.AppointmentSlot;
 import main.util.ApptStatus;
 import main.util.TimeSlot;
 

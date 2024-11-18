@@ -61,7 +61,6 @@ public class PasswordService {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Error: e");
         }
         
         // Write modified data back to the CSV file
@@ -72,7 +71,6 @@ public class PasswordService {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Error: e");
         }
     }
     

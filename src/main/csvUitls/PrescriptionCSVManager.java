@@ -4,10 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.model.AvailabilitySlot;
 import main.model.Prescription;
 import main.util.PrescriptionStatus;
-import main.util.TimeSlot;
 
 public class PrescriptionCSVManager {
     private static final String FILE_PATH = Config.PRESCRIPTION_LIST_FILE_PATH;

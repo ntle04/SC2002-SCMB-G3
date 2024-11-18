@@ -47,7 +47,6 @@ public class PatientController {
                 }          
             }
         } catch (IOException e) {
-            System.out.println("Error reading file, returning empty list. " + e.getMessage());
             return new ArrayList<>();
         }
         return patients;

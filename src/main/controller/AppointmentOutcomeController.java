@@ -3,13 +3,9 @@ package main.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 import main.csvUitls.AppointmentOutcomeCSVManager;
-import main.model.Appointment;
 import main.model.AppointmentOutcome;
-import main.model.AvailabilitySlot;
 import main.model.Prescription;
 import main.util.TimeSlot;
 import main.view.AppointmentOutcomeView;

@@ -194,19 +194,6 @@ public class StaffController {
         System.out.println("8: Return");
     }
 
-
-    // public void updateStaff(){
-    //     Person person = getStaffDetails();
-    //     String id = person.getId();
-    //     Contact contact = person.getContact();
-    //     ContactController conCon = new ContactController(contact);
-    //     conCon.updateContact();
-    //     staffList = getStaffList();
-    //     //saveAllChanges();
-    //     view.printUpdatedStaffContact(contact, id);
-    //     view.printUpdateConfirmation();
-    // }
-
     //save to csv
     public void saveAllChanges() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file_path))) {
@@ -241,52 +228,6 @@ public class StaffController {
                         .collect(Collectors.toList());
     }
 
-    /*
-    public void sortByGender(){
-        List<Staff> tempStaff = new ArrayList<>(staffList);
-        tempStaff.sort(Comparator.comparing(staff -> staff.getContact().getGender()));
-        System.out.println("Staff sorted by gender:");
-        for(Staff staff : tempStaff){
-            this.view.printStaffRecord(staff);
-        }
-    }
-
-    public void sortByName(){
-        List<Staff> tempStaff = new ArrayList<>(staffList);
-        tempStaff.sort(Comparator.comparing(staff -> staff.getContact().getName()));
-        System.out.println("Staff sorted by name:");
-        for(Staff staff : tempStaff){
-            this.view.printStaffRecord(staff);
-        }
-    }
-
-    public void sortById(){
-        List<Staff> tempStaff = new ArrayList<>(staffList);
-        tempStaff.sort(Comparator.comparing(staff -> staff.getId()));
-        System.out.println("Staff sorted by Id:");
-        for(Staff staff : tempStaff){
-            this.view.printStaffRecord(staff);
-        }
-    }
-
-    public void sortByAge(){
-        List<Staff> tempStaff = new ArrayList<>(staffList);
-        tempStaff.sort(Comparator.comparing(staff -> staff.getContact().getAge()));
-        System.out.println("Staff sorted by age:");
-        for(Staff staff : tempStaff){
-            this.view.printStaffRecord(staff);
-        }
-    }
-
-    public void sortByRole(){
-        List<Staff> tempStaff = new ArrayList<>(staffList);
-        tempStaff.sort(Comparator.comparing(staff -> staff.getRole()));
-        System.out.println("Staff sorted by role:");
-        for(Staff staff : tempStaff){
-            this.view.printStaffRecord(staff);
-        }
-    }
-    */
 }
 
     

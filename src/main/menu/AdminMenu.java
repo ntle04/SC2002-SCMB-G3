@@ -224,6 +224,8 @@ public class AdminMenu extends Menu{
                         int qty = req.getQty();
                         int oldQty = Integer.parseInt(med.getQuantity());
                         int newQty = qty + oldQty;
+
+                        System.out.println("old qty: " + oldQty + "new qty: " + newQty);
                         med.setQuantity(String.valueOf(newQty));
                     }
                 }

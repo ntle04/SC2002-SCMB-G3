@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.controller.Authenticate;
-import main.model.AvailabilitySlot;
 import main.model.Contact;
 import main.model.Person;
 import main.util.Role;
