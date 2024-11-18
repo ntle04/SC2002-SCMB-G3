@@ -88,7 +88,7 @@ public class AdminMenu extends Menu{
                     handleInvActions();
                     break;
                 case 4:
-                    invCon.approveUpdateReq();
+                    invCon.updateRepReq();
                     break;
                 case 5:
                     contactController.printContact();

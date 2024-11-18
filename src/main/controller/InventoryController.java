@@ -123,7 +123,7 @@ public class InventoryController {
         System.out.println("6. Quit");
     }
 
-    public void approveUpdateReq(){
+    public void updateRepReq(){
         List<ReplenishmentRequest> reqList = repCon.getAllRequests();        
         repCon.printAllReq(reqList);
         
@@ -136,26 +136,28 @@ public class InventoryController {
         System.out.println("Updated replenishment request status.");
         
         //update medicine inventory
-        for(ReplenishmentRequest req : reqList){
-            if(req.getReqId().equals(reqId)){
-                String medId = req.getMedId();
-                for(Medicine med : inv.getAllMedicines()){
-                    if(med.getMedId().equals(medId)){
-                        int qty = req.getQty();
-                        int oldQty = Integer.parseInt(med.getQuantity());
-                        int newQty = qty + oldQty;
+        ReplenishmentRequest req = repCon.getRequestById(reqList, reqId);
+        if(req != null && req.getStatus() == RequestStatus.APPROVED){
+            String medId = req.getMedId();
+            Medicine updatedMed = inv.getMedicineById(medId);
+            if(updatedMed != null){
+                int qty = req.getQty();
+                int oldQty = Integer.parseInt(updatedMed.getQuantity());
+                int newQty = qty + oldQty;
 
-                        System.out.println("old qty: " + oldQty + "new qty: " + newQty);
-                        med.setQuantity(String.valueOf(newQty));
-                    }
-                }
+                System.out.println("old qty: " + oldQty + "new qty: " + newQty);
+                updatedMed.setQuantity(String.valueOf(newQty));
+                System.out.println("Updated medication inventory.");
             }
-            inv.saveAllChanges();
-            reqList = repCon.getAllRequests(); //update reqList
-            System.out.println("Updated medication inventory.");
-            return;
+            else{
+                System.out.println("Medicine ID not found.");
+            }
         }
-        System.out.println("Request Id not found.");
+        else{
+            System.out.println("Request ID not found.");
+        }
+        inv.saveAllChanges();
+        reqList = repCon.getAllRequests(); //update reqList
         return;
     }
 }
