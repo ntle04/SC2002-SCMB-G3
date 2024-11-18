@@ -10,7 +10,7 @@ import main.view.PrescriptionView;
 
 public class Pharmacist extends Person{
     PrescriptionView view = new PrescriptionView();
-    private ReplenishmentRequestController requestController;
+    private ReplenishmentRequestController requestController = new ReplenishmentRequestController();
     //private PrescriptionController prescriptionController = new PrescriptionController(outcomeController.getPrescriptions(), view);
     private AppointmentOutcomeController outcomeController;
     //private AppointmentController apptcontroller = new AppointmentController(null, null);
@@ -33,16 +33,14 @@ public class Pharmacist extends Person{
     }*/
 
     public void submitReplenishmentRequest(){
-        //temporary med id <-- to be replaced with printMedicineList()
-        String medId = "Med0001";
+        String medId;
         int qty;
-        //temp person id <-- to be replaced with current login person id
-        String personId = "M0001";
+        String personId = Authenticate.getLoggedInUser().getId();
 
         Scanner sc = new Scanner(System.in);
 
-        // System.out.print("Enter Medication ID: ");
-        // medId = sc.next();
+        System.out.print("Enter Medication ID: ");
+        medId = sc.next();
         System.out.print("Enter Quantity: ");
         qty = sc.nextInt();
 

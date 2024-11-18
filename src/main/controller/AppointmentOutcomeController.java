@@ -21,7 +21,6 @@ public class AppointmentOutcomeController {
 
     public AppointmentOutcomeController() {
         this.view = new AppointmentOutcomeView();
-        //this.outcomes = new ArrayList<AppointmentOutcome>();
         outcomes = new ArrayList<>();
         loadAppointmentOutcomes();
     }
@@ -43,7 +42,6 @@ public class AppointmentOutcomeController {
 			csvManager.addAppointmentOutcome(outcome);
 			//outcomes.add(outcome);
 		} catch (IOException e) {
-			 System.out.println("Error add appointment outcome: " + e.getMessage());
 		}
     	
     }
@@ -96,6 +94,7 @@ public class AppointmentOutcomeController {
 
     public void printAllAppointmentOutcomes(){
         loadAppointmentOutcomes();
+        System.out.println("size: " + outcomes.size());
         for (AppointmentOutcome record : outcomes) {
             view.displayFullOutcome(record);
         }

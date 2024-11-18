@@ -170,7 +170,6 @@ public class Inventory {
                 fromCSV(line); // This will add medicines to the medicationInventory list
             }
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -182,7 +181,6 @@ public class Inventory {
                 writer.newLine();
             }
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 

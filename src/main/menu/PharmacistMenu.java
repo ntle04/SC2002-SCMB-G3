@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import main.controller.AppointmentOutcomeController;
 import main.controller.Authenticate;
 import main.controller.ContactController;
 import main.controller.PrescriptionController;
@@ -13,13 +14,17 @@ import main.model.Pharmacist;
 import main.model.Prescription;
 import main.view.InventoryView;
 import main.model.Person;
+import main.model.AppointmentOutcome;
 import main.model.Contact;
+import main.model.Inventory;
 
 public class PharmacistMenu extends Menu{
 
     private Pharmacist model = new Pharmacist();
     private ReplenishmentRequestController requestController = new ReplenishmentRequestController();
-    private InventoryView invView= new InventoryView();
+    private Inventory inventory = new Inventory();
+    private InventoryView invView = new InventoryView();
+    private AppointmentOutcomeController apptOCtrl= new AppointmentOutcomeController();
 
     public void printMenu(){
         System.out.println("=== Pharmacist Menu ===");
@@ -55,12 +60,13 @@ public class PharmacistMenu extends Menu{
                     contactController.updateContact();
                     break;
                 case 3:
+                    apptOCtrl.printAllAppointmentOutcomes();
                     break;
                 case 4:
                     // prescriptionController.updatePrescriptionStatus();
                     break;
                 case 5:
-                    invView.printInventory(null);
+                    invView.printInventory(inventory);
                     break;
                 case 6:
                     model.submitReplenishmentRequest();

@@ -50,9 +50,8 @@ public class AppointmentOutcomeCSVManager {
             return appointmentOutcomes;
     		
     	} catch (Exception e) {
-			 System.out.println("Error load appointment outcomes: " + e.getMessage());
+            System.out.println("Error: " + e);
 		}
-        
     	return null;
     }
 
