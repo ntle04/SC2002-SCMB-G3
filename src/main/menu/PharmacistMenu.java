@@ -3,6 +3,7 @@ package main.menu;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import main.controller.AppointmentOutcomeController;
@@ -12,6 +13,7 @@ import main.controller.PrescriptionController;
 import main.controller.ReplenishmentRequestController;
 import main.model.Pharmacist;
 import main.model.Prescription;
+import main.util.PrescriptionStatus;
 import main.view.InventoryView;
 import main.model.Person;
 import main.model.AppointmentOutcome;
@@ -25,6 +27,7 @@ public class PharmacistMenu extends Menu{
     private Inventory inventory = new Inventory();
     private InventoryView invView = new InventoryView();
     private AppointmentOutcomeController apptOCtrl= new AppointmentOutcomeController();
+    private PrescriptionController prescriptionController = new PrescriptionController();
 
     public void printMenu(){
         System.out.println("=== Pharmacist Menu ===");
@@ -42,7 +45,6 @@ public class PharmacistMenu extends Menu{
         Person loggedInUser = Authenticate.getLoggedInUser();
         Contact contact = loggedInUser.getContact();
         ContactController contactController = new ContactController(contact);
-        PrescriptionController prescriptionController = new PrescriptionController(null, null);
 
         int choice = -1;
         Scanner sc = new Scanner(System.in);
@@ -63,7 +65,7 @@ public class PharmacistMenu extends Menu{
                     apptOCtrl.printAllAppointmentOutcomes();
                     break;
                 case 4:
-                    // prescriptionController.updatePrescriptionStatus();
+                    updatePrescriptionStatus();
                     break;
                 case 5:
                     invView.printInventory(inventory);
@@ -82,6 +84,19 @@ public class PharmacistMenu extends Menu{
         }while(choice < 8);
 
     };
+
+    private void updatePrescriptionStatus(){
+        Scanner sc = new Scanner(System.in);
+        apptOCtrl.printAllAdminOutcomes();
+        System.out.println("Enter Appointment Outcome ID: ");
+        String outcomeId = sc.next();
+        List<Prescription> prescriptions = prescriptionController.findPrescriptionsByApptOutcomeId(outcomeId);
+        for (Prescription prescription : prescriptions) {
+            prescriptionController.updateStatus(prescription.getPrescriptionId(), PrescriptionStatus.DISPENSED);
+        }
+    }
+
+
 
     
 }

@@ -9,7 +9,7 @@ import main.util.PrescriptionStatus;
 
 public class PrescriptionCSVManager {
     private static final String FILE_PATH = Config.PRESCRIPTION_LIST_FILE_PATH;
-    private final String[] HEADER = {"prescriptionId,medId,dosage,qty,status,date"};
+    private final String[] HEADER = {"prescriptionId,medId,dosage,qty,status,date,outcomeId"};
 
     public List<Prescription> loadPrescriptions() throws IOException {
         List<String[]> data = CSVHelper.readCSV(FILE_PATH);
@@ -30,13 +30,13 @@ public class PrescriptionCSVManager {
     public void addPrescription(Prescription prescription) throws IOException {
 
         String[] data = new String[]{
-            prescription.getOutcomeId(),
             prescription.getPrescriptionId(),
             prescription.getMedId(),
             prescription.getDosage(),
             prescription.getQuantity(),
             String.valueOf(prescription.getPrescriptionStatus()),
-            prescription.getDate()
+            prescription.getDate(),
+            prescription.getOutcomeId(),
         };
     
         CSVHelper.appendSingleCSV(FILE_PATH, data);
@@ -44,13 +44,13 @@ public class PrescriptionCSVManager {
 
     public void updatePrescription(Prescription prescription) throws IOException {
         String[] updatedRecord = {
-            prescription.getOutcomeId(),
             prescription.getPrescriptionId(),
             prescription.getMedId(),
             prescription.getDosage(),
             prescription.getQuantity(),
             String.valueOf(prescription.getPrescriptionStatus()),
-            prescription.getDate()
+            prescription.getDate(),
+            prescription.getOutcomeId(),
         };
 
         CSVHelper.updateCSVById(FILE_PATH, prescription.getPrescriptionId(), updatedRecord, HEADER);

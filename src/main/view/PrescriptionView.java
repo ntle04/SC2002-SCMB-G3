@@ -14,6 +14,7 @@ public class PrescriptionView {
         System.out.println("Quantity: " + aPrescription.getQuantity());
         System.out.println("Status: " + aPrescription.getPrescriptionStatus());
         System.out.println("Date: " + aPrescription.getDate());
+        System.out.println("----------------");
         }
     }
 

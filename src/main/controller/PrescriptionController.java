@@ -15,7 +15,7 @@ public class PrescriptionController {
     private PrescriptionCSVManager csvManager = new PrescriptionCSVManager();
 
     public PrescriptionController(){
-        
+        getAllPrescriptions();
     }
 
     public PrescriptionController(List<Prescription> prescriptions, PrescriptionView view){
@@ -45,6 +45,8 @@ public class PrescriptionController {
     }
 
     private Prescription findPrescriptionById(String prescriptionId) {
+
+        getAllPrescriptions();
         for (Prescription prescription : prescriptions) {
             if (prescription.getPrescriptionId().equals(prescriptionId)) {
                 return prescription;
@@ -58,9 +60,15 @@ public class PrescriptionController {
         Prescription selected = findPrescriptionById(prescriptionId);
         selected.setPrescriptionStatus(newStatus);
         view.printPrescription(selected);
+        try {
+            csvManager.updatePrescription(selected);
+        } catch (IOException e) {
+
+        }
     }
 
     public List<Prescription> findPrescriptionsByApptOutcomeId(String apptOutcomeId){
+        getAllPrescriptions();
         List<Prescription> filteredList = new ArrayList<>();
         for (Prescription prescription : prescriptions) {
             if (prescription.getOutcomeId().equals(apptOutcomeId)) {

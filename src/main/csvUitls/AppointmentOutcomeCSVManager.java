@@ -31,8 +31,8 @@ public class AppointmentOutcomeCSVManager {
             String doctorId = row[6];
             String patientId = row[7];
 
-            List<Prescription> prescriptions = prescriptionController.findPrescriptionsByApptOutcomeId(outcomeId);
-            appointmentOutcomes.add(new AppointmentOutcome(outcomeId,appointmentId, appointmentDate, appointmentTime, serviceType, prescriptions, notes, doctorId, patientId));
+            List<Prescription> prescriptions = prescriptionController.findPrescriptionsByApptOutcomeId(row[0]);
+            appointmentOutcomes.add(new AppointmentOutcome(outcomeId, appointmentId, appointmentDate, appointmentTime, serviceType, prescriptions, notes, doctorId, patientId));
         }
         return appointmentOutcomes;
     }
@@ -79,7 +79,7 @@ public class AppointmentOutcomeCSVManager {
             String.valueOf(appointmentOutcome.getOutcomeId()),
             String.valueOf(appointmentOutcome.getAppointmentId()),
             String.valueOf(appointmentOutcome.getAppointmentDate()),
-            String.valueOf(appointmentOutcome.getAppointmentTime()),
+            String.valueOf(appointmentOutcome.getAppointmentTime().getTime()),
             String.valueOf(appointmentOutcome.getServiceType()),
             String.valueOf(appointmentOutcome.getNotes()),
             String.valueOf(appointmentOutcome.getDoctorId()),
@@ -94,13 +94,12 @@ public class AppointmentOutcomeCSVManager {
             String.valueOf(appointmentOutcome.getOutcomeId()),
 			 String.valueOf(appointmentOutcome.getAppointmentId()),
 	         String.valueOf(appointmentOutcome.getAppointmentDate()),
-	         String.valueOf(appointmentOutcome.getAppointmentTime()),
+	         String.valueOf(appointmentOutcome.getAppointmentTime().getTime()),
 	         String.valueOf(appointmentOutcome.getServiceType()),
 	         String.valueOf(appointmentOutcome.getNotes()),
 	         String.valueOf(appointmentOutcome.getDoctorId()),
 	         String.valueOf(appointmentOutcome.getPatientId()),
         };
-
 
         CSVHelper.updateCSVById(FILE_PATH, appointmentOutcome.getAppointmentId(), updatedRecord, HEADER);
     }

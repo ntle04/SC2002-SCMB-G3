@@ -16,6 +16,7 @@ import main.controller.ContactController;
 import main.util.ApptStatus;
 import main.util.TimeSlot;
 import main.model.Appointment;
+import main.model.AppointmentOutcome;
 import main.model.AppointmentSlot;
 //import main.view.DoctorView;
 import main.model.AvailabilitySlot;
@@ -156,8 +157,7 @@ public class DoctorMenu extends Menu{
 
 
                 case 7://record appt outcome
-                    
-                    // promptForPrescriptions();
+                    createAppointmentOutcome();
                     break;
 
 
@@ -232,77 +232,89 @@ public class DoctorMenu extends Menu{
         }
     }
 
-    // private Appointment selectAppointment() {
-    //     List<Appointment> appts = apptController.ge(Authenticate.getLoggedInUser().getId());
+    private Appointment selectAppointment() {
+        List<Appointment> appts = apptController.getConfirmedAppointmentsByDoctorId(Authenticate.getLoggedInUser().getId());
    
-    //     // Display available slots with indices
-    //     apptController.printScheduledAppointments(appts);
+        // Display available slots with indices
+        apptController.printScheduledAppointments(appts);
    
-    //     Scanner scanner = new Scanner(System.in);
-    //     int choice = -1; // Default invalid choice
+        Scanner scanner = new Scanner(System.in);
    
-    //     while (true) {
-    //         System.out.println("Enter the index of the appointment you'd like to complete: ");
-   
-    //         // Check if input is a valid integer
-    //         if (scanner.hasNextInt()) {
-    //             choice = scanner.nextInt();
-   
-    //             // Validate if choice is within range
-    //             if (choice >= 0 && choice < slots.size()) {
-    //                 AppointmentSlot selectedSlot = slots.get(choice - 1);
-    //                 System.out.println("Appointment Slot ID: " + selectedSlot.getAppointmentSlotId());
-    //                 System.out.println("Availability Slot ID: " + selectedSlot.getAvailabilitySlotId());
-    //                 return selectedSlot;
-    //             } else {
-    //                 System.out.println("Invalid selection. Please select a valid index.");
-    //             }
-    //         } else {
-    //             System.out.println("Invalid input. Please enter a valid integer.");
-    //             scanner.next(); // Consume the invalid input
-    //         }
-    //     }
-    // }
+        System.out.println("Enter Appoinment ID: ");
+
+        String apptId = scanner.next();
+        Appointment selectedAppt = apptController.getAppointmentById(apptId);
+
+        return selectedAppt;
+            
+    }
 
 
-    // public void createAppointmentOutcome(){
-    //     AppointmentSlot appointmentSlot = selectAppointment();
-    //     AppointmentOutcomeController outcomeCtrl = new AppointmentOutcomeController();
-    //     outcomeCtrl.addOutcome(appointmentSlot.)
-    // }
+    public void createAppointmentOutcome(){
+        Scanner scanner = new Scanner(System.in);
+        Appointment appointment = selectAppointment();
+        appointment.setStatus(ApptStatus.COMPLETED);
+        AppointmentOutcomeController outcomeCtrl = new AppointmentOutcomeController();
+
+        //prompt for outcome details
+        System.out.print("Enter type of service: ");
+        String serviceType = scanner.next();
+        System.out.print("Enter consultation notes: ");
+        String notes = scanner.next();
+        List<Prescription> prescriptions = new ArrayList<>();
+
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String outcomeDate = currentDate.format(formatter);
+
+        //create outcome
+        String outcomeId = outcomeCtrl.addOutcome(appointment.getAppointmentId(), outcomeDate, appointment.getTimeSlot(), 
+        serviceType, prescriptions, notes, appointment.getDoctorId(), appointment.getPatientId());
+
+        //prompt for prescriptions
+        prescriptions = addPrescriptions(outcomeId);
+
+        //update appt outcome with prescriptions
+        AppointmentOutcome apptOutcome = outcomeCtrl.getOutcomeById(outcomeId);
+        apptOutcome.setPrescription(prescriptions);
+        outcomeCtrl.updateOutcome(apptOutcome);
+
+    }
 
 
 
-    // public void promptForPrescriptions(){
-    //     Scanner scanner = new Scanner(System.in);
+    public List<Prescription> addPrescriptions(String outcomeId){
+        Scanner scanner = new Scanner(System.in);
 
-    //     System.out.println("1. Add Prescriptions to Appointment Outcome");
+        System.out.println("1. Add Prescriptions to Appointment Outcome");
 
-    //     System.out.print("How many prescriptions do you want to add? ");
-    //     int numPrescriptions = scanner.nextInt();
-    //     scanner.nextLine(); // consume newline
+        System.out.print("How many prescriptions do you want to add? ");
+        int numPrescriptions = scanner.nextInt();
+        scanner.nextLine(); // consume newline
 
-    //     ArrayList<Prescription> prescriptions = new ArrayList<>();
+        ArrayList<Prescription> prescriptions = new ArrayList<>();
 
-    //     for (int i = 0; i < numPrescriptions; i++) {
-    //         System.out.println("Enter details for prescription " + (i + 1) + ":");
-    //         System.out.print("Medicine ID: ");
-    //         String medId = scanner.nextLine();
+        for (int i = 0; i < numPrescriptions; i++) {
+            System.out.println("Enter details for prescription " + (i + 1) + ":");
+            System.out.print("Medicine ID: ");
+            String medId = scanner.nextLine();
 
-    //         System.out.print("Dosage: ");
-    //         String dosage = scanner.nextLine();
+            System.out.print("Dosage: ");
+            String dosage = scanner.nextLine();
 
-    //         System.out.print("Quantity: ");
-    //         String quantity = scanner.nextLine();
-    //         scanner.nextLine();
+            System.out.print("Quantity: ");
+            String quantity = scanner.nextLine();
+            scanner.nextLine();
 
-    //         LocalDate currentDate = LocalDate.now();
-    //         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    //         String dateAsString = currentDate.format(formatter);
+            LocalDate currentDate = LocalDate.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            String dateAsString = currentDate.format(formatter);
 
 
-    //         prescriptions.add(new Prescription(medId, dosage, quantity, dateAsString));
-    //     }
-    // }
+            prescriptions.add(new Prescription(medId, dosage, quantity, dateAsString, outcomeId));
+        }
+
+        return prescriptions;
+    }
    
 }

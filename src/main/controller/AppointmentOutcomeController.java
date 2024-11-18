@@ -34,16 +34,27 @@ public class AppointmentOutcomeController {
     }
     
     // Doctor functions
-    public void addOutcome(String appointmentId, String appointmentDate, TimeSlot appointmentTime, String serviceType, List<Prescription> prescriptions, String notes, String doctorId, String patientId) {
+    public String addOutcome(String appointmentId, String appointmentDate, TimeSlot appointmentTime, String serviceType, List<Prescription> prescriptions, String notes, String doctorId, String patientId) {
         try {
         	AppointmentOutcome outcome = new AppointmentOutcome(appointmentId, appointmentTime, serviceType, prescriptions, notes, doctorId, patientId); 	
-        	System.out.println("Adding appointment outcome");
 			csvManager.addAppointmentOutcome(outcome);
-			//outcomes.add(outcome);
+			return outcome.getOutcomeId();
+		} catch (IOException e) {
+		}
+
+        return null;
+    	
+    }
+
+    public void updateOutcome(AppointmentOutcome outcome) {
+        try {
+			csvManager.updateAppointmentOutcome(outcome);
 		} catch (IOException e) {
 		}
     	
     }
+
+
 
     
     // View functions for the various user types
@@ -85,6 +96,17 @@ public class AppointmentOutcomeController {
                        .findFirst()
                        .orElse(null);
      }
+
+    public AppointmentOutcome getOutcomeById(String outcomeId){
+        loadAppointmentOutcomes();
+        for (AppointmentOutcome record : outcomes) {
+            if(record.getOutcomeId().equals(outcomeId)){
+                return record;
+            }
+        }
+        System.out.println("Record not found.");
+        return null;
+    }
      
     public void printPatientOutcome(String appointmentId){
          AppointmentOutcome selectedOutcome = getOutcomeByAppointmentId(appointmentId);
@@ -93,7 +115,6 @@ public class AppointmentOutcomeController {
 
     public void printAllAppointmentOutcomes(){
         loadAppointmentOutcomes();
-        System.out.println("size: " + outcomes.size());
         for (AppointmentOutcome record : outcomes) {
             view.displayFullOutcome(record);
         }
@@ -103,10 +124,20 @@ public class AppointmentOutcomeController {
         loadAppointmentOutcomes();
         for(AppointmentOutcome outcome : outcomes){
             System.out.println("=== Appointment Outcome Record ===");
+            System.out.println("Outcome ID: " + outcome.getOutcomeId());
             System.out.println("Appointment ID: " + outcome.getAppointmentId());
             System.out.println("Doctor ID: " + outcome.getDoctorId());
             System.out.println("Patient ID: " + outcome.getPatientId());
             System.out.println("Date: " + outcome.getAppointmentDate());
+            System.out.println("=== Prescription List ===");
+
+            for(Prescription prescription: outcome.getPrescriptions()){
+                System.out.println("Med ID: " + prescription.getMedId());
+                System.out.println("Dosage: " + prescription.getDosage());
+                System.out.println("Quantity: " + prescription.getQuantity());
+                System.out.println("----------------");
+            }
+
         }
       }
      

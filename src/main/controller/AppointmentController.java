@@ -141,22 +141,18 @@ public class AppointmentController {
         loadAppointments();
         System.out.println("Get confirmed appointments by Doctor Id");
         for (Appointment record : appointments) {
-            System.out.println("ID: " + record.getAppointmentId());
-            System.out.println("Status: " + record.getStatus());
-            System.out.println("Doctor Id: " + record.getDoctorId());
-            if (record.getStatus() == ApptStatus.CONFIRMED && record.getPatientId().equals(doctorId)) {
-                System.out.println(record.getAppointmentId());
-                filteredRecords.add(record);
-            }
+            if(record.getStatus() == ApptStatus.CONFIRMED && record.getDoctorId().equals(doctorId))
+            // System.out.println("ID: " + record.getAppointmentId());
+            // System.out.println("Status: " + record.getStatus());
+            // System.out.println("Doctor Id: " + record.getDoctorId());
+            // System.out.println("---------------------------------");
+            filteredRecords.add(record);
         }
-        if(filteredRecords.size()<1){
-            System.out.print("No appointment found.");
-            return null;
-        }else{
-            return filteredRecords;
+        if(filteredRecords.isEmpty()){
+                System.out.print("No appointment found.");
+                return null;
         }
-
-        
+        return filteredRecords;
     }
 
     public Appointment getConfirmedAppointmentByPatientId(String patientId){
@@ -196,5 +192,16 @@ public class AppointmentController {
 
     public void printScheduledAppointments(List<Appointment> appointments){
         apptView.printScheduledAppointments(appointments);
+    }
+
+    public Appointment getAppointmentById(String appointmentId){
+        loadAppointments();
+        for (Appointment record : appointments) {
+            if (record.getAppointmentId().equals(appointmentId)){
+                return record;
+            }
+        }
+        System.out.println("No appointment found.");
+        return null;
     }
 }
