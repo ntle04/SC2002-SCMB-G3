@@ -13,6 +13,7 @@ import main.controller.StaffController;
 import main.controller.ContactController;
 import main.controller.ReplenishmentRequestController;
 import main.controller.AppointmentOutcomeController;
+import main.controller.InventoryController;
 
 //import models
 import main.model.Staff;
@@ -39,6 +40,7 @@ public class AdminMenu extends Menu{
     //private Administrator admin = new Administrator();
     private Inventory inv = new Inventory();
     private InventoryView invView = new InventoryView();
+    private InventoryController invCon = new InventoryController(inv);
     private ReplenishmentRequestController repCon = new ReplenishmentRequestController();
 
     private AppointmentController apptCtrl = new AppointmentController();
@@ -192,13 +194,13 @@ public class AdminMenu extends Menu{
                 invView.printInventory(inv);
                 break;
             case 2:
-                inv.createMedicine();
+                invCon.createMedicine();
                 break;
             case 3:
-                inv.removeMedicine();
+                invCon.removeMedicine();
                 break;
             case 4:
-                inv.updateMedicine();
+                invCon.updateMedicine();
                 break;
         }
     }

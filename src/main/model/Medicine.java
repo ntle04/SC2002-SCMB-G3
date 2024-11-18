@@ -17,7 +17,7 @@ public class Medicine {
     private String lastPurchase;
     private StockLevel stockLevel;
 
-    Medicine(String medId, String medName, String quantity, String salePrice, String lastPurchase, StockLevel stockLevel){
+    public Medicine(String medId, String medName, String quantity, String salePrice, String lastPurchase, StockLevel stockLevel){
         this.medId = medId;
         this.medName = medName;
         this.quantity = quantity;
