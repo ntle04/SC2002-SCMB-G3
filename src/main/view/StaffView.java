@@ -3,7 +3,6 @@ package main.view;
 import java.util.List;
 
 import main.model.Contact;
-import main.model.ReplenishmentRequest;
 import main.model.Staff;
 
 public class StaffView {

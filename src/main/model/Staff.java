@@ -5,7 +5,6 @@ import main.util.Role;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import main.model.Contact;
 
 public class Staff extends Person{
     private Contact contact;
@@ -76,10 +75,6 @@ public class Staff extends Person{
     public void setName(String name){
         contact.setName(name);
     }
-
-    // public void setRole(Role role){
-    //     this.role = role;
-    // }
 
     public void setDOB(String dob){
         contact.setDOB(dob);

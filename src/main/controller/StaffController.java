@@ -7,15 +7,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.*;
-//import java.util.Comparator;
 import java.util.Scanner;
 import main.csvUitls.*;
 
-import main.model.Appointment;
 import main.model.Contact;
-import main.model.Medicine;
-import main.model.Person;
-import main.controller.PersonController;
 import main.model.Staff;
 import main.util.Role;
 import main.util.AgeCalc;
