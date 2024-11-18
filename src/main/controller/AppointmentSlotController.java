@@ -38,9 +38,6 @@ public class AppointmentSlotController {
         } catch (IOException e) {
             System.out.println("Error loading appointment slots: " + e.getMessage());
         }
-
-
-        System.out.println("Finish loading data");
     }
 
 

@@ -25,8 +25,6 @@ public class ContactController {
 
     public Contact loadContactById(String id, Role role) {
 
-        System.out.println("loading contact");
-
         String filePath = (role==Role.PATIENT) ? p_filePath : s_filePath;
         String line;
 

@@ -31,11 +31,6 @@ public class AppointmentSlotCSVManager {
                 status
             ));
             
-            // Debug output
-            System.out.println("Loading slot - ID: " + appointmentSlotId + 
-                             ", AvailID: " + availabilitySlotId + 
-                             ", PatientID: " + patientId + 
-                             ", Status: " + status);
         }
         return appointmentSlots;
     }
