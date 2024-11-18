@@ -50,7 +50,7 @@ public class InventoryController {
             System.out.println("Failed to remove medication.");
     }
 
-    public boolean updateMedicine(){
+    public void updateMedicine(){
         int choice = -1;
         System.out.println("Enter medication ID: ");
         String id = sc.nextLine();
@@ -93,11 +93,9 @@ public class InventoryController {
                 } while(choice != 6);
                 
                 inv.saveAllChanges();
-                return true;
             }
         }
         System.out.println("Medicine Id " +id+ " not found.");
-        return false;
     }
 
     public void updateMedMenu(){
