@@ -109,6 +109,18 @@ public class AvailabilitySlotController {
         return doctorSlots;
     }
 
+    public List<AvailabilitySlot> getAvailabilitySlotsByDoctorId(String doctorId) {
+        List<AvailabilitySlot> doctorSlots = new ArrayList<>();
+        loadAvailabilities(); //get latest data
+        for (AvailabilitySlot slot : availabilitySlots) {
+            if (slot.getDoctorId().equals(doctorId) & !slot.isAvailable()) {
+                doctorSlots.add(slot);
+            }
+        }
+        return doctorSlots;
+    }
+
+
     public AvailabilitySlot getAvailabilitySlotById(String slotId) {
         loadAvailabilities(); //get latest data
         for (AvailabilitySlot slot : availabilitySlots) {

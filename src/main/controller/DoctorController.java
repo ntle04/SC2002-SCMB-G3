@@ -1,41 +1,46 @@
-// package main.controller;
+package main.controller;
 
-// import java.time.LocalDateTime;
-// import java.util.ArrayList;
-// import java.util.List;
-// import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
-
-// import main.model.Doctor;
-// import main.view.DoctorView;
-
-
-// public class DoctorController {
-//     private Doctor model;
-//     private DoctorView view;
+import main.model.AvailabilitySlot;
+import main.model.Doctor;
+import main.model.Patient;
+import main.util.TimeSlot;
+import main.view.DoctorView;
+import main.controller.*;
 
 
-//     public DoctorController(Doctor model, DoctorView view) {
-//         this.model = model;
-//         this.view = view;
-//     }
+public class DoctorController {
+    private Doctor model;
+    private DoctorView view;
+
+
+    AvailabilitySlotController availSlotController = new AvailabilitySlotController();
+
+    public DoctorController(Doctor model, DoctorView view) {
+        this.model = model;
+        this.view = view;
+    }
    
-//     public void viewSpecificPatientRecord(String patientId){
-//         List<Patient> patientlist = model.getPatients();
+    // public void viewSpecificPatientRecord(String patientId){
+    //     List<Patient> patientlist = model.getPatients();
 
 
-//         for (Patient patient : patientlist){
-//             if (patient.getPatientId().equals(patientId)) {
-//                 // If the ID matches, display the patient record
-//                 System.out.println("Patient ID: " + patient.getPatientId());
-//                 System.out.println("Patient Name: " + patient.getContact().getName());
-//                 System.out.println("Patient Blood Type: " + patient.getBloodType());
-//                 System.out.println("Patient Diagnoses: " + patient.getDiagnosis());
-//                 System.out.println("Patient Treatments: " + patient.getTreatment());
-//                 return; // Exit the method after displaying the record
-//             }
-//         }
-//     }
+    //     for (Patient patient : patientlist){
+    //         if (patient.getPatientId().equals(patientId)) {
+    //             // If the ID matches, display the patient record
+    //             System.out.println("Patient ID: " + patient.getPatientId());
+    //             System.out.println("Patient Name: " + patient.getContact().getName());
+    //             System.out.println("Patient Blood Type: " + patient.getBloodType());
+    //             System.out.println("Patient Diagnoses: " + patient.getDiagnosis());
+    //             System.out.println("Patient Treatments: " + patient.getTreatment());
+    //             return; // Exit the method after displaying the record
+    //         }
+    //     }
+    // }
 
 
 //     public void updateSpecificPatientRecord(String patientId) {
@@ -102,7 +107,45 @@
 // }
 
 
-//     public void viewSchedule(){
-//         view.displaySchedule(model);
-//     }
-// }
+    public void viewSchedule(){
+        view.displaySchedule(model);
+    }
+
+
+    // public void printRemainingTimeSlots() {
+    //     System.out.println("Available Time Slots:");
+    //     List<AvailabilitySlot> taken = availSlotController.getAvailabilitySlotsByDoctor(model.getId());
+    //     for (TimeSlot slot : TimeSlot.values()) {
+    //         int index = slot.getIndex();
+    //         for (AvailabilitySlot slotcheck : taken){
+    //             if(index == slotcheck.getTimeSlot().getIndex()){
+    //                     break;
+    //             }
+    //             System.out.println(slot.getIndex() + ": " + slot.getTime());
+    //         }
+           
+    //     }
+    // }
+    public void printRemainingTimeSlots() {
+        System.out.println("Available Time Slots:");
+        List<AvailabilitySlot> taken = availSlotController.getAvailabilitySlotsByDoctorId(model.getId());
+        for (TimeSlot slot : TimeSlot.values()) {
+            int index = slot.getIndex();
+            boolean isTaken = false;
+    
+            // Check if this slot is already taken
+            for (AvailabilitySlot slotcheck : taken) {
+                if (index == slotcheck.getTimeSlot().getIndex()) {
+                    isTaken = true;
+                    break; // Exit inner loop as we found a match
+                }
+            }
+    
+            // If the slot is not taken, print it
+            if (!isTaken) {
+                System.out.println(slot.getIndex() + ": " + slot.getTime());
+            }
+        }
+    }
+    
+}

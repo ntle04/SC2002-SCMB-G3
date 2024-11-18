@@ -26,7 +26,9 @@ public class AvailabilitySlot {
         this.availabilitySlotId = "AV" + idCounter;
         this.doctorId = doctorId;
         this.timeSlot = timeSlot;
-        this.isAvailable = true;
+        //this.isAvailable = true;
+        this.isAvailable = false;
+
 
         //update counter
         idCounter = IdGenerator.generateNewId(FILE_PATH);

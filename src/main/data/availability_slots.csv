@@ -1,3 +1,5 @@
 availabilitySlotId,doctorId,timeslot,isAvailable
-AV0001,D0001,0900 - 0930,true
-AV0002,D0001,0930 - 1000,true
+AV0003,D0001,1530 - 1600,false
+AV0004,D0001,1600 - 1630,false
+AV0005,D0001,1430 - 1500,false
+AV0006,D0001,1630 - 1700,false

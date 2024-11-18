@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-//import main.controller.DoctorController;
+import main.controller.DoctorController;
 import main.controller.PatientController;
 import main.controller.AppointmentController;
 import main.controller.AppointmentOutcomeController;
@@ -17,7 +17,7 @@ import main.util.ApptStatus;
 import main.util.TimeSlot;
 import main.model.Appointment;
 import main.model.AppointmentSlot;
-//import main.view.DoctorView;
+import main.view.DoctorView;
 import main.model.AvailabilitySlot;
 import main.model.Contact;
 import main.model.Doctor;
@@ -54,12 +54,12 @@ public class DoctorMenu extends Menu{
         ContactController contactController = new ContactController(contact);
         // AppointmentOutcomeController outcomeCtrl = new AppointmentOutcomeController();
        
-         //Doctor doctor = new Doctor(loggedInUser.getId(), loggedInUser.getContact(), loggedInUser.getRole(), new ArrayList<Patient>(), new ArrayList<AvailabilitySlot>(), new ArrayList<Appointment>() );
+        Doctor doctor = new Doctor(loggedInUser.getId(), loggedInUser.getContact(), loggedInUser.getRole(), new ArrayList<Patient>(), new ArrayList<AvailabilitySlot>(), new ArrayList<Appointment>() );
 
 
-        //DoctorView docview = new DoctorView();
+        DoctorView docview = new DoctorView();
        
-        //DoctorController doctorController  = new DoctorController(doctor, docview);
+        DoctorController doctorController  = new DoctorController(doctor, docview);
         int choice = -1;
         Scanner sc = new Scanner(System.in);
         Scanner sca = new Scanner(System.in);
@@ -109,7 +109,7 @@ public class DoctorMenu extends Menu{
 
 
                 case 4:
-                    TimeSlot.printAllTimeSlots();
+                    doctorController.printRemainingTimeSlots();
                     System.out.print("Enter the numbers of the time slots you want to add (separate with spaces): ");
                     if (sc.hasNextLine()) {
                         sc.nextLine(); 
